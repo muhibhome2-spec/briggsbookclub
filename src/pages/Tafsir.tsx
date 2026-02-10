@@ -31,6 +31,7 @@ export default function Tafsir() {
         title="Tafsir of Surah Yusuf"
         subtitle="Ramadan Sundays Series 2026"
         description="Journey through the best of stories with West African scholarly tradition"
+        backgroundImage="https://upload.wikimedia.org/wikipedia/commons/e/e1/Unknown%2C_Arabia%2C_late_7th_Century_-_Pages_from_a_Qur%27an_in_Hijazi_-_Google_Art_Project.jpg"
       />
 
       <main role="main">
