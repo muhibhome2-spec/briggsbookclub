@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import Container from './ui/Container';
 
 export default function Navigation() {
@@ -38,15 +39,16 @@ export default function Navigation() {
       aria-label="Main navigation"
     >
       <Container size="xl" className="flex items-center justify-between h-16 sm:h-20 md:h-24">
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="text-base sm:text-lg md:text-xl font-serif font-normal text-warm-900 hover:text-sage-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2 rounded-sm"
-            aria-label="Go to top of page"
-          >
-            Briggs' Book Club
-          </motion.button>
+          <Link to="/">
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="text-base sm:text-lg md:text-xl font-serif font-normal text-warm-900 hover:text-sage-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2 rounded-sm"
+              aria-label="Go to home page"
+            >
+              Briggs' Book Club
+            </motion.button>
+          </Link>
 
           <div className="hidden lg:flex items-center gap-8 xl:gap-10">
             <motion.button
@@ -76,6 +78,16 @@ export default function Navigation() {
             >
               Hadiyah Model
             </motion.button>
+            <Link to="/tafsir-yusuf">
+              <motion.button
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="text-sm tracking-wide text-warm-700 hover:text-sage-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-sage-500 rounded-sm px-1 py-0.5"
+                aria-label="Navigate to Tafsir of Surah Yusuf"
+              >
+                Tafsir Yusuf
+              </motion.button>
+            </Link>
             <motion.button
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}

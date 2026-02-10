@@ -1,7 +1,13 @@
 import { motion } from 'framer-motion';
 import Container from './ui/Container';
 
-export default function Hero() {
+interface HeroProps {
+  title?: string;
+  subtitle?: string;
+  description?: string;
+}
+
+export default function Hero({ title = "Briggs' Book Club", subtitle = "Read. Reflect. Remember.", description }: HeroProps) {
   return (
     <header className="relative overflow-hidden" role="banner">
       <motion.div
@@ -31,7 +37,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-normal tracking-tight text-white drop-shadow-2xl mb-4 sm:mb-6 leading-tight"
         >
-          Briggs' Book Club
+          {title}
         </motion.h1>
 
         <motion.p
@@ -40,8 +46,19 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-cream-50 drop-shadow-lg font-serif font-light tracking-wide italic"
         >
-          Read. Reflect. Remember.
+          {subtitle}
         </motion.p>
+
+        {description && (
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="text-base sm:text-lg md:text-xl text-cream-100 drop-shadow-lg mt-4 sm:mt-6 max-w-2xl mx-auto"
+          >
+            {description}
+          </motion.p>
+        )}
 
         <motion.div
           initial={{ opacity: 0, scaleX: 0 }}
