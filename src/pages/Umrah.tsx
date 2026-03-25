@@ -52,6 +52,7 @@ export default function Umrah() {
   const [navScrolled, setNavScrolled] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,6 +62,11 @@ export default function Umrah() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileMenuOpen]);
 
   const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -91,7 +97,7 @@ export default function Umrah() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap');
 
         html { scroll-behavior: smooth; }
 
@@ -112,11 +118,62 @@ export default function Umrah() {
           --warm-500: #9A8C7A;
           --u-serif: 'Cormorant Garamond', Georgia, serif;
           --u-sans: 'Jost', sans-serif;
+          --u-arabic: 'Amiri', 'Traditional Arabic', serif;
         }
 
         .u-page {
           font-family: var(--u-sans); background: var(--cream); color: var(--warm-800);
           -webkit-font-smoothing: antialiased; overflow-x: hidden;
+        }
+
+        /* ── Accessibility: Skip Link ── */
+        .u-skip-link {
+          position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+          background: var(--gold); color: var(--warm-900); padding: 0.75rem 1.5rem;
+          font-size: 0.85rem; font-weight: 600; z-index: 200;
+          text-decoration: none; border-radius: 0 0 4px 4px;
+          transition: top 0.2s;
+        }
+        .u-skip-link:focus { top: 0; }
+
+        /* ── Focus States ── */
+        .u-hero-cta:focus-visible,
+        .u-cta-button:focus-visible,
+        .u-btt:focus-visible {
+          outline: 2px solid var(--gold); outline-offset: 3px;
+        }
+        .u-nav-links a:focus-visible {
+          outline: 2px solid var(--gold); outline-offset: 4px;
+        }
+        .u-faq-q:focus-visible {
+          outline: 2px solid var(--gold); outline-offset: 2px;
+        }
+
+        /* ── Mobile hamburger ── */
+        .u-nav-hamburger {
+          display: none; background: none; border: none; cursor: pointer;
+          color: var(--cream); padding: 0.5rem; transition: color 0.5s;
+        }
+        .u-nav.scrolled .u-nav-hamburger { color: var(--warm-900); }
+        @media (max-width: 768px) {
+          .u-nav-hamburger { display: flex; align-items: center; justify-content: center; }
+        }
+        .u-mobile-menu {
+          display: none; position: fixed; inset: 0; z-index: 99;
+          background: rgba(26,21,16,0.97); backdrop-filter: blur(20px);
+          flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+        }
+        .u-mobile-menu.open { display: flex; }
+        .u-mobile-menu a {
+          font-family: var(--u-serif); font-size: 1.8rem; font-weight: 400;
+          color: var(--cream); text-decoration: none;
+          transition: color 0.3s;
+        }
+        .u-mobile-menu a:hover { color: var(--gold); }
+        .u-mobile-close {
+          position: absolute; top: 1.25rem; right: 1.25rem;
+          background: none; border: none; color: var(--cream); cursor: pointer;
+          padding: 0.5rem;
         }
 
         .u-pattern-overlay {
@@ -168,17 +225,25 @@ export default function Umrah() {
           background-size: cover; background-position: center 40%;
           transform: scale(1.05);
           animation: uHeroZoom 20s ease-in-out infinite alternate;
+          filter: brightness(0.55) saturate(0.8);
         }
         @keyframes uHeroZoom {
           from { transform: scale(1.05); }
           to { transform: scale(1.12); }
         }
-        .u-hero-bg {
+        .u-hero-vignette {
           position: absolute; inset: 0;
+          background:
+            radial-gradient(ellipse at center, transparent 30%, rgba(26,21,16,0.6) 100%),
+            linear-gradient(180deg, rgba(26,21,16,0.5) 0%, transparent 30%, transparent 70%, rgba(26,21,16,0.7) 100%);
+          z-index: 1;
+        }
+        .u-hero-bg {
+          position: absolute; inset: 0; z-index: 2;
           background:
             radial-gradient(ellipse at 30% 50%, rgba(92,124,94,0.12) 0%, transparent 60%),
             radial-gradient(ellipse at 70% 30%, rgba(196,162,101,0.08) 0%, transparent 50%),
-            linear-gradient(180deg, rgba(26,21,16,0.75) 0%, rgba(44,36,24,0.65) 40%, rgba(44,36,24,0.8) 100%);
+            linear-gradient(180deg, rgba(26,21,16,0.6) 0%, rgba(44,36,24,0.45) 40%, rgba(44,36,24,0.65) 100%);
         }
         .u-hero-content {
           position: relative; z-index: 10; text-align: center; padding: 0 2rem; max-width: 900px;
@@ -272,7 +337,7 @@ export default function Umrah() {
         .u-exp-card:hover { transform: translateY(-4px) !important; box-shadow: 0 20px 60px rgba(44,36,24,0.08); }
         .u-exp-icon { width: 48px; height: 48px; margin: 0 auto 1.5rem; color: var(--sage); opacity: 0.8; }
         .u-exp-card h3 { font-family: var(--u-serif); font-size: 1.4rem; font-weight: 500; color: var(--warm-900); margin-bottom: 0.75rem; }
-        .u-exp-card p { font-size: 0.95rem; color: var(--warm-600); line-height: 1.6; font-weight: 300; }
+        .u-exp-card p { font-size: 0.95rem; color: var(--warm-700); line-height: 1.6; font-weight: 300; }
 
         /* ── Quote Band ── */
         .u-quote-band {
@@ -301,7 +366,7 @@ export default function Umrah() {
           color: var(--gold); opacity: 0.2; position: absolute; top: 1rem; right: 1.5rem; line-height: 1;
         }
         .u-journey-card h4 { font-family: var(--u-serif); font-size: 1.35rem; font-weight: 500; color: var(--warm-900); margin-bottom: 0.75rem; }
-        .u-journey-card p { font-size: 0.95rem; color: var(--warm-600); line-height: 1.7; font-weight: 300; }
+        .u-journey-card p { font-size: 0.95rem; color: var(--warm-700); line-height: 1.7; font-weight: 300; }
         .u-journey-icon { width: 28px; height: 28px; color: var(--sage); margin-bottom: 1rem; display: block; }
 
         /* ── Testimonial ── */
@@ -363,7 +428,7 @@ export default function Umrah() {
         .u-plan-name { font-family: var(--u-serif); font-size: 1.15rem; font-weight: 500; margin-bottom: 1rem; }
         .u-plan-price { font-family: var(--u-serif); font-size: 2.2rem; font-weight: 300; }
         .u-plan.featured .u-plan-price { color: var(--gold-light); }
-        .u-plan-period { font-size: 0.8rem; color: var(--warm-500); margin-top: 0.25rem; font-weight: 300; }
+        .u-plan-period { font-size: 0.8rem; color: var(--warm-700); margin-top: 0.25rem; font-weight: 300; }
         .u-plan.featured .u-plan-period { color: rgba(245,240,232,0.6); }
 
         /* ── Details Strip ── */
@@ -411,7 +476,7 @@ export default function Umrah() {
           padding: 7rem 2rem; text-align: center;
         }
         .u-cta-content { position: relative; z-index: 10; max-width: 650px; margin: 0 auto; }
-        .u-cta-bismillah { font-family: var(--u-serif); font-size: 2rem; color: var(--gold); opacity: 0.4; margin-bottom: 2rem; font-style: italic; }
+        .u-cta-bismillah { font-family: var(--u-arabic); font-size: 2.2rem; color: var(--gold); opacity: 0.5; margin-bottom: 2rem; }
         .u-cta-title {
           font-family: var(--u-serif); font-size: clamp(2rem, 4vw, 3rem);
           font-weight: 300; color: var(--cream); line-height: 1.3; margin-bottom: 1.5rem;
@@ -462,9 +527,9 @@ export default function Umrah() {
         .u-study-content { color: var(--cream); }
 
         .u-study-arabic {
-          font-family: var(--u-serif); font-size: clamp(1.4rem, 2.5vw, 1.8rem);
-          font-weight: 400; color: var(--gold); line-height: 1.6;
-          margin-bottom: 0.5rem; direction: rtl; text-align: right;
+          font-family: var(--u-arabic); font-size: clamp(1.5rem, 2.5vw, 2rem);
+          font-weight: 700; color: var(--gold); line-height: 1.8;
+          margin-bottom: 0.75rem; direction: rtl; text-align: right;
         }
         @media (max-width: 768px) {
           .u-study-arabic { text-align: center; font-size: 1.3rem; }
@@ -579,9 +644,9 @@ export default function Umrah() {
           letter-spacing: 0.02em;
         }
         .u-study-book-arabic {
-          font-family: var(--u-serif); font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 400;
-          color: rgba(245,240,232,0.25); text-align: center; direction: rtl;
-          line-height: 1.5; padding: 0 1rem;
+          font-family: var(--u-arabic); font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 700;
+          color: rgba(245,240,232,0.3); text-align: center; direction: rtl;
+          line-height: 1.6; padding: 0 1rem;
         }
         .u-study-book-author {
           font-family: var(--u-sans); font-size: 0.65rem; letter-spacing: 0.2em;
@@ -662,6 +727,9 @@ export default function Umrah() {
 
       <div className="u-page" style={{ minHeight: '100vh' }}>
 
+        {/* Skip Link */}
+        <a href="#experience" className="u-skip-link">Skip to content</a>
+
         {/* ═══ Nav ═══ */}
         <nav className={`u-nav ${navScrolled ? 'scrolled' : ''}`}>
           <a href="#" className="u-nav-logo">Mustafa Briggs</a>
@@ -673,14 +741,28 @@ export default function Umrah() {
             <li><a href="#pricing">Pricing</a></li>
             <li><a href="#faq">FAQ</a></li>
           </ul>
+          <button className="u-nav-hamburger" onClick={() => setMobileMenuOpen(true)} aria-label="Open menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
+          </button>
         </nav>
+
+        {/* Mobile Menu Overlay */}
+        <div className={`u-mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
+          <button className="u-mobile-close" onClick={() => setMobileMenuOpen(false)} aria-label="Close menu">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+          </button>
+          {['Experience', 'Text', 'Journey', 'Scholar', 'Pricing', 'FAQ'].map((item) => (
+            <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMobileMenuOpen(false)}>{item}</a>
+          ))}
+        </div>
 
         {/* ═══ Hero ═══ */}
         <section className="u-hero">
           <div className="u-hero-img" />
+          <div className="u-hero-vignette" />
           <div className="u-hero-bg" />
-          <div className="u-grain" />
-          <div className="u-pattern-overlay" />
+          <div className="u-grain" style={{ zIndex: 3 }} />
+          <div className="u-pattern-overlay" style={{ zIndex: 4 }} />
           <div className="u-hero-content">
             <p className="u-hero-eyebrow">Thanksgiving 2026 · Makkah &amp; Madinah</p>
             <h1 className="u-hero-title">Umrah with<br /><em>Mustafa Briggs</em></h1>
