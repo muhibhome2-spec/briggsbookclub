@@ -622,58 +622,67 @@ export default function Umrah() {
         }
         .u-study-living p:last-child { margin-bottom: 0; }
 
-        /* Book mockup — fills the full text column height */
+        /* Book mockup — real cover image */
         .u-study-book-col {
-          display: flex; align-items: stretch; justify-content: center;
+          display: flex; align-items: flex-start; justify-content: center;
           position: relative;
         }
         @media (min-width: 901px) {
-          .u-study-book-col { position: sticky; top: 6rem; align-self: start; min-height: 600px; }
+          .u-study-book-col { position: sticky; top: 6rem; align-self: start; }
         }
         @media (max-width: 900px) {
-          .u-study-book-col { max-width: 320px; margin: 0 auto; min-height: 420px; }
+          .u-study-book-col { max-width: 300px; margin: 0 auto; }
+        }
+        .u-study-book-wrapper {
+          position: relative;
+          width: 100%;
+          max-width: 420px;
+          perspective: 1200px;
         }
         .u-study-book {
-          width: 100%; min-height: 100%;
-          background: linear-gradient(145deg, var(--sage-dark) 0%, #3a5a3c 50%, var(--sage-dark) 100%);
-          position: relative; overflow: hidden;
-          box-shadow: 20px 20px 60px rgba(0,0,0,0.4), -2px -2px 10px rgba(255,255,255,0.03);
-          display: flex; align-items: center; justify-content: center;
-          flex-direction: column; gap: 1.25rem;
-          padding: 3rem 2rem;
+          position: relative;
+          transform: rotateY(-3deg);
+          transform-origin: left center;
+          transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
+        .u-study-book:hover {
+          transform: rotateY(0deg);
+        }
+        .u-study-book img {
+          display: block; width: 100%; height: auto;
+          box-shadow:
+            6px 6px 20px rgba(0,0,0,0.35),
+            20px 20px 60px rgba(0,0,0,0.25),
+            -1px 0 3px rgba(255,255,255,0.04);
+        }
+        /* Spine shadow on left edge */
         .u-study-book::before {
-          content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 24px;
-          background: linear-gradient(to right, rgba(0,0,0,0.3), rgba(0,0,0,0.08), transparent);
-        }
-        .u-study-book::after {
-          content: ''; position: absolute; inset: 16px;
-          border: 1px solid rgba(196,162,101,0.2);
+          content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 20px; z-index: 2;
+          background: linear-gradient(to right, rgba(0,0,0,0.35), rgba(0,0,0,0.1) 40%, transparent);
           pointer-events: none;
         }
-        .u-study-book-ornament {
-          width: 60px; height: 1px;
-          background: linear-gradient(to right, transparent, var(--gold), transparent);
-          opacity: 0.4;
+        /* Subtle light reflection on right edge */
+        .u-study-book::after {
+          content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 30px; z-index: 2;
+          background: linear-gradient(to left, rgba(255,255,255,0.04), transparent);
+          pointer-events: none;
         }
-        .u-study-book-title {
-          font-family: var(--u-serif); font-size: clamp(1.4rem, 2vw, 1.8rem); font-weight: 500;
-          color: var(--gold); text-align: center; padding: 0 1.5rem; line-height: 1.4;
-          letter-spacing: 0.02em;
+        /* Page edges visible on the right */
+        .u-study-book-pages {
+          position: absolute; right: -4px; top: 4px; bottom: 4px; width: 8px; z-index: -1;
+          background: linear-gradient(to right,
+            #d4cfc5, #e8e3d9 20%, #d4cfc5 40%, #e8e3d9 60%, #d4cfc5 80%, #ddd8ce
+          );
+          box-shadow: 4px 2px 10px rgba(0,0,0,0.2);
+          transform: skewY(1deg);
         }
-        .u-study-book-arabic {
-          font-family: var(--u-arabic); font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 700;
-          color: rgba(245,240,232,0.3); text-align: center; direction: rtl;
-          line-height: 1.6; padding: 0 1rem;
+        @media (max-width: 768px) {
+          .u-study-book-wrapper { max-width: 260px; }
+          .u-study-book { transform: rotateY(0deg); }
+          .u-study-book-pages { right: -3px; width: 6px; top: 3px; bottom: 3px; }
         }
-        .u-study-book-author {
-          font-family: var(--u-sans); font-size: 0.65rem; letter-spacing: 0.2em;
-          text-transform: uppercase; color: rgba(245,240,232,0.3); margin-top: 0.5rem;
-        }
-        .u-study-book-label {
-          position: absolute; bottom: 2rem; font-family: var(--u-sans);
-          font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
-          color: rgba(245,240,232,0.15);
+        @media (max-width: 400px) {
+          .u-study-book-wrapper { max-width: 220px; }
         }
 
         /* ── Global mobile refinements ── */
@@ -735,10 +744,6 @@ export default function Umrah() {
           .u-cta-bismillah { font-size: 1.8rem; }
 
           .u-study { padding: 3.5rem 1.25rem; }
-          .u-study-book-col { max-width: 240px; min-height: 320px; }
-          .u-study-book { padding: 2rem 1.25rem; }
-          .u-study-book-arabic { font-size: 1.6rem; }
-          .u-study-book-title { font-size: 1.1rem; }
 
           .u-footer { padding: 2rem 1.25rem; }
         }
@@ -751,7 +756,6 @@ export default function Umrah() {
           .u-detail-item { border-right: none; border-bottom: 1px solid rgba(44,36,24,0.06); }
           .u-detail-item:last-child { border-bottom: none; }
           .u-cta-keyword { font-size: 1.1rem; padding: 0.6rem 1.5rem; }
-          .u-study-book-col { max-width: 200px; min-height: 280px; }
         }
 
         /* ── Footer ── */
@@ -932,22 +936,18 @@ export default function Umrah() {
                 </Reveal>
               </div>
 
-              {/* Right: Book mockup placeholder */}
+              {/* Right: Book cover mockup */}
               <div className="u-study-book-col">
-                <Reveal delay={200} style={{ width: '100%', height: '100%', display: 'flex' }}>
-                  <div className="u-study-book">
-                    <div className="u-study-book-arabic">
-                      الأرجوزة<br />الميئية
+                <Reveal delay={200} style={{ width: '100%' }}>
+                  <div className="u-study-book-wrapper">
+                    <div className="u-study-book">
+                      <img
+                        src="/images/book-cover.jpg"
+                        alt="Al-Arjūzah al-Mi'iyyah — A Hundred-Line Poem on the Life of the Noblest of Creation"
+                        loading="lazy"
+                      />
+                      <div className="u-study-book-pages" />
                     </div>
-                    <div className="u-study-book-ornament" />
-                    <div className="u-study-book-title">
-                      Al-Arjūzah<br />al-Mi'iyyah
-                    </div>
-                    <div className="u-study-book-ornament" />
-                    <div className="u-study-book-author">
-                      Ibn Abī al-ʿIzz al-Ḥanafī
-                    </div>
-                    <span className="u-study-book-label">Book mockup placeholder</span>
                   </div>
                 </Reveal>
               </div>
