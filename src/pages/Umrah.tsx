@@ -162,11 +162,23 @@ export default function Umrah() {
           display: flex; align-items: center; justify-content: center; overflow: hidden;
           background: var(--warm-900);
         }
+        .u-hero-img {
+          position: absolute; inset: 0;
+          background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Al-Masjid_al-Nabawi_-_panoramio_%282%29.jpg/1920px-Al-Masjid_al-Nabawi_-_panoramio_%282%29.jpg');
+          background-size: cover; background-position: center 40%;
+          transform: scale(1.05);
+          animation: uHeroZoom 20s ease-in-out infinite alternate;
+        }
+        @keyframes uHeroZoom {
+          from { transform: scale(1.05); }
+          to { transform: scale(1.12); }
+        }
         .u-hero-bg {
           position: absolute; inset: 0;
-          background: radial-gradient(ellipse at 30% 50%, rgba(92,124,94,0.15) 0%, transparent 60%),
-                      radial-gradient(ellipse at 70% 30%, rgba(196,162,101,0.1) 0%, transparent 50%),
-                      linear-gradient(180deg, #1a1510 0%, #2C2418 40%, #3D3226 100%);
+          background:
+            radial-gradient(ellipse at 30% 50%, rgba(92,124,94,0.12) 0%, transparent 60%),
+            radial-gradient(ellipse at 70% 30%, rgba(196,162,101,0.08) 0%, transparent 50%),
+            linear-gradient(180deg, rgba(26,21,16,0.75) 0%, rgba(44,36,24,0.65) 40%, rgba(44,36,24,0.8) 100%);
         }
         .u-hero-content {
           position: relative; z-index: 10; text-align: center; padding: 0 2rem; max-width: 900px;
@@ -589,6 +601,7 @@ export default function Umrah() {
 
         {/* ═══ Hero ═══ */}
         <section className="u-hero">
+          <div className="u-hero-img" />
           <div className="u-hero-bg" />
           <div className="u-grain" />
           <div className="u-pattern-overlay" />
