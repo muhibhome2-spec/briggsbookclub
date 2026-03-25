@@ -329,7 +329,7 @@ export default function Umrah() {
         .u-scholar-info p { font-size: 1rem; color: var(--warm-600); line-height: 1.8; font-weight: 300; margin-bottom: 1rem; }
 
         /* ── Pricing ── */
-        .u-pricing-section { background: var(--cream-light); }
+        .u-pricing-section { background: var(--cream-light); position: relative; overflow: hidden; }
         .u-price-amount {
           font-family: var(--u-serif); font-size: clamp(3rem, 6vw, 4.5rem);
           font-weight: 300; color: var(--warm-900); line-height: 1; margin-bottom: 0.5rem;
@@ -448,14 +448,15 @@ export default function Umrah() {
           background: var(--warm-900); position: relative; overflow: hidden;
           padding: 6rem 2rem;
         }
+        @media (max-width: 768px) { .u-study { padding: 4rem 1.25rem; } }
         .u-study-inner {
           max-width: 1100px; margin: 0 auto; position: relative; z-index: 2;
         }
         .u-study-layout {
-          display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+          display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: stretch;
         }
         @media (max-width: 900px) {
-          .u-study-layout { grid-template-columns: 1fr; gap: 3rem; }
+          .u-study-layout { grid-template-columns: 1fr; gap: 2.5rem; }
           .u-study-book-col { order: -1; }
         }
         .u-study-content { color: var(--cream); }
@@ -465,24 +466,39 @@ export default function Umrah() {
           font-weight: 400; color: var(--gold); line-height: 1.6;
           margin-bottom: 0.5rem; direction: rtl; text-align: right;
         }
+        @media (max-width: 768px) {
+          .u-study-arabic { text-align: center; font-size: 1.3rem; }
+        }
         .u-study-transliteration {
           font-family: var(--u-serif); font-size: clamp(1.1rem, 2vw, 1.4rem);
           font-style: italic; color: var(--gold-light); opacity: 0.8;
           margin-bottom: 0.25rem; line-height: 1.4;
+        }
+        @media (max-width: 768px) {
+          .u-study-transliteration { text-align: center; font-size: 1rem; }
         }
         .u-study-english {
           font-family: var(--u-serif); font-size: clamp(1rem, 1.5vw, 1.15rem);
           font-weight: 400; color: rgba(245,240,232,0.6);
           margin-bottom: 2rem; font-style: italic;
         }
+        @media (max-width: 768px) {
+          .u-study-english { text-align: center; }
+        }
         .u-study-desc {
           font-size: 0.95rem; color: rgba(245,240,232,0.7); line-height: 1.8;
           font-weight: 300; margin-bottom: 1.5rem;
+        }
+        @media (max-width: 768px) {
+          .u-study-desc { font-size: 0.9rem; line-height: 1.7; }
         }
 
         .u-study-divider {
           width: 40px; height: 1px; margin: 2.5rem 0;
           background: linear-gradient(to right, var(--gold), transparent);
+        }
+        @media (max-width: 768px) {
+          .u-study-divider { margin: 2rem 0; }
         }
 
         .u-study-subtitle {
@@ -510,6 +526,9 @@ export default function Umrah() {
           background: rgba(196,162,101,0.08); border: 1px solid rgba(196,162,101,0.15);
           padding: 2rem 2.5rem; margin-top: 2.5rem;
         }
+        @media (max-width: 768px) {
+          .u-study-living { padding: 1.5rem; margin-top: 2rem; }
+        }
         .u-study-living h4 {
           font-family: var(--u-serif); font-size: 1.25rem; font-weight: 500;
           color: var(--gold-light); margin-bottom: 1rem;
@@ -520,42 +539,49 @@ export default function Umrah() {
         }
         .u-study-living p:last-child { margin-bottom: 0; }
 
-        /* Book placeholder */
+        /* Book mockup — fills the full text column height */
         .u-study-book-col {
-          display: flex; align-items: flex-start; justify-content: center;
-          position: sticky; top: 6rem;
+          display: flex; align-items: stretch; justify-content: center;
+          position: relative;
+        }
+        @media (min-width: 901px) {
+          .u-study-book-col { position: sticky; top: 6rem; align-self: start; min-height: 600px; }
+        }
+        @media (max-width: 900px) {
+          .u-study-book-col { max-width: 320px; margin: 0 auto; min-height: 420px; }
         }
         .u-study-book {
-          width: 100%; max-width: 380px; aspect-ratio: 3/4;
+          width: 100%; min-height: 100%;
           background: linear-gradient(145deg, var(--sage-dark) 0%, #3a5a3c 50%, var(--sage-dark) 100%);
           position: relative; overflow: hidden;
           box-shadow: 20px 20px 60px rgba(0,0,0,0.4), -2px -2px 10px rgba(255,255,255,0.03);
           display: flex; align-items: center; justify-content: center;
-          flex-direction: column; gap: 1rem;
+          flex-direction: column; gap: 1.25rem;
+          padding: 3rem 2rem;
         }
         .u-study-book::before {
-          content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 20px;
-          background: linear-gradient(to right, rgba(0,0,0,0.25), rgba(0,0,0,0.05), transparent);
+          content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 24px;
+          background: linear-gradient(to right, rgba(0,0,0,0.3), rgba(0,0,0,0.08), transparent);
         }
         .u-study-book::after {
-          content: ''; position: absolute; inset: 12px;
+          content: ''; position: absolute; inset: 16px;
           border: 1px solid rgba(196,162,101,0.2);
           pointer-events: none;
         }
         .u-study-book-ornament {
-          width: 50px; height: 1px;
+          width: 60px; height: 1px;
           background: linear-gradient(to right, transparent, var(--gold), transparent);
           opacity: 0.4;
         }
         .u-study-book-title {
-          font-family: var(--u-serif); font-size: 1.5rem; font-weight: 500;
-          color: var(--gold); text-align: center; padding: 0 2rem; line-height: 1.4;
+          font-family: var(--u-serif); font-size: clamp(1.4rem, 2vw, 1.8rem); font-weight: 500;
+          color: var(--gold); text-align: center; padding: 0 1.5rem; line-height: 1.4;
           letter-spacing: 0.02em;
         }
         .u-study-book-arabic {
-          font-family: var(--u-serif); font-size: 1.8rem; font-weight: 400;
+          font-family: var(--u-serif); font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 400;
           color: rgba(245,240,232,0.25); text-align: center; direction: rtl;
-          line-height: 1.5; padding: 0 1.5rem;
+          line-height: 1.5; padding: 0 1rem;
         }
         .u-study-book-author {
           font-family: var(--u-sans); font-size: 0.65rem; letter-spacing: 0.2em;
@@ -564,7 +590,57 @@ export default function Umrah() {
         .u-study-book-label {
           position: absolute; bottom: 2rem; font-family: var(--u-sans);
           font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
-          color: rgba(245,240,232,0.2);
+          color: rgba(245,240,232,0.15);
+        }
+
+        /* ── Global mobile refinements ── */
+        @media (max-width: 768px) {
+          .u-nav { padding: 1rem 1.25rem; }
+          .u-nav.scrolled { padding: 0.6rem 1.25rem; }
+          .u-nav-logo { font-size: 0.95rem; letter-spacing: 0.1em; }
+
+          .u-section { padding: 3.5rem 1.25rem; }
+          .u-section-header { margin-bottom: 2.5rem; }
+
+          .u-exp-card { padding: 2rem 1.5rem; }
+          .u-exp-icon { width: 40px; height: 40px; }
+
+          .u-quote-band { padding: 4rem 1.5rem; }
+          .u-quote-mark { font-size: 4rem; }
+
+          .u-journey-card { padding: 2rem 1.5rem; }
+          .u-journey-num { font-size: 2.5rem; }
+
+          .u-testimonial { padding: 2rem 1.5rem; }
+
+          .u-scholar { gap: 2rem; }
+          .u-scholar-image { aspect-ratio: 4/3; }
+
+          .u-plans-grid { gap: 0.75rem; }
+          .u-plan { padding: 1.5rem 1.25rem; }
+          .u-plan-price { font-size: 1.8rem; }
+          .u-plan.featured { transform: none; }
+
+          .u-details-strip { grid-template-columns: 1fr 1fr; }
+          .u-detail-item { padding: 1rem 0.75rem; font-size: 0.8rem; }
+          .u-detail-item:nth-child(2) { border-right: none; }
+
+          .u-faq-q { font-size: 1rem; padding: 1.25rem 0; }
+
+          .u-cta { padding: 5rem 1.5rem; }
+          .u-cta-keyword { font-size: 1.4rem; padding: 0.75rem 2rem; }
+          .u-cta-button { padding: 0.9rem 2rem; font-size: 0.75rem; }
+
+          .u-hero-scroll { bottom: 2rem; }
+          .u-hero-content { padding: 0 1.25rem; }
+        }
+
+        @media (max-width: 400px) {
+          .u-hero-cta { padding: 0.85rem 1.75rem; font-size: 0.7rem; letter-spacing: 0.15em; }
+          .u-plans-grid { grid-template-columns: 1fr; }
+          .u-details-strip { grid-template-columns: 1fr; }
+          .u-detail-item { border-right: none; border-bottom: 1px solid rgba(44,36,24,0.06); }
+          .u-detail-item:last-child { border-bottom: none; }
         }
 
         /* ── Footer ── */
@@ -725,7 +801,7 @@ export default function Umrah() {
 
               {/* Right: Book mockup placeholder */}
               <div className="u-study-book-col">
-                <Reveal delay={200}>
+                <Reveal delay={200} style={{ width: '100%', height: '100%', display: 'flex' }}>
                   <div className="u-study-book">
                     <div className="u-study-book-arabic">
                       الأرجوزة<br />الميئية
@@ -804,8 +880,7 @@ export default function Umrah() {
 
         {/* ═══ Pricing ═══ */}
         <section className="u-section u-pricing-section" id="pricing">
-          <div className="u-pattern-overlay" />
-          <div className="u-section-inner" style={{ position: 'relative', zIndex: 2 }}>
+          <div className="u-section-inner">
             <Reveal className="u-section-header">
               <p className="u-section-eyebrow">Investment</p>
               <h2 className="u-section-title">An Investment in <em>Knowledge</em></h2>
