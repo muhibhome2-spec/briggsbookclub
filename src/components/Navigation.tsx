@@ -88,6 +88,16 @@ export default function Navigation() {
                 Tafsir Yusuf
               </motion.button>
             </Link>
+            <Link to="/umrah">
+              <motion.button
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="text-sm tracking-wide text-warm-700 hover:text-sage-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-sage-500 rounded-sm px-1 py-0.5"
+                aria-label="Navigate to Umrah 2026"
+              >
+                Umrah 2026
+              </motion.button>
+            </Link>
             <motion.button
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
