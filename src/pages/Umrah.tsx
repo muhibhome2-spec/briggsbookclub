@@ -102,31 +102,38 @@ export default function Umrah() {
         html { scroll-behavior: smooth; }
 
         :root {
-          --cream: #FDFBF7;
-          --cream-light: #FFFFFF;
-          --cream-dark: #F3EFE7;
-          --sage: #5c6330;
-          --sage-light: #747a45;
-          --sage-dark: #4a5028;
+          /* 60% — Dominant: Light, airy ivory backgrounds */
+          --bg: #F8F5EF;
+          --bg-light: #FDFCF9;
+          --bg-alt: #F0ECE3;
+
+          /* 30% — Secondary: Muted olive sage for contrast sections */
+          --sage: #6B6D3C;
+          --sage-light: #8A8D5A;
+          --sage-muted: #A5A87E;
+
+          /* 10% — Accents: Gold for warmth, crimson for emphasis */
           --gold: #bba76a;
           --gold-light: #cbb880;
-          --gold-dark: #a08f55;
           --crimson: #8d1c1e;
-          --crimson-light: #a52a2c;
-          --dark-section: #5c6330;
-          --dark-section-deep: #4a5028;
-          --heading: #3b3b38;
-          --text-primary: #555550;
-          --text-secondary: #76756e;
-          --text-tertiary: #9a9890;
-          --border: rgba(90,88,80,0.08);
+
+          /* Text: Warm neutrals that sit gently on ivory */
+          --heading: #2F2F2C;
+          --body: #5A5A55;
+          --caption: #8A8A82;
+
+          /* Utility */
+          --border: rgba(47,47,44,0.08);
+          --border-strong: rgba(47,47,44,0.14);
+
+          /* Type */
           --u-serif: 'Cormorant Garamond', Georgia, serif;
           --u-sans: 'Jost', sans-serif;
           --u-arabic: 'Amiri', 'Traditional Arabic', serif;
         }
 
         .u-page {
-          font-family: var(--u-sans); background: var(--cream); color: var(--text-primary);
+          font-family: var(--u-sans); background: var(--bg); color: var(--body);
           -webkit-font-smoothing: antialiased; overflow-x: hidden;
           text-rendering: optimizeLegibility;
           -webkit-text-size-adjust: 100%;
@@ -158,7 +165,7 @@ export default function Umrah() {
         /* ── Mobile hamburger ── */
         .u-nav-hamburger {
           display: none; background: none; border: none; cursor: pointer;
-          color: var(--cream); padding: 0.5rem; transition: color 0.5s;
+          color: var(--bg-light); padding: 0.5rem; transition: color 0.5s;
         }
         .u-nav.scrolled .u-nav-hamburger { color: var(--heading); }
         @media (max-width: 768px) {
@@ -166,19 +173,19 @@ export default function Umrah() {
         }
         .u-mobile-menu {
           display: none; position: fixed; inset: 0; z-index: 99;
-          background: rgba(74,80,40,0.97); backdrop-filter: blur(20px);
+          background: rgba(107,109,60,0.97); backdrop-filter: blur(20px);
           flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
         }
         .u-mobile-menu.open { display: flex; }
         .u-mobile-menu a {
           font-family: var(--u-serif); font-size: 1.8rem; font-weight: 400;
-          color: var(--cream); text-decoration: none;
+          color: var(--bg-light); text-decoration: none;
           transition: color 0.3s;
         }
         .u-mobile-menu a:hover { color: var(--gold); }
         .u-mobile-close {
           position: absolute; top: 1.25rem; right: 1.25rem;
-          background: none; border: none; color: var(--cream); cursor: pointer;
+          background: none; border: none; color: var(--bg-light); cursor: pointer;
           padding: 0.5rem;
         }
 
@@ -201,13 +208,13 @@ export default function Umrah() {
           transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .u-nav.scrolled {
-          background: rgba(253, 251, 247, 0.92); backdrop-filter: blur(20px);
-          padding: 0.75rem 2rem; box-shadow: 0 1px 0 rgba(44, 36, 24, 0.08);
+          background: rgba(248, 245, 239, 0.92); backdrop-filter: blur(20px);
+          padding: 0.75rem 2rem; box-shadow: 0 1px 0 var(--border);
         }
         .u-nav-logo {
           font-family: var(--u-serif); font-size: 1.1rem; font-weight: 500;
           letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none;
-          color: var(--cream); transition: color 0.5s;
+          color: var(--bg-light); transition: color 0.5s;
         }
         .u-nav.scrolled .u-nav-logo { color: var(--heading); }
         .u-nav-links { display: flex; gap: 2.5rem; list-style: none; margin: 0; padding: 0; }
@@ -215,7 +222,7 @@ export default function Umrah() {
           font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
           color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.3s; font-weight: 400;
         }
-        .u-nav.scrolled .u-nav-links a { color: var(--text-secondary); }
+        .u-nav.scrolled .u-nav-links a { color: var(--body); }
         .u-nav-links a:hover { color: var(--gold); }
         @media (max-width: 768px) { .u-nav-links { display: none; } }
 
@@ -223,7 +230,7 @@ export default function Umrah() {
         .u-hero {
           position: relative; height: 100vh; min-height: 700px;
           display: flex; align-items: center; justify-content: center; overflow: hidden;
-          background: var(--dark-section);
+          background: var(--sage);
         }
         .u-hero-img {
           position: absolute; inset: 0;
@@ -240,16 +247,16 @@ export default function Umrah() {
         .u-hero-vignette {
           position: absolute; inset: 0;
           background:
-            radial-gradient(ellipse at center, transparent 35%, rgba(74,80,40,0.5) 100%),
-            linear-gradient(180deg, rgba(74,80,40,0.4) 0%, transparent 30%, transparent 70%, rgba(74,80,40,0.6) 100%);
+            radial-gradient(ellipse at center, transparent 35%, rgba(107,109,60,0.5) 100%),
+            linear-gradient(180deg, rgba(107,109,60,0.4) 0%, transparent 30%, transparent 70%, rgba(107,109,60,0.6) 100%);
           z-index: 1;
         }
         .u-hero-bg {
           position: absolute; inset: 0; z-index: 2;
           background:
-            radial-gradient(ellipse at 30% 50%, rgba(92,99,48,0.15) 0%, transparent 60%),
+            radial-gradient(ellipse at 30% 50%, rgba(107,109,60,0.15) 0%, transparent 60%),
             radial-gradient(ellipse at 70% 30%, rgba(187,167,106,0.1) 0%, transparent 50%),
-            linear-gradient(180deg, rgba(74,80,40,0.5) 0%, rgba(92,99,48,0.35) 40%, rgba(74,80,40,0.55) 100%);
+            linear-gradient(180deg, rgba(107,109,60,0.5) 0%, rgba(107,109,60,0.35) 40%, rgba(107,109,60,0.55) 100%);
         }
         .u-hero-content {
           position: relative; z-index: 10; text-align: center; padding: 0 2rem; max-width: 900px;
@@ -261,7 +268,7 @@ export default function Umrah() {
         }
         .u-hero-title {
           font-family: var(--u-serif); font-size: clamp(2.5rem, 7vw, 5.5rem);
-          font-weight: 300; color: var(--cream); line-height: 1.15; margin-bottom: 1.5rem;
+          font-weight: 300; color: var(--bg-light); line-height: 1.15; margin-bottom: 1.5rem;
           letter-spacing: -0.01em;
           text-rendering: optimizeLegibility;
           opacity: 0; animation: uFadeUp 1.4s 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -270,11 +277,11 @@ export default function Umrah() {
         .u-hero-title-leading {
           display: block; font-size: 0.35em; font-weight: 400;
           letter-spacing: 0.2em; text-transform: uppercase;
-          color: rgba(245,240,232,0.6); margin-bottom: 0.4em;
+          color: rgba(248,245,239,0.6); margin-bottom: 0.4em;
         }
         .u-hero-subtitle {
           font-family: var(--u-sans); font-size: clamp(1rem, 2vw, 1.25rem);
-          color: rgba(245,240,232,0.7); font-weight: 300; line-height: 1.7;
+          color: rgba(248,245,239,0.7); font-weight: 300; line-height: 1.7;
           max-width: 600px; margin: 0 auto 3rem;
           opacity: 0; animation: uFadeUp 1.4s 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
@@ -296,7 +303,7 @@ export default function Umrah() {
         .u-hero-scroll {
           position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
           display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
-          color: rgba(245,240,232,0.4); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+          color: rgba(248,245,239,0.4); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
           opacity: 0; animation: uFadeIn 1s 2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
         .u-scroll-line {
@@ -337,7 +344,7 @@ export default function Umrah() {
         .u-exp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
         @media (max-width: 768px) { .u-exp-grid { grid-template-columns: 1fr; } }
         .u-exp-card {
-          position: relative; background: var(--cream-light); border: 1px solid rgba(90,88,80,0.06);
+          position: relative; background: var(--bg-light); border: 1px solid rgba(47,47,44,0.06);
           padding: 2.5rem 2rem; text-align: center;
           transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
           overflow: hidden;
@@ -348,20 +355,20 @@ export default function Umrah() {
           opacity: 0; transition: opacity 0.5s;
         }
         .u-exp-card:hover::before { opacity: 1; }
-        .u-exp-card:hover { transform: translateY(-4px) !important; box-shadow: 0 20px 60px rgba(90,88,80,0.08); }
+        .u-exp-card:hover { transform: translateY(-4px) !important; box-shadow: 0 20px 60px rgba(47,47,44,0.08); }
         .u-exp-icon { width: 48px; height: 48px; margin: 0 auto 1.5rem; color: var(--sage); opacity: 0.8; }
         .u-exp-card h3 { font-family: var(--u-serif); font-size: 1.4rem; font-weight: 500; color: var(--heading); margin-bottom: 0.75rem; letter-spacing: -0.01em; }
-        .u-exp-card p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; font-weight: 300; }
+        .u-exp-card p { font-size: 0.95rem; color: var(--body); line-height: 1.6; font-weight: 300; }
 
         /* ── Quote Band ── */
         .u-quote-band {
-          background: var(--dark-section); padding: 6rem 2rem; text-align: center;
+          background: var(--sage); padding: 6rem 2rem; text-align: center;
           position: relative; overflow: hidden;
         }
         .u-quote-mark { font-family: var(--u-serif); font-size: 6rem; color: var(--gold); opacity: 0.2; line-height: 1; margin-bottom: -1rem; }
         .u-quote-text {
           font-family: var(--u-serif); font-size: clamp(1.3rem, 3vw, 2rem);
-          font-weight: 300; font-style: italic; color: var(--cream);
+          font-weight: 300; font-style: italic; color: var(--bg-light);
           max-width: 700px; margin: 0 auto; line-height: 1.6;
           letter-spacing: -0.005em;
         }
@@ -371,30 +378,30 @@ export default function Umrah() {
         .u-journey-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
         @media (max-width: 768px) { .u-journey-grid { grid-template-columns: 1fr; } }
         .u-journey-card {
-          background: var(--cream-light); border: 1px solid rgba(90,88,80,0.06);
+          background: var(--bg-light); border: 1px solid rgba(47,47,44,0.06);
           padding: 2.5rem; position: relative; overflow: hidden;
           transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        .u-journey-card:hover { transform: translateY(-3px) !important; box-shadow: 0 16px 48px rgba(90,88,80,0.07); }
+        .u-journey-card:hover { transform: translateY(-3px) !important; box-shadow: 0 16px 48px rgba(47,47,44,0.07); }
         .u-journey-num {
           font-family: var(--u-serif); font-size: 3.5rem; font-weight: 300;
           color: var(--gold); opacity: 0.2; position: absolute; top: 1rem; right: 1.5rem; line-height: 1;
         }
         .u-journey-card h4 { font-family: var(--u-serif); font-size: 1.35rem; font-weight: 500; color: var(--heading); margin-bottom: 0.75rem; letter-spacing: -0.01em; }
-        .u-journey-card p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; font-weight: 300; }
+        .u-journey-card p { font-size: 0.95rem; color: var(--body); line-height: 1.7; font-weight: 300; }
         .u-journey-icon { width: 28px; height: 28px; color: var(--sage); margin-bottom: 1rem; display: block; }
 
         /* ── Testimonial ── */
         .u-testimonial {
-          background: var(--cream-light); border: 1px solid rgba(90,88,80,0.06);
+          background: var(--bg-light); border: 1px solid rgba(47,47,44,0.06);
           padding: 3rem; text-align: center; max-width: 600px; margin: 0 auto;
         }
         .u-testimonial-text {
           font-family: var(--u-serif); font-size: 1.15rem; font-style: italic;
-          color: var(--text-primary); line-height: 1.7; margin-bottom: 1.5rem; font-weight: 400;
+          color: var(--body); line-height: 1.7; margin-bottom: 1.5rem; font-weight: 400;
         }
-        .u-testimonial-name { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-tertiary); font-weight: 500; }
-        .u-testimonial-trip { font-size: 0.7rem; color: var(--text-tertiary); margin-top: 0.25rem; }
+        .u-testimonial-name { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--caption); font-weight: 500; }
+        .u-testimonial-trip { font-size: 0.7rem; color: var(--caption); margin-top: 0.25rem; }
 
         /* ── Scholar ── */
         .u-scholar { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: center; }
@@ -403,10 +410,10 @@ export default function Umrah() {
           aspect-ratio: 3/4; background: linear-gradient(135deg, var(--sage) 0%, var(--sage-dark) 100%);
           position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
         }
-        .u-scholar-placeholder { font-family: var(--u-serif); font-size: 4rem; font-weight: 300; color: rgba(245,240,232,0.2); font-style: italic; }
+        .u-scholar-placeholder { font-family: var(--u-serif); font-size: 4rem; font-weight: 300; color: rgba(248,245,239,0.2); font-style: italic; }
         .u-scholar-info h3 { font-family: var(--u-serif); font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 300; color: var(--heading); margin-bottom: 0.5rem; letter-spacing: -0.01em; }
         .u-scholar-role { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 1.5rem; }
-        .u-scholar-info p { font-size: 1rem; color: var(--text-tertiary); line-height: 1.8; font-weight: 300; margin-bottom: 1rem; }
+        .u-scholar-info p { font-size: 1rem; color: var(--caption); line-height: 1.8; font-weight: 300; margin-bottom: 1rem; }
 
         /* Guest lecturer — same grid, lighter treatment */
         .u-guest-divider {
@@ -415,11 +422,11 @@ export default function Umrah() {
         }
         .u-guest-divider-line {
           flex: 1; height: 1px;
-          background: linear-gradient(to right, transparent, rgba(90,88,80,0.1), transparent);
+          background: linear-gradient(to right, transparent, rgba(47,47,44,0.1), transparent);
         }
         .u-guest-divider-label {
           font-family: var(--u-sans); font-size: 0.65rem; letter-spacing: 0.25em;
-          text-transform: uppercase; color: var(--text-tertiary); font-weight: 500;
+          text-transform: uppercase; color: var(--caption); font-weight: 500;
           white-space: nowrap;
         }
         .u-guest { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: center; }
@@ -428,37 +435,37 @@ export default function Umrah() {
           aspect-ratio: 3/4; background: linear-gradient(135deg, var(--sage) 0%, var(--sage-dark) 100%);
           position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
         }
-        .u-guest-placeholder { font-family: var(--u-serif); font-size: 3.5rem; font-weight: 300; color: rgba(245,240,232,0.2); font-style: italic; }
+        .u-guest-placeholder { font-family: var(--u-serif); font-size: 3.5rem; font-weight: 300; color: rgba(248,245,239,0.2); font-style: italic; }
         .u-guest-info h3 { font-family: var(--u-serif); font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 300; color: var(--heading); margin-bottom: 0.5rem; letter-spacing: -0.01em; }
         .u-guest-role { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--crimson); font-weight: 500; margin-bottom: 1.25rem; }
-        .u-guest-info p { font-size: 0.95rem; color: var(--text-tertiary); line-height: 1.8; font-weight: 300; margin-bottom: 0.75rem; }
+        .u-guest-info p { font-size: 0.95rem; color: var(--caption); line-height: 1.8; font-weight: 300; margin-bottom: 0.75rem; }
 
         /* ── Pricing ── */
-        .u-pricing-section { background: var(--cream-light); position: relative; overflow: hidden; }
+        .u-pricing-section { background: var(--bg-light); position: relative; overflow: hidden; }
         .u-price-amount {
           font-family: var(--u-serif); font-size: clamp(3rem, 6vw, 4.5rem);
           font-weight: 300; color: var(--heading); line-height: 1; margin-bottom: 0.5rem;
           letter-spacing: -0.02em;
         }
-        .u-price-amount span { font-size: 0.5em; vertical-align: super; color: var(--text-tertiary); }
-        .u-price-note { font-size: 1rem; color: var(--text-tertiary); font-weight: 300; }
+        .u-price-amount span { font-size: 0.5em; vertical-align: super; color: var(--caption); }
+        .u-price-note { font-size: 1rem; color: var(--caption); font-weight: 300; }
         .u-price-deposit {
           display: inline-block; margin-top: 1.5rem; padding: 0.6rem 2rem;
-          background: var(--sage); color: var(--cream);
+          background: var(--sage); color: var(--bg-light);
           font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500;
         }
         .u-plans-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 3rem; }
         @media (max-width: 900px) { .u-plans-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 500px) { .u-plans-grid { grid-template-columns: 1fr; } }
         .u-plan {
-          background: var(--cream); border: 1px solid rgba(90,88,80,0.08);
+          background: var(--bg); border: 1px solid rgba(47,47,44,0.08);
           padding: 2rem 1.5rem; text-align: center;
           transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1); position: relative;
         }
         .u-plan.featured {
-          background: var(--dark-section); color: var(--cream);
+          background: var(--sage); color: var(--bg-light);
           border-color: var(--gold);
-          box-shadow: 0 20px 60px rgba(90,88,80,0.15);
+          box-shadow: 0 20px 60px rgba(47,47,44,0.15);
         }
         .u-plan:not(.featured):hover { border-color: var(--gold); transform: translateY(-2px) !important; }
         .u-plan-badge {
@@ -469,18 +476,18 @@ export default function Umrah() {
         .u-plan-name { font-family: var(--u-serif); font-size: 1.15rem; font-weight: 500; margin-bottom: 1rem; }
         .u-plan-price { font-family: var(--u-serif); font-size: 2.2rem; font-weight: 300; }
         .u-plan.featured .u-plan-price { color: var(--gold-light); }
-        .u-plan-period { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem; font-weight: 300; }
-        .u-plan.featured .u-plan-period { color: rgba(245,240,232,0.6); }
+        .u-plan-period { font-size: 0.8rem; color: var(--body); margin-top: 0.25rem; font-weight: 300; }
+        .u-plan.featured .u-plan-period { color: rgba(248,245,239,0.6); }
 
         /* ── Details Strip ── */
         .u-details-strip {
           display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
-          border: 1px solid rgba(90,88,80,0.08); background: var(--cream);
+          border: 1px solid rgba(47,47,44,0.08); background: var(--bg);
         }
         @media (max-width: 768px) { .u-details-strip { grid-template-columns: repeat(2, 1fr); } }
         .u-detail-item {
-          padding: 1.5rem; text-align: center; border-right: 1px solid rgba(90,88,80,0.06);
-          font-size: 0.85rem; color: var(--text-secondary); font-weight: 300; line-height: 1.5;
+          padding: 1.5rem; text-align: center; border-right: 1px solid rgba(47,47,44,0.06);
+          font-size: 0.85rem; color: var(--body); font-weight: 300; line-height: 1.5;
         }
         .u-detail-item:last-child { border-right: none; }
         .u-detail-item strong {
@@ -490,7 +497,7 @@ export default function Umrah() {
 
         /* ── FAQ ── */
         .u-faq-list { max-width: 700px; margin: 0 auto; }
-        .u-faq-item { border-bottom: 1px solid rgba(90,88,80,0.08); }
+        .u-faq-item { border-bottom: 1px solid rgba(47,47,44,0.08); }
         .u-faq-q {
           width: 100%; background: none; border: none; padding: 1.5rem 0;
           display: flex; justify-content: space-between; align-items: center; cursor: pointer;
@@ -509,28 +516,28 @@ export default function Umrah() {
           padding: 0;
         }
         .u-faq-item.open .u-faq-a { max-height: 250px; padding: 0 0 1.5rem; }
-        .u-faq-a p { font-size: 0.95rem; color: var(--text-tertiary); line-height: 1.7; font-weight: 300; }
+        .u-faq-a p { font-size: 0.95rem; color: var(--caption); line-height: 1.7; font-weight: 300; }
 
         /* ── CTA ── */
         .u-cta {
-          background: var(--dark-section); position: relative; overflow: hidden;
+          background: var(--sage); position: relative; overflow: hidden;
           padding: 7rem 2rem; text-align: center;
         }
         .u-cta-content { position: relative; z-index: 10; max-width: 650px; margin: 0 auto; }
         .u-cta-bismillah { font-family: var(--u-arabic); font-size: 2.2rem; color: var(--gold); opacity: 0.5; margin-bottom: 2rem; }
         .u-cta-title {
           font-family: var(--u-serif); font-size: clamp(2rem, 4vw, 3rem);
-          font-weight: 300; color: var(--cream); line-height: 1.3; margin-bottom: 1.5rem;
+          font-weight: 300; color: var(--bg-light); line-height: 1.3; margin-bottom: 1.5rem;
           letter-spacing: -0.01em;
         }
         .u-cta-title em { font-style: italic; color: var(--gold-light); }
-        .u-cta-desc { font-size: 1rem; color: rgba(245,240,232,0.6); font-weight: 300; line-height: 1.7; margin-bottom: 3rem; }
+        .u-cta-desc { font-size: 1rem; color: rgba(248,245,239,0.6); font-weight: 300; line-height: 1.7; margin-bottom: 3rem; }
         .u-cta-action { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
         .u-cta-keyword {
           display: inline-block; border: 2px solid var(--gold); padding: 1rem 3rem;
           font-family: var(--u-serif); font-size: 1.8rem; font-weight: 500; color: var(--gold); letter-spacing: 0.15em;
         }
-        .u-cta-instruction { font-size: 0.8rem; color: rgba(245,240,232,0.5); letter-spacing: 0.1em; text-transform: uppercase; }
+        .u-cta-instruction { font-size: 0.8rem; color: rgba(248,245,239,0.5); letter-spacing: 0.1em; text-transform: uppercase; }
         .u-cta-button {
           display: inline-flex; align-items: center; gap: 0.75rem; margin-top: 1rem;
           padding: 1.1rem 3rem; background: var(--gold); color: var(--heading);
@@ -545,14 +552,14 @@ export default function Umrah() {
         }
         .u-cta-spots {
           margin-top: 2rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-          font-size: 0.75rem; color: rgba(245,240,232,0.4); letter-spacing: 0.1em; text-transform: uppercase;
+          font-size: 0.75rem; color: rgba(248,245,239,0.4); letter-spacing: 0.1em; text-transform: uppercase;
         }
         .u-cta-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sage); animation: uPulse 2s infinite; }
         @keyframes uPulse { 0%,100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); } }
 
         /* ── Text of Study (Featured) ── */
         .u-study {
-          background: var(--dark-section); position: relative; overflow: hidden;
+          background: var(--sage); position: relative; overflow: hidden;
           padding: 6rem 2rem 5rem;
         }
         @media (max-width: 768px) { .u-study { padding: 4rem 1.25rem 3.5rem; } }
@@ -574,7 +581,7 @@ export default function Umrah() {
           }
         }
 
-        .u-study-title-block { color: var(--cream); }
+        .u-study-title-block { color: var(--bg-light); }
         .u-study-arabic {
           font-family: var(--u-arabic); font-size: clamp(1.6rem, 3vw, 2.4rem);
           font-weight: 700; color: var(--gold); line-height: 1.7;
@@ -589,12 +596,12 @@ export default function Umrah() {
         @media (max-width: 900px) { .u-study-transliteration { text-align: center; } }
         .u-study-english {
           font-family: var(--u-serif); font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-          font-weight: 400; color: rgba(245,240,232,0.5);
+          font-weight: 400; color: rgba(248,245,239,0.5);
           margin-bottom: 1.75rem; font-style: italic;
         }
         @media (max-width: 900px) { .u-study-english { text-align: center; } }
         .u-study-intro {
-          font-size: 0.95rem; color: rgba(245,240,232,0.65); line-height: 1.8;
+          font-size: 0.95rem; color: rgba(248,245,239,0.65); line-height: 1.8;
           font-weight: 300; max-width: 540px;
         }
         @media (max-width: 900px) { .u-study-intro { max-width: 100%; } }
@@ -606,13 +613,13 @@ export default function Umrah() {
         }
         @media (max-width: 900px) { .u-study-cards { grid-template-columns: 1fr; } }
         .u-study-card {
-          background: rgba(245,240,232,0.04);
+          background: rgba(248,245,239,0.04);
           border: 1px solid rgba(187,167,106,0.1);
           padding: 2rem 1.75rem;
           transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .u-study-card:hover {
-          background: rgba(245,240,232,0.06);
+          background: rgba(248,245,239,0.06);
           border-color: rgba(187,167,106,0.2);
           transform: translateY(-3px) !important;
         }
@@ -622,17 +629,17 @@ export default function Umrah() {
         }
         .u-study-card h4 {
           font-family: var(--u-serif); font-size: 1.15rem; font-weight: 500;
-          color: var(--cream); margin-bottom: 0.75rem; letter-spacing: -0.01em;
+          color: var(--bg-light); margin-bottom: 0.75rem; letter-spacing: -0.01em;
         }
         .u-study-card p {
-          font-size: 0.88rem; color: rgba(245,240,232,0.6); line-height: 1.7;
+          font-size: 0.88rem; color: rgba(248,245,239,0.6); line-height: 1.7;
           font-weight: 300;
         }
         .u-study-card ul {
           list-style: none; padding: 0; margin: 0;
         }
         .u-study-card ul li {
-          font-size: 0.88rem; color: rgba(245,240,232,0.6); font-weight: 300;
+          font-size: 0.88rem; color: rgba(248,245,239,0.6); font-weight: 300;
           padding: 0.4rem 0 0.4rem 1.25rem; position: relative; line-height: 1.5;
         }
         .u-study-card ul li::before {
@@ -642,7 +649,7 @@ export default function Umrah() {
 
         /* Living Seerah banner */
         .u-study-banner {
-          background: linear-gradient(135deg, rgba(187,167,106,0.1) 0%, rgba(92,99,48,0.08) 100%);
+          background: linear-gradient(135deg, rgba(187,167,106,0.1) 0%, rgba(107,109,60,0.08) 100%);
           border: 1px solid rgba(187,167,106,0.15);
           padding: 2.5rem 3rem;
           display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem;
@@ -657,7 +664,7 @@ export default function Umrah() {
           font-style: italic;
         }
         .u-study-banner p {
-          font-size: 0.9rem; color: rgba(245,240,232,0.6); line-height: 1.8;
+          font-size: 0.9rem; color: rgba(248,245,239,0.6); line-height: 1.8;
           font-weight: 300;
         }
 
@@ -779,21 +786,21 @@ export default function Umrah() {
           .u-hero-title-leading { font-size: 0.4em; }
           .u-plans-grid { grid-template-columns: 1fr; }
           .u-details-strip { grid-template-columns: 1fr; }
-          .u-detail-item { border-right: none; border-bottom: 1px solid rgba(90,88,80,0.06); }
+          .u-detail-item { border-right: none; border-bottom: 1px solid rgba(47,47,44,0.06); }
           .u-detail-item:last-child { border-bottom: none; }
           .u-cta-keyword { font-size: 1.1rem; padding: 0.6rem 1.5rem; }
         }
 
         /* ── Footer ── */
         .u-footer {
-          padding: 3rem 2rem; text-align: center; background: #4a5028;
-          color: rgba(253,251,247,0.5); font-size: 0.75rem; letter-spacing: 0.1em;
+          padding: 3rem 2rem; text-align: center; background: #5A5D35;
+          color: rgba(248,245,239,0.5); font-size: 0.75rem; letter-spacing: 0.1em;
         }
 
         /* ── Back to Top ── */
         .u-btt {
           position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px;
-          background: var(--dark-section); color: var(--gold); border: 1px solid var(--gold);
+          background: var(--sage); color: var(--gold); border: 1px solid var(--gold);
           display: flex; align-items: center; justify-content: center; cursor: pointer;
           opacity: 0; pointer-events: none; transition: all 0.4s; z-index: 90;
         }
@@ -910,7 +917,7 @@ export default function Umrah() {
           <div className="u-study-inner">
             <Reveal className="u-section-header" style={{ marginBottom: '3rem' }}>
               <p className="u-section-eyebrow" style={{ color: 'var(--gold)' }}>Text of Study</p>
-              <h2 className="u-section-title" style={{ color: 'var(--cream)' }}>The <em>Poem</em> We Will Study</h2>
+              <h2 className="u-section-title" style={{ color: 'var(--bg-light)' }}>The <em style={{ color: 'var(--gold-light)' }}>Poem</em> We Will Study</h2>
             </Reveal>
 
             {/* Hero: Book + Title */}
@@ -1007,7 +1014,7 @@ export default function Umrah() {
         </section>
 
         {/* ═══ Scholars ═══ */}
-        <section className="u-section" id="scholar" style={{ background: 'var(--cream-light)' }}>
+        <section className="u-section" id="scholar" style={{ background: 'var(--bg-light)' }}>
           <div className="u-section-inner">
             <Reveal className="u-section-header">
               <p className="u-section-eyebrow">Your Guides</p>
@@ -1075,7 +1082,7 @@ export default function Umrah() {
             </Reveal>
 
             <Reveal>
-              <p style={{ textAlign: 'center', fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase' as const, color: 'var(--text-tertiary)', marginBottom: '2rem', fontWeight: 500 }}>
+              <p style={{ textAlign: 'center', fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase' as const, color: 'var(--caption)', marginBottom: '2rem', fontWeight: 500 }}>
                 Flexible Payment Plans
               </p>
             </Reveal>
@@ -1084,7 +1091,7 @@ export default function Umrah() {
               {plans.map((plan, i) => (
                 <Reveal key={i} className={`u-plan ${plan.featured ? 'featured' : ''}`} delay={i * 120}>
                   {plan.badge && <div className="u-plan-badge">{plan.badge}</div>}
-                  <p className="u-plan-name" style={plan.featured ? { color: 'var(--cream)' } : undefined}>{plan.name}</p>
+                  <p className="u-plan-name" style={plan.featured ? { color: 'var(--bg)' } : undefined}>{plan.name}</p>
                   <p className="u-plan-price">{plan.price}</p>
                   <p className="u-plan-period">{plan.period}</p>
                 </Reveal>
