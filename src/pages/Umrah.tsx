@@ -765,7 +765,7 @@ export default function Umrah() {
           <div className="u-pattern-overlay" style={{ zIndex: 4 }} />
           <div className="u-hero-content">
             <p className="u-hero-eyebrow">Thanksgiving 2026 · Makkah &amp; Madinah</p>
-            <h1 className="u-hero-title">Umrah with<br /><em>Mustafa Briggs</em></h1>
+            <h1 className="u-hero-title">Umrah with<br /><em>Shaykh Mustafa Briggs</em><br /><span style={{ fontSize: '0.5em', fontWeight: 400, color: 'rgba(245,240,232,0.6)', letterSpacing: '0.05em' }}>&amp;</span><br /><em>Shaykh Zakariya Abdul Aziz</em></h1>
             <p className="u-hero-subtitle">A seerah-based journey of knowledge, spirituality, and transformation — walking where the Prophet ﷺ walked.</p>
             <a href="#pricing" className="u-hero-cta">
               Secure Your Place
