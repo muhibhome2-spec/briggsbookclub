@@ -102,27 +102,30 @@ export default function Umrah() {
         html { scroll-behavior: smooth; }
 
         :root {
-          --cream: #F5F0E8;
-          --cream-light: #FAF7F2;
-          --cream-dark: #EDE6D8;
-          --sage: #5C7C5E;
-          --sage-light: #7A9A7C;
-          --sage-dark: #4A664C;
-          --gold: #C4A265;
-          --gold-light: #D4B87A;
-          --gold-dark: #A8864A;
-          --warm-900: #2C2418;
-          --warm-800: #3D3226;
-          --warm-700: #5A4D3E;
-          --warm-600: #7A6C5B;
-          --warm-500: #9A8C7A;
+          --cream: #FDFBF7;
+          --cream-light: #FFFFFF;
+          --cream-dark: #F2EDE3;
+          --sage: #5c6330;
+          --sage-light: #747a45;
+          --sage-dark: #464b24;
+          --gold: #bba76a;
+          --gold-light: #cbb880;
+          --gold-dark: #a08f55;
+          --crimson: #8d1c1e;
+          --crimson-light: #a52a2c;
+          --dark: #3a3530;
+          --dark-deep: #2e2a25;
+          --text-primary: #4a4540;
+          --text-secondary: #6e665c;
+          --text-tertiary: #958d82;
+          --border: rgba(60,55,48,0.08);
           --u-serif: 'Cormorant Garamond', Georgia, serif;
           --u-sans: 'Jost', sans-serif;
           --u-arabic: 'Amiri', 'Traditional Arabic', serif;
         }
 
         .u-page {
-          font-family: var(--u-sans); background: var(--cream); color: var(--warm-800);
+          font-family: var(--u-sans); background: var(--cream); color: var(--text-primary);
           -webkit-font-smoothing: antialiased; overflow-x: hidden;
           text-rendering: optimizeLegibility;
           -webkit-text-size-adjust: 100%;
@@ -131,7 +134,7 @@ export default function Umrah() {
         /* ── Accessibility: Skip Link ── */
         .u-skip-link {
           position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
-          background: var(--gold); color: var(--warm-900); padding: 0.75rem 1.5rem;
+          background: var(--gold); color: var(--dark); padding: 0.75rem 1.5rem;
           font-size: 0.85rem; font-weight: 600; z-index: 200;
           text-decoration: none; border-radius: 0 0 4px 4px;
           transition: top 0.2s;
@@ -156,13 +159,13 @@ export default function Umrah() {
           display: none; background: none; border: none; cursor: pointer;
           color: var(--cream); padding: 0.5rem; transition: color 0.5s;
         }
-        .u-nav.scrolled .u-nav-hamburger { color: var(--warm-900); }
+        .u-nav.scrolled .u-nav-hamburger { color: var(--dark); }
         @media (max-width: 768px) {
           .u-nav-hamburger { display: flex; align-items: center; justify-content: center; }
         }
         .u-mobile-menu {
           display: none; position: fixed; inset: 0; z-index: 99;
-          background: rgba(26,21,16,0.97); backdrop-filter: blur(20px);
+          background: rgba(58,53,48,0.96); backdrop-filter: blur(20px);
           flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
         }
         .u-mobile-menu.open { display: flex; }
@@ -179,13 +182,13 @@ export default function Umrah() {
         }
 
         .u-pattern-overlay {
-          position: absolute; inset: 0; opacity: 0.04; pointer-events: none;
+          position: absolute; inset: 0; opacity: 0.025; pointer-events: none;
           background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 0L50 10L40 20L30 10Z M0 40L10 30L20 40L10 50Z M40 40L50 30L60 40L50 50Z M80 40L70 30L60 40L70 50Z M40 80L50 70L40 60L30 70Z M20 20L30 30L20 40L10 30Z M60 20L70 30L60 40L50 30Z M20 60L30 50L20 40L10 50Z M60 60L50 50L60 40L70 50Z' fill='%232C2418' fill-rule='evenodd'/%3E%3C/svg%3E");
           background-size: 80px 80px;
         }
 
         .u-grain {
-          position: absolute; inset: 0; opacity: 0.3; pointer-events: none;
+          position: absolute; inset: 0; opacity: 0.15; pointer-events: none;
           background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
           background-size: 200px 200px;
         }
@@ -197,7 +200,7 @@ export default function Umrah() {
           transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .u-nav.scrolled {
-          background: rgba(245, 240, 232, 0.95); backdrop-filter: blur(20px);
+          background: rgba(253, 251, 247, 0.92); backdrop-filter: blur(20px);
           padding: 0.75rem 2rem; box-shadow: 0 1px 0 rgba(44, 36, 24, 0.08);
         }
         .u-nav-logo {
@@ -205,13 +208,13 @@ export default function Umrah() {
           letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none;
           color: var(--cream); transition: color 0.5s;
         }
-        .u-nav.scrolled .u-nav-logo { color: var(--warm-900); }
+        .u-nav.scrolled .u-nav-logo { color: var(--dark); }
         .u-nav-links { display: flex; gap: 2.5rem; list-style: none; margin: 0; padding: 0; }
         .u-nav-links a {
           font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
           color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.3s; font-weight: 400;
         }
-        .u-nav.scrolled .u-nav-links a { color: var(--warm-700); }
+        .u-nav.scrolled .u-nav-links a { color: var(--text-secondary); }
         .u-nav-links a:hover { color: var(--gold); }
         @media (max-width: 768px) { .u-nav-links { display: none; } }
 
@@ -219,7 +222,7 @@ export default function Umrah() {
         .u-hero {
           position: relative; height: 100vh; min-height: 700px;
           display: flex; align-items: center; justify-content: center; overflow: hidden;
-          background: var(--warm-900);
+          background: var(--dark);
         }
         .u-hero-img {
           position: absolute; inset: 0;
@@ -227,7 +230,7 @@ export default function Umrah() {
           background-size: cover; background-position: center 40%;
           transform: scale(1.05);
           animation: uHeroZoom 20s ease-in-out infinite alternate;
-          filter: brightness(0.55) saturate(0.8);
+          filter: brightness(0.65) saturate(0.85);
         }
         @keyframes uHeroZoom {
           from { transform: scale(1.05); }
@@ -236,16 +239,16 @@ export default function Umrah() {
         .u-hero-vignette {
           position: absolute; inset: 0;
           background:
-            radial-gradient(ellipse at center, transparent 30%, rgba(26,21,16,0.6) 100%),
-            linear-gradient(180deg, rgba(26,21,16,0.5) 0%, transparent 30%, transparent 70%, rgba(26,21,16,0.7) 100%);
+            radial-gradient(ellipse at center, transparent 30%, rgba(58,53,48,0.6) 100%),
+            linear-gradient(180deg, rgba(58,53,48,0.5) 0%, transparent 30%, transparent 70%, rgba(58,53,48,0.7) 100%);
           z-index: 1;
         }
         .u-hero-bg {
           position: absolute; inset: 0; z-index: 2;
           background:
-            radial-gradient(ellipse at 30% 50%, rgba(92,124,94,0.12) 0%, transparent 60%),
-            radial-gradient(ellipse at 70% 30%, rgba(196,162,101,0.08) 0%, transparent 50%),
-            linear-gradient(180deg, rgba(26,21,16,0.6) 0%, rgba(44,36,24,0.45) 40%, rgba(44,36,24,0.65) 100%);
+            radial-gradient(ellipse at 30% 50%, rgba(92,99,48,0.12) 0%, transparent 60%),
+            radial-gradient(ellipse at 70% 30%, rgba(187,167,106,0.08) 0%, transparent 50%),
+            linear-gradient(180deg, rgba(58,53,48,0.6) 0%, rgba(74,69,64,0.45) 40%, rgba(74,69,64,0.65) 100%);
         }
         .u-hero-content {
           position: relative; z-index: 10; text-align: center; padding: 0 2rem; max-width: 900px;
@@ -256,22 +259,17 @@ export default function Umrah() {
           opacity: 0; animation: uFadeUp 1.2s 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
         .u-hero-title {
-          font-family: var(--u-serif); font-size: clamp(2rem, 6vw, 4.5rem);
+          font-family: var(--u-serif); font-size: clamp(2.5rem, 7vw, 5.5rem);
           font-weight: 300; color: var(--cream); line-height: 1.15; margin-bottom: 1.5rem;
           letter-spacing: -0.01em;
           text-rendering: optimizeLegibility;
           opacity: 0; animation: uFadeUp 1.4s 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
         .u-hero-title em { font-style: italic; color: var(--gold-light); font-weight: 400; }
-        .u-hero-title-amp {
-          display: block; font-family: var(--u-serif); font-size: 0.4em;
-          font-weight: 300; font-style: italic; color: rgba(245,240,232,0.45);
-          letter-spacing: 0.1em; line-height: 2.2;
-        }
         .u-hero-title-leading {
-          display: block; font-size: 0.45em; font-weight: 400;
-          letter-spacing: 0.12em; text-transform: uppercase;
-          color: rgba(245,240,232,0.7); margin-bottom: 0.3em;
+          display: block; font-size: 0.35em; font-weight: 400;
+          letter-spacing: 0.2em; text-transform: uppercase;
+          color: rgba(245,240,232,0.6); margin-bottom: 0.4em;
         }
         .u-hero-subtitle {
           font-family: var(--u-sans); font-size: clamp(1rem, 2vw, 1.25rem);
@@ -289,8 +287,8 @@ export default function Umrah() {
           opacity: 0; animation: uFadeUp 1.2s 1.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
         .u-hero-cta:hover {
-          background: var(--gold); color: var(--warm-900);
-          transform: translateY(-2px); box-shadow: 0 8px 30px rgba(196,162,101,0.25);
+          background: var(--gold); color: var(--dark);
+          transform: translateY(-2px); box-shadow: 0 8px 30px rgba(187,167,106,0.25);
         }
         .u-hero-cta svg { transition: transform 0.3s; }
         .u-hero-cta:hover svg { transform: translateX(4px); }
@@ -329,16 +327,16 @@ export default function Umrah() {
         }
         .u-section-title {
           font-family: var(--u-serif); font-size: clamp(2rem, 4vw, 3rem);
-          font-weight: 300; color: var(--warm-900); line-height: 1.2;
+          font-weight: 300; color: var(--dark); line-height: 1.2;
           letter-spacing: -0.01em;
         }
-        .u-section-title em { font-style: italic; font-weight: 400; }
+        .u-section-title em { font-style: italic; font-weight: 400; color: var(--crimson); }
 
         /* ── Experience Cards ── */
         .u-exp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
         @media (max-width: 768px) { .u-exp-grid { grid-template-columns: 1fr; } }
         .u-exp-card {
-          position: relative; background: var(--cream-light); border: 1px solid rgba(44,36,24,0.06);
+          position: relative; background: var(--cream-light); border: 1px solid rgba(74,69,64,0.06);
           padding: 2.5rem 2rem; text-align: center;
           transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
           overflow: hidden;
@@ -349,14 +347,14 @@ export default function Umrah() {
           opacity: 0; transition: opacity 0.5s;
         }
         .u-exp-card:hover::before { opacity: 1; }
-        .u-exp-card:hover { transform: translateY(-4px) !important; box-shadow: 0 20px 60px rgba(44,36,24,0.08); }
+        .u-exp-card:hover { transform: translateY(-4px) !important; box-shadow: 0 20px 60px rgba(74,69,64,0.08); }
         .u-exp-icon { width: 48px; height: 48px; margin: 0 auto 1.5rem; color: var(--sage); opacity: 0.8; }
-        .u-exp-card h3 { font-family: var(--u-serif); font-size: 1.4rem; font-weight: 500; color: var(--warm-900); margin-bottom: 0.75rem; letter-spacing: -0.01em; }
-        .u-exp-card p { font-size: 0.95rem; color: var(--warm-700); line-height: 1.6; font-weight: 300; }
+        .u-exp-card h3 { font-family: var(--u-serif); font-size: 1.4rem; font-weight: 500; color: var(--dark); margin-bottom: 0.75rem; letter-spacing: -0.01em; }
+        .u-exp-card p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; font-weight: 300; }
 
         /* ── Quote Band ── */
         .u-quote-band {
-          background: var(--warm-900); padding: 6rem 2rem; text-align: center;
+          background: var(--dark); padding: 6rem 2rem; text-align: center;
           position: relative; overflow: hidden;
         }
         .u-quote-mark { font-family: var(--u-serif); font-size: 6rem; color: var(--gold); opacity: 0.2; line-height: 1; margin-bottom: -1rem; }
@@ -372,30 +370,30 @@ export default function Umrah() {
         .u-journey-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
         @media (max-width: 768px) { .u-journey-grid { grid-template-columns: 1fr; } }
         .u-journey-card {
-          background: var(--cream-light); border: 1px solid rgba(44,36,24,0.06);
+          background: var(--cream-light); border: 1px solid rgba(74,69,64,0.06);
           padding: 2.5rem; position: relative; overflow: hidden;
           transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        .u-journey-card:hover { transform: translateY(-3px) !important; box-shadow: 0 16px 48px rgba(44,36,24,0.07); }
+        .u-journey-card:hover { transform: translateY(-3px) !important; box-shadow: 0 16px 48px rgba(74,69,64,0.07); }
         .u-journey-num {
           font-family: var(--u-serif); font-size: 3.5rem; font-weight: 300;
           color: var(--gold); opacity: 0.2; position: absolute; top: 1rem; right: 1.5rem; line-height: 1;
         }
-        .u-journey-card h4 { font-family: var(--u-serif); font-size: 1.35rem; font-weight: 500; color: var(--warm-900); margin-bottom: 0.75rem; letter-spacing: -0.01em; }
-        .u-journey-card p { font-size: 0.95rem; color: var(--warm-700); line-height: 1.7; font-weight: 300; }
+        .u-journey-card h4 { font-family: var(--u-serif); font-size: 1.35rem; font-weight: 500; color: var(--dark); margin-bottom: 0.75rem; letter-spacing: -0.01em; }
+        .u-journey-card p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; font-weight: 300; }
         .u-journey-icon { width: 28px; height: 28px; color: var(--sage); margin-bottom: 1rem; display: block; }
 
         /* ── Testimonial ── */
         .u-testimonial {
-          background: var(--cream-light); border: 1px solid rgba(44,36,24,0.06);
+          background: var(--cream-light); border: 1px solid rgba(74,69,64,0.06);
           padding: 3rem; text-align: center; max-width: 600px; margin: 0 auto;
         }
         .u-testimonial-text {
           font-family: var(--u-serif); font-size: 1.15rem; font-style: italic;
-          color: var(--warm-800); line-height: 1.7; margin-bottom: 1.5rem; font-weight: 400;
+          color: var(--text-primary); line-height: 1.7; margin-bottom: 1.5rem; font-weight: 400;
         }
-        .u-testimonial-name { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--warm-600); font-weight: 500; }
-        .u-testimonial-trip { font-size: 0.7rem; color: var(--warm-500); margin-top: 0.25rem; }
+        .u-testimonial-name { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-tertiary); font-weight: 500; }
+        .u-testimonial-trip { font-size: 0.7rem; color: var(--text-tertiary); margin-top: 0.25rem; }
 
         /* ── Scholar ── */
         .u-scholar { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: center; }
@@ -405,19 +403,44 @@ export default function Umrah() {
           position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
         }
         .u-scholar-placeholder { font-family: var(--u-serif); font-size: 4rem; font-weight: 300; color: rgba(245,240,232,0.2); font-style: italic; }
-        .u-scholar-info h3 { font-family: var(--u-serif); font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 300; color: var(--warm-900); margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+        .u-scholar-info h3 { font-family: var(--u-serif); font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 300; color: var(--dark); margin-bottom: 0.5rem; letter-spacing: -0.01em; }
         .u-scholar-role { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 1.5rem; }
-        .u-scholar-info p { font-size: 1rem; color: var(--warm-600); line-height: 1.8; font-weight: 300; margin-bottom: 1rem; }
+        .u-scholar-info p { font-size: 1rem; color: var(--text-tertiary); line-height: 1.8; font-weight: 300; margin-bottom: 1rem; }
+
+        /* Guest lecturer — same grid, lighter treatment */
+        .u-guest-divider {
+          max-width: 1100px; margin: 0 auto; padding: 0 0;
+          display: flex; align-items: center; gap: 1.5rem;
+        }
+        .u-guest-divider-line {
+          flex: 1; height: 1px;
+          background: linear-gradient(to right, transparent, rgba(74,69,64,0.1), transparent);
+        }
+        .u-guest-divider-label {
+          font-family: var(--u-sans); font-size: 0.65rem; letter-spacing: 0.25em;
+          text-transform: uppercase; color: var(--text-tertiary); font-weight: 500;
+          white-space: nowrap;
+        }
+        .u-guest { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: center; }
+        @media (max-width: 768px) { .u-guest { grid-template-columns: 1fr; gap: 2rem; } }
+        .u-guest-image {
+          aspect-ratio: 3/4; background: linear-gradient(135deg, var(--sage) 0%, var(--sage-dark) 100%);
+          position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
+        }
+        .u-guest-placeholder { font-family: var(--u-serif); font-size: 3.5rem; font-weight: 300; color: rgba(245,240,232,0.2); font-style: italic; }
+        .u-guest-info h3 { font-family: var(--u-serif); font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 300; color: var(--dark); margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+        .u-guest-role { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--crimson); font-weight: 500; margin-bottom: 1.25rem; }
+        .u-guest-info p { font-size: 0.95rem; color: var(--text-tertiary); line-height: 1.8; font-weight: 300; margin-bottom: 0.75rem; }
 
         /* ── Pricing ── */
         .u-pricing-section { background: var(--cream-light); position: relative; overflow: hidden; }
         .u-price-amount {
           font-family: var(--u-serif); font-size: clamp(3rem, 6vw, 4.5rem);
-          font-weight: 300; color: var(--warm-900); line-height: 1; margin-bottom: 0.5rem;
+          font-weight: 300; color: var(--dark); line-height: 1; margin-bottom: 0.5rem;
           letter-spacing: -0.02em;
         }
-        .u-price-amount span { font-size: 0.5em; vertical-align: super; color: var(--warm-600); }
-        .u-price-note { font-size: 1rem; color: var(--warm-600); font-weight: 300; }
+        .u-price-amount span { font-size: 0.5em; vertical-align: super; color: var(--text-tertiary); }
+        .u-price-note { font-size: 1rem; color: var(--text-tertiary); font-weight: 300; }
         .u-price-deposit {
           display: inline-block; margin-top: 1.5rem; padding: 0.6rem 2rem;
           background: var(--sage); color: var(--cream);
@@ -427,50 +450,50 @@ export default function Umrah() {
         @media (max-width: 900px) { .u-plans-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 500px) { .u-plans-grid { grid-template-columns: 1fr; } }
         .u-plan {
-          background: var(--cream); border: 1px solid rgba(44,36,24,0.08);
+          background: var(--cream); border: 1px solid rgba(74,69,64,0.08);
           padding: 2rem 1.5rem; text-align: center;
           transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1); position: relative;
         }
         .u-plan.featured {
-          background: var(--warm-900); color: var(--cream);
+          background: var(--dark); color: var(--cream);
           border-color: var(--gold);
-          box-shadow: 0 20px 60px rgba(44,36,24,0.15);
+          box-shadow: 0 20px 60px rgba(74,69,64,0.15);
         }
         .u-plan:not(.featured):hover { border-color: var(--gold); transform: translateY(-2px) !important; }
         .u-plan-badge {
           position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
-          background: var(--gold); color: var(--warm-900); padding: 0.25rem 1rem;
+          background: var(--gold); color: var(--dark); padding: 0.25rem 1rem;
           font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 600; white-space: nowrap;
         }
         .u-plan-name { font-family: var(--u-serif); font-size: 1.15rem; font-weight: 500; margin-bottom: 1rem; }
         .u-plan-price { font-family: var(--u-serif); font-size: 2.2rem; font-weight: 300; }
         .u-plan.featured .u-plan-price { color: var(--gold-light); }
-        .u-plan-period { font-size: 0.8rem; color: var(--warm-700); margin-top: 0.25rem; font-weight: 300; }
+        .u-plan-period { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem; font-weight: 300; }
         .u-plan.featured .u-plan-period { color: rgba(245,240,232,0.6); }
 
         /* ── Details Strip ── */
         .u-details-strip {
           display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
-          border: 1px solid rgba(44,36,24,0.08); background: var(--cream);
+          border: 1px solid rgba(74,69,64,0.08); background: var(--cream);
         }
         @media (max-width: 768px) { .u-details-strip { grid-template-columns: repeat(2, 1fr); } }
         .u-detail-item {
-          padding: 1.5rem; text-align: center; border-right: 1px solid rgba(44,36,24,0.06);
-          font-size: 0.85rem; color: var(--warm-700); font-weight: 300; line-height: 1.5;
+          padding: 1.5rem; text-align: center; border-right: 1px solid rgba(74,69,64,0.06);
+          font-size: 0.85rem; color: var(--text-secondary); font-weight: 300; line-height: 1.5;
         }
         .u-detail-item:last-child { border-right: none; }
         .u-detail-item strong {
-          display: block; font-weight: 500; color: var(--warm-900); margin-bottom: 0.25rem;
+          display: block; font-weight: 500; color: var(--dark); margin-bottom: 0.25rem;
           font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
         }
 
         /* ── FAQ ── */
         .u-faq-list { max-width: 700px; margin: 0 auto; }
-        .u-faq-item { border-bottom: 1px solid rgba(44,36,24,0.08); }
+        .u-faq-item { border-bottom: 1px solid rgba(74,69,64,0.08); }
         .u-faq-q {
           width: 100%; background: none; border: none; padding: 1.5rem 0;
           display: flex; justify-content: space-between; align-items: center; cursor: pointer;
-          font-family: var(--u-serif); font-size: 1.15rem; font-weight: 500; color: var(--warm-900); text-align: left;
+          font-family: var(--u-serif); font-size: 1.15rem; font-weight: 500; color: var(--dark); text-align: left;
         }
         .u-faq-q:hover { color: var(--sage); }
         .u-faq-icon {
@@ -485,11 +508,11 @@ export default function Umrah() {
           padding: 0;
         }
         .u-faq-item.open .u-faq-a { max-height: 250px; padding: 0 0 1.5rem; }
-        .u-faq-a p { font-size: 0.95rem; color: var(--warm-600); line-height: 1.7; font-weight: 300; }
+        .u-faq-a p { font-size: 0.95rem; color: var(--text-tertiary); line-height: 1.7; font-weight: 300; }
 
         /* ── CTA ── */
         .u-cta {
-          background: var(--warm-900); position: relative; overflow: hidden;
+          background: var(--dark); position: relative; overflow: hidden;
           padding: 7rem 2rem; text-align: center;
         }
         .u-cta-content { position: relative; z-index: 10; max-width: 650px; margin: 0 auto; }
@@ -509,7 +532,7 @@ export default function Umrah() {
         .u-cta-instruction { font-size: 0.8rem; color: rgba(245,240,232,0.5); letter-spacing: 0.1em; text-transform: uppercase; }
         .u-cta-button {
           display: inline-flex; align-items: center; gap: 0.75rem; margin-top: 1rem;
-          padding: 1.1rem 3rem; background: var(--gold); color: var(--warm-900);
+          padding: 1.1rem 3rem; background: var(--gold); color: var(--dark);
           font-family: var(--u-sans); font-size: 0.8rem; letter-spacing: 0.2em;
           text-transform: uppercase; text-decoration: none; font-weight: 600;
           cursor: pointer; border: none;
@@ -517,7 +540,7 @@ export default function Umrah() {
         }
         .u-cta-button:hover {
           background: var(--gold-light); transform: translateY(-2px);
-          box-shadow: 0 12px 40px rgba(196,162,101,0.3);
+          box-shadow: 0 12px 40px rgba(187,167,106,0.3);
         }
         .u-cta-spots {
           margin-top: 2rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
@@ -528,161 +551,164 @@ export default function Umrah() {
 
         /* ── Text of Study (Featured) ── */
         .u-study {
-          background: var(--warm-900); position: relative; overflow: hidden;
-          padding: 6rem 2rem;
+          background: var(--dark); position: relative; overflow: hidden;
+          padding: 6rem 2rem 5rem;
         }
-        @media (max-width: 768px) { .u-study { padding: 4rem 1.25rem; } }
+        @media (max-width: 768px) { .u-study { padding: 4rem 1.25rem 3.5rem; } }
         .u-study-inner {
           max-width: 1100px; margin: 0 auto; position: relative; z-index: 2;
         }
-        .u-study-layout {
-          display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: stretch;
+
+        /* Hero area: book + title side by side */
+        .u-study-hero {
+          display: grid; grid-template-columns: auto 1fr; gap: 3.5rem;
+          align-items: center; margin-bottom: 3.5rem;
+          padding-bottom: 3.5rem;
+          border-bottom: 1px solid rgba(187,167,106,0.12);
         }
         @media (max-width: 900px) {
-          .u-study-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-          .u-study-book-col { order: -1; }
+          .u-study-hero {
+            grid-template-columns: 1fr; gap: 2rem;
+            text-align: center; justify-items: center;
+          }
         }
-        .u-study-content { color: var(--cream); }
 
+        .u-study-title-block { color: var(--cream); }
         .u-study-arabic {
-          font-family: var(--u-arabic); font-size: clamp(1.5rem, 2.5vw, 2rem);
-          font-weight: 700; color: var(--gold); line-height: 1.8;
+          font-family: var(--u-arabic); font-size: clamp(1.6rem, 3vw, 2.4rem);
+          font-weight: 700; color: var(--gold); line-height: 1.7;
           margin-bottom: 0.75rem; direction: rtl; text-align: right;
         }
-        @media (max-width: 768px) {
-          .u-study-arabic { text-align: center; font-size: 1.3rem; }
-        }
+        @media (max-width: 900px) { .u-study-arabic { text-align: center; } }
         .u-study-transliteration {
-          font-family: var(--u-serif); font-size: clamp(1.1rem, 2vw, 1.4rem);
+          font-family: var(--u-serif); font-size: clamp(1.1rem, 2vw, 1.5rem);
           font-style: italic; color: var(--gold-light); opacity: 0.8;
-          margin-bottom: 0.25rem; line-height: 1.4;
+          margin-bottom: 0.25rem; line-height: 1.4; letter-spacing: -0.01em;
         }
-        @media (max-width: 768px) {
-          .u-study-transliteration { text-align: center; font-size: 1rem; }
-        }
+        @media (max-width: 900px) { .u-study-transliteration { text-align: center; } }
         .u-study-english {
-          font-family: var(--u-serif); font-size: clamp(1rem, 1.5vw, 1.15rem);
-          font-weight: 400; color: rgba(245,240,232,0.6);
-          margin-bottom: 2rem; font-style: italic;
+          font-family: var(--u-serif); font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+          font-weight: 400; color: rgba(245,240,232,0.5);
+          margin-bottom: 1.75rem; font-style: italic;
         }
-        @media (max-width: 768px) {
-          .u-study-english { text-align: center; }
+        @media (max-width: 900px) { .u-study-english { text-align: center; } }
+        .u-study-intro {
+          font-size: 0.95rem; color: rgba(245,240,232,0.65); line-height: 1.8;
+          font-weight: 300; max-width: 540px;
         }
-        .u-study-desc {
-          font-size: 0.95rem; color: rgba(245,240,232,0.7); line-height: 1.8;
-          font-weight: 300; margin-bottom: 1.5rem;
+        @media (max-width: 900px) { .u-study-intro { max-width: 100%; } }
+
+        /* Cards grid */
+        .u-study-cards {
+          display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+          margin-bottom: 2rem;
         }
-        @media (max-width: 768px) {
-          .u-study-desc { font-size: 0.9rem; line-height: 1.7; }
+        @media (max-width: 900px) { .u-study-cards { grid-template-columns: 1fr; } }
+        .u-study-card {
+          background: rgba(245,240,232,0.04);
+          border: 1px solid rgba(187,167,106,0.1);
+          padding: 2rem 1.75rem;
+          transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .u-study-card:hover {
+          background: rgba(245,240,232,0.06);
+          border-color: rgba(187,167,106,0.2);
+          transform: translateY(-3px) !important;
+        }
+        .u-study-card-icon {
+          width: 32px; height: 32px; color: var(--gold); opacity: 0.7;
+          margin-bottom: 1rem;
+        }
+        .u-study-card h4 {
+          font-family: var(--u-serif); font-size: 1.15rem; font-weight: 500;
+          color: var(--cream); margin-bottom: 0.75rem; letter-spacing: -0.01em;
+        }
+        .u-study-card p {
+          font-size: 0.88rem; color: rgba(245,240,232,0.6); line-height: 1.7;
+          font-weight: 300;
+        }
+        .u-study-card ul {
+          list-style: none; padding: 0; margin: 0;
+        }
+        .u-study-card ul li {
+          font-size: 0.88rem; color: rgba(245,240,232,0.6); font-weight: 300;
+          padding: 0.4rem 0 0.4rem 1.25rem; position: relative; line-height: 1.5;
+        }
+        .u-study-card ul li::before {
+          content: ''; position: absolute; left: 0; top: 0.7rem;
+          width: 5px; height: 5px; border: 1px solid var(--gold); transform: rotate(45deg);
         }
 
-        .u-study-divider {
-          width: 40px; height: 1px; margin: 2.5rem 0;
-          background: linear-gradient(to right, var(--gold), transparent);
+        /* Living Seerah banner */
+        .u-study-banner {
+          background: linear-gradient(135deg, rgba(187,167,106,0.1) 0%, rgba(92,99,48,0.08) 100%);
+          border: 1px solid rgba(187,167,106,0.15);
+          padding: 2.5rem 3rem;
+          display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem;
+          align-items: center;
         }
         @media (max-width: 768px) {
-          .u-study-divider { margin: 2rem 0; }
+          .u-study-banner { grid-template-columns: 1fr; padding: 2rem 1.5rem; gap: 1.5rem; }
         }
-
-        .u-study-subtitle {
-          font-family: var(--u-serif); font-size: 1.4rem; font-weight: 500;
-          color: var(--cream); margin-bottom: 1.25rem; letter-spacing: -0.01em;
+        .u-study-banner h4 {
+          font-family: var(--u-serif); font-size: clamp(1.3rem, 2vw, 1.6rem); font-weight: 400;
+          color: var(--gold-light); line-height: 1.4; letter-spacing: -0.01em;
+          font-style: italic;
         }
-        .u-study-list {
-          list-style: none; padding: 0; margin: 0 0 1.5rem;
+        .u-study-banner p {
+          font-size: 0.9rem; color: rgba(245,240,232,0.6); line-height: 1.8;
+          font-weight: 300;
         }
-        .u-study-list li {
-          font-size: 0.95rem; color: rgba(245,240,232,0.7); font-weight: 300;
-          padding: 0.5rem 0; padding-left: 1.5rem; position: relative; line-height: 1.6;
-        }
-        .u-study-list li::before {
-          content: ''; position: absolute; left: 0; top: 0.85rem;
-          width: 6px; height: 6px; border: 1px solid var(--gold); transform: rotate(45deg);
-        }
-
-        .u-study-enrichment {
-          font-size: 0.9rem; color: rgba(245,240,232,0.55); line-height: 1.8;
-          font-weight: 300; font-style: italic;
-        }
-
-        .u-study-living {
-          background: rgba(196,162,101,0.08); border: 1px solid rgba(196,162,101,0.15);
-          padding: 2rem 2.5rem; margin-top: 2.5rem;
-        }
-        @media (max-width: 768px) {
-          .u-study-living { padding: 1.5rem; margin-top: 2rem; }
-        }
-        .u-study-living h4 {
-          font-family: var(--u-serif); font-size: 1.25rem; font-weight: 500;
-          color: var(--gold-light); margin-bottom: 1rem;
-        }
-        .u-study-living p {
-          font-size: 0.95rem; color: rgba(245,240,232,0.7); line-height: 1.8;
-          font-weight: 300; margin-bottom: 0.75rem;
-        }
-        .u-study-living p:last-child { margin-bottom: 0; }
 
         /* Book mockup — real cover image */
         .u-study-book-col {
-          display: flex; align-items: flex-start; justify-content: center;
-          position: relative;
-        }
-        @media (min-width: 901px) {
-          .u-study-book-col { position: sticky; top: 6rem; align-self: start; }
+          display: flex; align-items: center; justify-content: center;
         }
         @media (max-width: 900px) {
-          .u-study-book-col { max-width: 300px; margin: 0 auto; }
+          .u-study-book-col { max-width: 280px; margin: 0 auto; }
         }
         .u-study-book-wrapper {
-          position: relative;
-          width: 100%;
-          max-width: 420px;
-          perspective: 1200px;
+          position: relative; width: 100%; max-width: 340px; perspective: 1200px;
+        }
+        @media (min-width: 901px) {
+          .u-study-book-wrapper { max-width: 380px; }
         }
         .u-study-book {
           position: relative;
-          transform: rotateY(-3deg);
+          transform: rotateY(-2deg);
           transform-origin: left center;
           transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        .u-study-book:hover {
-          transform: rotateY(0deg);
-        }
+        .u-study-book:hover { transform: rotateY(0deg); }
         .u-study-book img {
           display: block; width: 100%; height: auto;
+          border-radius: 2px;
           box-shadow:
-            6px 6px 20px rgba(0,0,0,0.35),
-            20px 20px 60px rgba(0,0,0,0.25),
-            -1px 0 3px rgba(255,255,255,0.04);
+            4px 4px 16px rgba(0,0,0,0.15),
+            12px 12px 40px rgba(0,0,0,0.1);
         }
-        /* Spine shadow on left edge */
         .u-study-book::before {
-          content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 20px; z-index: 2;
-          background: linear-gradient(to right, rgba(0,0,0,0.35), rgba(0,0,0,0.1) 40%, transparent);
-          pointer-events: none;
+          content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 14px; z-index: 2;
+          background: linear-gradient(to right, rgba(0,0,0,0.15), rgba(0,0,0,0.04) 50%, transparent);
+          pointer-events: none; border-radius: 2px 0 0 2px;
         }
-        /* Subtle light reflection on right edge */
         .u-study-book::after {
-          content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 30px; z-index: 2;
-          background: linear-gradient(to left, rgba(255,255,255,0.04), transparent);
+          content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 20px; z-index: 2;
+          background: linear-gradient(to left, rgba(255,255,255,0.06), transparent);
           pointer-events: none;
         }
-        /* Page edges visible on the right */
         .u-study-book-pages {
-          position: absolute; right: -4px; top: 4px; bottom: 4px; width: 8px; z-index: -1;
+          position: absolute; right: -3px; top: 3px; bottom: 3px; width: 6px; z-index: -1;
           background: linear-gradient(to right,
-            #d4cfc5, #e8e3d9 20%, #d4cfc5 40%, #e8e3d9 60%, #d4cfc5 80%, #ddd8ce
+            #e0dbd2, #ebe7df 25%, #e0dbd2 50%, #ebe7df 75%, #e0dbd2
           );
-          box-shadow: 4px 2px 10px rgba(0,0,0,0.2);
-          transform: skewY(1deg);
+          box-shadow: 3px 1px 8px rgba(0,0,0,0.1);
+          border-radius: 0 1px 1px 0;
         }
         @media (max-width: 768px) {
-          .u-study-book-wrapper { max-width: 260px; }
+          .u-study-book-wrapper { max-width: 280px; }
           .u-study-book { transform: rotateY(0deg); }
-          .u-study-book-pages { right: -3px; width: 6px; top: 3px; bottom: 3px; }
-        }
-        @media (max-width: 400px) {
-          .u-study-book-wrapper { max-width: 220px; }
+          .u-study-book-pages { right: -2px; width: 5px; top: 2px; bottom: 2px; }
         }
 
         /* ── Global mobile refinements ── */
@@ -693,9 +719,8 @@ export default function Umrah() {
 
           .u-hero { min-height: 100svh; }
           .u-hero-content { padding: 0 1.25rem; }
-          .u-hero-title { font-size: clamp(1.6rem, 5.5vw, 2.8rem); line-height: 1.2; margin-bottom: 1.25rem; }
-          .u-hero-title-leading { font-size: 0.5em; margin-bottom: 0.2em; }
-          .u-hero-title-amp { line-height: 2; }
+          .u-hero-title { font-size: clamp(2rem, 8vw, 3.5rem); line-height: 1.15; margin-bottom: 1.25rem; }
+          .u-hero-title-leading { font-size: 0.38em; margin-bottom: 0.3em; }
           .u-hero-eyebrow { font-size: 0.65rem; letter-spacing: 0.25em; margin-bottom: 1.5rem; }
           .u-hero-subtitle { font-size: 0.95rem; margin-bottom: 2rem; line-height: 1.6; }
           .u-hero-cta { padding: 0.85rem 2rem; font-size: 0.7rem; letter-spacing: 0.15em; }
@@ -749,30 +774,30 @@ export default function Umrah() {
         }
 
         @media (max-width: 400px) {
-          .u-hero-title { font-size: 1.5rem; }
-          .u-hero-title-leading { font-size: 0.55em; }
+          .u-hero-title { font-size: 1.8rem; }
+          .u-hero-title-leading { font-size: 0.4em; }
           .u-plans-grid { grid-template-columns: 1fr; }
           .u-details-strip { grid-template-columns: 1fr; }
-          .u-detail-item { border-right: none; border-bottom: 1px solid rgba(44,36,24,0.06); }
+          .u-detail-item { border-right: none; border-bottom: 1px solid rgba(74,69,64,0.06); }
           .u-detail-item:last-child { border-bottom: none; }
           .u-cta-keyword { font-size: 1.1rem; padding: 0.6rem 1.5rem; }
         }
 
         /* ── Footer ── */
         .u-footer {
-          padding: 3rem 2rem; text-align: center; background: #1a1510;
+          padding: 3rem 2rem; text-align: center; background: #3a3530;
           color: rgba(245,240,232,0.3); font-size: 0.75rem; letter-spacing: 0.1em;
         }
 
         /* ── Back to Top ── */
         .u-btt {
           position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px;
-          background: var(--warm-900); color: var(--gold); border: 1px solid var(--gold);
+          background: var(--dark); color: var(--gold); border: 1px solid var(--gold);
           display: flex; align-items: center; justify-content: center; cursor: pointer;
           opacity: 0; pointer-events: none; transition: all 0.4s; z-index: 90;
         }
         .u-btt.visible { opacity: 1; pointer-events: auto; }
-        .u-btt:hover { background: var(--gold); color: var(--warm-900); }
+        .u-btt:hover { background: var(--gold); color: var(--dark); }
       `}</style>
 
       <div className="u-page" style={{ minHeight: '100vh' }}>
@@ -818,8 +843,6 @@ export default function Umrah() {
             <h1 className="u-hero-title">
               <span className="u-hero-title-leading">Umrah with</span>
               <em>Shaykh Mustafa Briggs</em>
-              <span className="u-hero-title-amp">&amp;</span>
-              <em>Shaykh Zakariya Abdul Aziz</em>
             </h1>
             <p className="u-hero-subtitle">A seerah-based journey of knowledge, spirituality, and transformation — walking where the Prophet ﷺ walked.</p>
             <a href="#pricing" className="u-hero-cta">
@@ -889,69 +912,65 @@ export default function Umrah() {
               <h2 className="u-section-title" style={{ color: 'var(--cream)' }}>The <em>Poem</em> We Will Study</h2>
             </Reveal>
 
-            <div className="u-study-layout">
-              {/* Left: Content */}
-              <div className="u-study-content">
-                <Reveal delay={0}>
-                  <p className="u-study-arabic">الأرجوزة الميئية في ذكر حال أشرف البرية</p>
-                  <p className="u-study-transliteration">Al-Arjūzah al-Mi'iyyah fī Dhikr Ḥāl Ashraf al-Bariyyah</p>
-                  <p className="u-study-english">A Hundred-Line Poem on the Life of the Noblest of Creation</p>
-                </Reveal>
-
-                <Reveal delay={150}>
-                  <p className="u-study-desc">
-                    A classical poem and concise yet powerful summary of the Seerah of the Prophet ﷺ. Composed in approximately one hundred lines of rajaz poetry, it traces the key moments of his blessed life — from lineage and birth to revelation, Hijrah, the Madinan period, and his passing ﷺ — while also highlighting his noble character and virtues.
-                  </p>
-                  <p className="u-study-desc">
-                    The poem was authored by Imām Ibn Abī al-ʿIzz al-Ḥanafī (d. 792 AH), a distinguished jurist of Damascus, best known for his commentary on al-ʿAqīdah al-Ṭaḥāwiyyah. This work reflects the classical scholarly tradition of distilling the Seerah into a structured, memorable form for study and reflection.
-                  </p>
-                </Reveal>
-
-                <Reveal delay={300}>
-                  <div className="u-study-divider" />
-                  <h3 className="u-study-subtitle">Method of Study</h3>
-                  <p className="u-study-desc">
-                    This poem will serve as the foundation of our daily sessions. Each lesson will include:
-                  </p>
-                  <ul className="u-study-list">
-                    <li>Recitation of selected lines</li>
-                    <li>Translation and concise commentary</li>
-                    <li>Key historical context and reflections</li>
-                  </ul>
-                  <p className="u-study-enrichment">
-                    We will further enrich the text through relevant Qur'anic verses, Prophetic hadith, and insights from the classical scholars, while also drawing on the Shamā'il to deepen our understanding of the character and presence of the Prophet ﷺ.
-                  </p>
-                </Reveal>
-
-                <Reveal delay={450}>
-                  <div className="u-study-living">
-                    <h4>A Living Seerah</h4>
-                    <p>
-                      Studied in the blessed city of Madinah, this text moves beyond theory. As we visit key sites and walk the very spaces where these events unfolded, the Seerah is experienced — not just learned.
-                    </p>
-                    <p>
-                      This is an opportunity to combine knowledge, place, and presence, and to connect to the life of the Prophet ﷺ with clarity, depth, and love.
-                    </p>
-                  </div>
-                </Reveal>
-              </div>
-
-              {/* Right: Book cover mockup */}
-              <div className="u-study-book-col">
-                <Reveal delay={200} style={{ width: '100%' }}>
+            {/* Hero: Book + Title */}
+            <Reveal>
+              <div className="u-study-hero">
+                <div className="u-study-book-col">
                   <div className="u-study-book-wrapper">
                     <div className="u-study-book">
                       <img
-                        src="/images/book-cover.jpg"
+                        src="https://images.arabicbookshop.net/318-057_4_3.jpg"
                         alt="Al-Arjūzah al-Mi'iyyah — A Hundred-Line Poem on the Life of the Noblest of Creation"
                         loading="lazy"
                       />
                       <div className="u-study-book-pages" />
                     </div>
                   </div>
-                </Reveal>
+                </div>
+                <div className="u-study-title-block">
+                  <p className="u-study-arabic">الأرجوزة الميئية في ذكر حال أشرف البرية</p>
+                  <p className="u-study-transliteration">Al-Arjūzah al-Mi'iyyah fī Dhikr Ḥāl Ashraf al-Bariyyah</p>
+                  <p className="u-study-english">A Hundred-Line Poem on the Life of the Noblest of Creation</p>
+                  <p className="u-study-intro">
+                    Composed in approximately one hundred lines of rajaz poetry, this classical work traces the key moments of the Prophet's ﷺ blessed life — from lineage and birth to revelation, Hijrah, the Madinan period, and his passing — while highlighting his noble character and virtues.
+                  </p>
+                </div>
               </div>
+            </Reveal>
+
+            {/* Three cards */}
+            <div className="u-study-cards">
+              <Reveal className="u-study-card" delay={0}>
+                <svg className="u-study-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></svg>
+                <h4>The Author</h4>
+                <p>Imām Ibn Abī al-ʿIzz al-Ḥanafī (d. 792 AH), a distinguished jurist of Damascus best known for his commentary on al-ʿAqīdah al-Ṭaḥāwiyyah. This work reflects the classical tradition of distilling the Seerah into a structured, memorable form.</p>
+              </Reveal>
+
+              <Reveal className="u-study-card" delay={150}>
+                <svg className="u-study-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
+                <h4>Daily Method</h4>
+                <p>This poem serves as the foundation of our daily sessions. Each lesson includes:</p>
+                <ul>
+                  <li>Recitation of selected lines</li>
+                  <li>Translation &amp; concise commentary</li>
+                  <li>Key historical context &amp; reflections</li>
+                </ul>
+              </Reveal>
+
+              <Reveal className="u-study-card" delay={300}>
+                <svg className="u-study-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                <h4>Enriched Learning</h4>
+                <p>We further enrich the text through relevant Qur'anic verses, Prophetic hadith, and insights from the classical scholars, while drawing on the Shamā'il to deepen our understanding of the character and presence of the Prophet ﷺ.</p>
+              </Reveal>
             </div>
+
+            {/* Living Seerah banner */}
+            <Reveal>
+              <div className="u-study-banner">
+                <h4>Studied in Madinah, this text moves beyond theory — the Seerah is experienced, not just learned.</h4>
+                <p>As we visit key sites and walk the very spaces where these events unfolded, this becomes an opportunity to combine knowledge, place, and presence, and to connect to the life of the Prophet ﷺ with clarity, depth, and love.</p>
+              </div>
+            </Reveal>
           </div>
         </section>
 
@@ -986,13 +1005,15 @@ export default function Umrah() {
           </div>
         </section>
 
-        {/* ═══ Scholar ═══ */}
+        {/* ═══ Scholars ═══ */}
         <section className="u-section" id="scholar" style={{ background: 'var(--cream-light)' }}>
           <div className="u-section-inner">
             <Reveal className="u-section-header">
-              <p className="u-section-eyebrow">Your Guide</p>
-              <h2 className="u-section-title">Shaykh <em>Mustafa Briggs</em></h2>
+              <p className="u-section-eyebrow">Your Guides</p>
+              <h2 className="u-section-title">Led by <em>Scholars</em> of Tradition</h2>
             </Reveal>
+
+            {/* Primary: Shaykh Mustafa Briggs */}
             <div className="u-scholar">
               <Reveal delay={0}>
                 <div className="u-scholar-image">
@@ -1001,10 +1022,35 @@ export default function Umrah() {
               </Reveal>
               <Reveal delay={200}>
                 <div className="u-scholar-info">
-                  <h3>Mustafa Briggs</h3>
-                  <p className="u-scholar-role">Scholar · Author · Guide</p>
+                  <h3>Shaykh Mustafa Briggs</h3>
+                  <p className="u-scholar-role">Scholar · Author · Lead Guide</p>
                   <p>Shaykh Mustafa Briggs is a scholar of Islamic history and the author of <em>Beyond Bilal: Black History in the Muslim World</em>. He has dedicated years to studying the Seerah and the rich tapestry of Islamic civilization across continents.</p>
                   <p>His approach weaves together deep historical knowledge with living spiritual practice — transforming the places you visit from landmarks into profound encounters with the legacy of the Prophet ﷺ and the scholars who followed.</p>
+                </div>
+              </Reveal>
+            </div>
+
+            {/* Divider */}
+            <Reveal style={{ padding: '3rem 0' }}>
+              <div className="u-guest-divider">
+                <div className="u-guest-divider-line" />
+                <span className="u-guest-divider-label">Guest Lecturer</span>
+                <div className="u-guest-divider-line" />
+              </div>
+            </Reveal>
+
+            {/* Guest: Shaykh Zakariya Abdul Aziz */}
+            <div className="u-guest">
+              <Reveal delay={0}>
+                <div className="u-guest-image">
+                  <span className="u-guest-placeholder">ز</span>
+                </div>
+              </Reveal>
+              <Reveal delay={200}>
+                <div className="u-guest-info">
+                  <h3>Shaykh Zakariya Abdul Aziz</h3>
+                  <p className="u-guest-role">Guest Lecturer</p>
+                  <p>Shaykh Zakariya Abdul Aziz joins us as a guest lecturer, bringing his own depth of scholarship and spiritual insight to enrich the journey. His sessions will complement the core programme, offering additional perspectives on the Seerah and the living tradition of Islamic knowledge.</p>
                 </div>
               </Reveal>
             </div>
@@ -1028,7 +1074,7 @@ export default function Umrah() {
             </Reveal>
 
             <Reveal>
-              <p style={{ textAlign: 'center', fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase' as const, color: 'var(--warm-600)', marginBottom: '2rem', fontWeight: 500 }}>
+              <p style={{ textAlign: 'center', fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase' as const, color: 'var(--text-tertiary)', marginBottom: '2rem', fontWeight: 500 }}>
                 Flexible Payment Plans
               </p>
             </Reveal>
