@@ -1,5 +1,53 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
+/* ══════════════════════════════════════════════════════════
+   Reveal hook — triggers once when element enters viewport
+   ══════════════════════════════════════════════════════════ */
+function useReveal(delay = 0, threshold = 0.15) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          obs.unobserve(el);
+        }
+      },
+      { threshold, rootMargin: '0px 0px -80px 0px' }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+
+  const style: React.CSSProperties = {
+    opacity: visible ? 1 : 0,
+    transform: visible ? 'translateY(0) scale(1)' : 'translateY(50px) scale(0.98)',
+    transition: `opacity 1s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms, transform 1s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms`,
+    willChange: 'opacity, transform',
+  };
+
+  return { ref, style };
+}
+
+/* Simple wrapper component */
+function Reveal({ children, className = '', delay = 0, threshold = 0.15, style: extraStyle }: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+  threshold?: number;
+  style?: React.CSSProperties;
+}) {
+  const { ref, style } = useReveal(delay, threshold);
+  return <div ref={ref} className={className} style={{ ...style, ...extraStyle }}>{children}</div>;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Main Component
+   ══════════════════════════════════════════════════════════ */
 export default function Umrah() {
   const [navScrolled, setNavScrolled] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -10,14 +58,42 @@ export default function Umrah() {
       setNavScrolled(window.scrollY > 80);
       setShowBackToTop(window.scrollY > 500);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  const plans = [
+    { name: '5 Months', price: '$800', period: 'per month × 5', featured: false },
+    { name: '4 Months', price: '$1,000', period: 'per month × 4', featured: true, badge: 'Most Popular' },
+    { name: '2 Months', price: '$2,000', period: 'per month × 2', featured: false },
+    { name: 'Pay in Full', price: '$4,500', period: 'one payment', featured: false },
+  ];
+
+  const journeyItems = [
+    { num: '01', icon: 'book', title: 'Seerah Immersion', desc: 'Morning sessions exploring the life of the Prophet ﷺ, Qur\'anic reflections, and insights from classical scholarship.' },
+    { num: '02', icon: 'globe', title: 'Sacred Geography', desc: 'Guided visits to places of profound significance — where revelation descended and history was shaped.' },
+    { num: '03', icon: 'users', title: 'Spiritual Brotherhood', desc: 'An intimate gathering of seekers. Forge bonds of faith alongside fellow travelers in a supportive, close-knit circle.' },
+    { num: '04', icon: 'star', title: 'Uncompromised Comfort', desc: 'Every detail handled — from 5-star lodging steps from the Haram to seamless logistics throughout your stay.' },
+  ];
+
+  const faqs = [
+    { q: 'What is included in the package?', a: 'Your package includes 5-star accommodation in Makkah and Madinah, daily classes with Shaykh Mustafa Briggs, guided historical site visits, ground transportation, and group coordination. Flights are arranged separately.' },
+    { q: 'How do I secure my spot?', a: 'Send the word "UMRAH" via WhatsApp to begin the registration process. A $500 non-refundable deposit will secure your place in the group.' },
+    { q: 'Are flights included?', a: 'Flights are not included in the package price. The team will provide guidance on booking flights once your spot is confirmed.' },
+    { q: 'What is the group size?', a: 'The group is kept intentionally intimate to ensure a meaningful, personal experience. Spaces are limited and allocated on a first-come basis.' },
+    { q: 'Do I need prior Islamic knowledge?', a: 'Not at all. The program is designed to meet you where you are. Whether beginning your journey or deepening existing knowledge, every session is accessible and enriching.' },
+  ];
 
   return (
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap');
+
+        html { scroll-behavior: smooth; }
 
         :root {
           --cream: #F5F0E8;
@@ -38,7 +114,10 @@ export default function Umrah() {
           --u-sans: 'Jost', sans-serif;
         }
 
-        .u-page { font-family: var(--u-sans); background: var(--cream); color: var(--warm-800); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        .u-page {
+          font-family: var(--u-sans); background: var(--cream); color: var(--warm-800);
+          -webkit-font-smoothing: antialiased; overflow-x: hidden;
+        }
 
         .u-pattern-overlay {
           position: absolute; inset: 0; opacity: 0.04; pointer-events: none;
@@ -52,7 +131,7 @@ export default function Umrah() {
           background-size: 200px 200px;
         }
 
-        /* Nav */
+        /* ── Nav ── */
         .u-nav {
           position: fixed; top: 0; left: 0; right: 0; z-index: 100;
           padding: 1.25rem 2rem; display: flex; justify-content: space-between; align-items: center;
@@ -77,7 +156,7 @@ export default function Umrah() {
         .u-nav-links a:hover { color: var(--gold); }
         @media (max-width: 768px) { .u-nav-links { display: none; } }
 
-        /* Hero */
+        /* ── Hero ── */
         .u-hero {
           position: relative; height: 100vh; min-height: 700px;
           display: flex; align-items: center; justify-content: center; overflow: hidden;
@@ -95,19 +174,19 @@ export default function Umrah() {
         .u-hero-eyebrow {
           font-family: var(--u-sans); font-size: 0.75rem; letter-spacing: 0.35em;
           text-transform: uppercase; color: var(--gold); margin-bottom: 2rem;
-          opacity: 0; animation: uFadeUp 1s 0.3s forwards;
+          opacity: 0; animation: uFadeUp 1.2s 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
         .u-hero-title {
           font-family: var(--u-serif); font-size: clamp(2.5rem, 7vw, 5.5rem);
           font-weight: 300; color: var(--cream); line-height: 1.1; margin-bottom: 1.5rem;
-          opacity: 0; animation: uFadeUp 1.2s 0.5s forwards;
+          opacity: 0; animation: uFadeUp 1.4s 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
         .u-hero-title em { font-style: italic; color: var(--gold-light); font-weight: 400; }
         .u-hero-subtitle {
           font-family: var(--u-sans); font-size: clamp(1rem, 2vw, 1.25rem);
           color: rgba(245,240,232,0.7); font-weight: 300; line-height: 1.7;
           max-width: 600px; margin: 0 auto 3rem;
-          opacity: 0; animation: uFadeUp 1.2s 0.7s forwards;
+          opacity: 0; animation: uFadeUp 1.4s 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
         .u-hero-cta {
           display: inline-flex; align-items: center; gap: 0.75rem;
@@ -116,7 +195,7 @@ export default function Umrah() {
           font-family: var(--u-sans); font-size: 0.8rem; letter-spacing: 0.2em;
           text-transform: uppercase; text-decoration: none; cursor: pointer;
           transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-          opacity: 0; animation: uFadeUp 1s 0.9s forwards;
+          opacity: 0; animation: uFadeUp 1.2s 1.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
         .u-hero-cta:hover {
           background: var(--gold); color: var(--warm-900);
@@ -128,19 +207,28 @@ export default function Umrah() {
           position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
           display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
           color: rgba(245,240,232,0.4); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
-          animation: uFadeIn 1s 1.5s forwards; opacity: 0;
+          opacity: 0; animation: uFadeIn 1s 2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
         .u-scroll-line {
           width: 1px; height: 40px;
           background: linear-gradient(to bottom, var(--gold), transparent);
-          animation: uScrollPulse 2s infinite;
+          animation: uScrollPulse 2.5s ease-in-out infinite;
         }
 
-        @keyframes uFadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes uFadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes uScrollPulse { 0%,100% { opacity: 0.3; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.2); } }
+        @keyframes uFadeUp {
+          from { opacity: 0; transform: translateY(40px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes uFadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes uScrollPulse {
+          0%, 100% { opacity: 0.3; transform: scaleY(1); }
+          50% { opacity: 1; transform: scaleY(1.3); }
+        }
 
-        /* Sections */
+        /* ── Sections ── */
         .u-section { padding: 5rem 2rem; position: relative; }
         .u-section-inner { max-width: 1100px; margin: 0 auto; }
         .u-section-header { text-align: center; margin-bottom: 4rem; }
@@ -154,13 +242,14 @@ export default function Umrah() {
         }
         .u-section-title em { font-style: italic; font-weight: 400; }
 
-        /* Experience Cards */
+        /* ── Experience Cards ── */
         .u-exp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
         @media (max-width: 768px) { .u-exp-grid { grid-template-columns: 1fr; } }
         .u-exp-card {
           position: relative; background: var(--cream-light); border: 1px solid rgba(44,36,24,0.06);
           padding: 2.5rem 2rem; text-align: center;
-          transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1); overflow: hidden;
+          transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+          overflow: hidden;
         }
         .u-exp-card::before {
           content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
@@ -168,12 +257,12 @@ export default function Umrah() {
           opacity: 0; transition: opacity 0.5s;
         }
         .u-exp-card:hover::before { opacity: 1; }
-        .u-exp-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(44,36,24,0.08); }
+        .u-exp-card:hover { transform: translateY(-4px) !important; box-shadow: 0 20px 60px rgba(44,36,24,0.08); }
         .u-exp-icon { width: 48px; height: 48px; margin: 0 auto 1.5rem; color: var(--sage); opacity: 0.8; }
         .u-exp-card h3 { font-family: var(--u-serif); font-size: 1.4rem; font-weight: 500; color: var(--warm-900); margin-bottom: 0.75rem; }
         .u-exp-card p { font-size: 0.95rem; color: var(--warm-600); line-height: 1.6; font-weight: 300; }
 
-        /* Quote Band */
+        /* ── Quote Band ── */
         .u-quote-band {
           background: var(--warm-900); padding: 6rem 2rem; text-align: center;
           position: relative; overflow: hidden;
@@ -186,24 +275,24 @@ export default function Umrah() {
         }
         .u-quote-attr { margin-top: 2rem; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 400; }
 
-        /* Journey */
+        /* ── Journey ── */
         .u-journey-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
         @media (max-width: 768px) { .u-journey-grid { grid-template-columns: 1fr; } }
         .u-journey-card {
           background: var(--cream-light); border: 1px solid rgba(44,36,24,0.06);
           padding: 2.5rem; position: relative; overflow: hidden;
-          transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+          transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        .u-journey-card:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(44,36,24,0.07); }
+        .u-journey-card:hover { transform: translateY(-3px) !important; box-shadow: 0 16px 48px rgba(44,36,24,0.07); }
         .u-journey-num {
           font-family: var(--u-serif); font-size: 3.5rem; font-weight: 300;
           color: var(--gold); opacity: 0.2; position: absolute; top: 1rem; right: 1.5rem; line-height: 1;
         }
         .u-journey-card h4 { font-family: var(--u-serif); font-size: 1.35rem; font-weight: 500; color: var(--warm-900); margin-bottom: 0.75rem; }
         .u-journey-card p { font-size: 0.95rem; color: var(--warm-600); line-height: 1.7; font-weight: 300; }
-        .u-journey-icon { width: 28px; height: 28px; color: var(--sage); margin-bottom: 1rem; }
+        .u-journey-icon { width: 28px; height: 28px; color: var(--sage); margin-bottom: 1rem; display: block; }
 
-        /* Testimonial */
+        /* ── Testimonial ── */
         .u-testimonial {
           background: var(--cream-light); border: 1px solid rgba(44,36,24,0.06);
           padding: 3rem; text-align: center; max-width: 600px; margin: 0 auto;
@@ -215,7 +304,7 @@ export default function Umrah() {
         .u-testimonial-name { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--warm-600); font-weight: 500; }
         .u-testimonial-trip { font-size: 0.7rem; color: var(--warm-500); margin-top: 0.25rem; }
 
-        /* Scholar */
+        /* ── Scholar ── */
         .u-scholar { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: center; }
         @media (max-width: 768px) { .u-scholar { grid-template-columns: 1fr; gap: 2rem; } }
         .u-scholar-image {
@@ -227,7 +316,7 @@ export default function Umrah() {
         .u-scholar-role { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-bottom: 1.5rem; }
         .u-scholar-info p { font-size: 1rem; color: var(--warm-600); line-height: 1.8; font-weight: 300; margin-bottom: 1rem; }
 
-        /* Pricing */
+        /* ── Pricing ── */
         .u-pricing-section { background: var(--cream-light); }
         .u-price-amount {
           font-family: var(--u-serif); font-size: clamp(3rem, 6vw, 4.5rem);
@@ -250,10 +339,10 @@ export default function Umrah() {
         }
         .u-plan.featured {
           background: var(--warm-900); color: var(--cream);
-          border-color: var(--gold); transform: scale(1.03);
+          border-color: var(--gold);
           box-shadow: 0 20px 60px rgba(44,36,24,0.15);
         }
-        .u-plan:not(.featured):hover { border-color: var(--gold); transform: translateY(-2px); }
+        .u-plan:not(.featured):hover { border-color: var(--gold); transform: translateY(-2px) !important; }
         .u-plan-badge {
           position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
           background: var(--gold); color: var(--warm-900); padding: 0.25rem 1rem;
@@ -265,7 +354,7 @@ export default function Umrah() {
         .u-plan-period { font-size: 0.8rem; color: var(--warm-500); margin-top: 0.25rem; font-weight: 300; }
         .u-plan.featured .u-plan-period { color: rgba(245,240,232,0.6); }
 
-        /* Details Strip */
+        /* ── Details Strip ── */
         .u-details-strip {
           display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
           border: 1px solid rgba(44,36,24,0.08); background: var(--cream);
@@ -281,7 +370,7 @@ export default function Umrah() {
           font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
         }
 
-        /* FAQ */
+        /* ── FAQ ── */
         .u-faq-list { max-width: 700px; margin: 0 auto; }
         .u-faq-item { border-bottom: 1px solid rgba(44,36,24,0.08); }
         .u-faq-q {
@@ -291,19 +380,20 @@ export default function Umrah() {
         }
         .u-faq-q:hover { color: var(--sage); }
         .u-faq-icon {
-          width: 20px; height: 20px; color: var(--gold); transition: transform 0.3s;
+          width: 20px; height: 20px; min-width: 20px; color: var(--gold);
+          transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
           flex-shrink: 0; margin-left: 1rem;
         }
         .u-faq-item.open .u-faq-icon { transform: rotate(45deg); }
         .u-faq-a {
           max-height: 0; overflow: hidden;
-          transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1), padding 0.4s;
+          transition: max-height 0.6s cubic-bezier(0.22, 1, 0.36, 1), padding 0.6s cubic-bezier(0.22, 1, 0.36, 1);
           padding: 0;
         }
-        .u-faq-item.open .u-faq-a { max-height: 200px; padding: 0 0 1.5rem; }
+        .u-faq-item.open .u-faq-a { max-height: 250px; padding: 0 0 1.5rem; }
         .u-faq-a p { font-size: 0.95rem; color: var(--warm-600); line-height: 1.7; font-weight: 300; }
 
-        /* CTA */
+        /* ── CTA ── */
         .u-cta {
           background: var(--warm-900); position: relative; overflow: hidden;
           padding: 7rem 2rem; text-align: center;
@@ -341,13 +431,137 @@ export default function Umrah() {
         .u-cta-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sage); animation: uPulse 2s infinite; }
         @keyframes uPulse { 0%,100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); } }
 
-        /* Footer */
+        /* ── Text of Study (Featured) ── */
+        .u-study {
+          background: var(--warm-900); position: relative; overflow: hidden;
+          padding: 6rem 2rem;
+        }
+        .u-study-inner {
+          max-width: 1100px; margin: 0 auto; position: relative; z-index: 2;
+        }
+        .u-study-layout {
+          display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+        }
+        @media (max-width: 900px) {
+          .u-study-layout { grid-template-columns: 1fr; gap: 3rem; }
+          .u-study-book-col { order: -1; }
+        }
+        .u-study-content { color: var(--cream); }
+
+        .u-study-arabic {
+          font-family: var(--u-serif); font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+          font-weight: 400; color: var(--gold); line-height: 1.6;
+          margin-bottom: 0.5rem; direction: rtl; text-align: right;
+        }
+        .u-study-transliteration {
+          font-family: var(--u-serif); font-size: clamp(1.1rem, 2vw, 1.4rem);
+          font-style: italic; color: var(--gold-light); opacity: 0.8;
+          margin-bottom: 0.25rem; line-height: 1.4;
+        }
+        .u-study-english {
+          font-family: var(--u-serif); font-size: clamp(1rem, 1.5vw, 1.15rem);
+          font-weight: 400; color: rgba(245,240,232,0.6);
+          margin-bottom: 2rem; font-style: italic;
+        }
+        .u-study-desc {
+          font-size: 0.95rem; color: rgba(245,240,232,0.7); line-height: 1.8;
+          font-weight: 300; margin-bottom: 1.5rem;
+        }
+
+        .u-study-divider {
+          width: 40px; height: 1px; margin: 2.5rem 0;
+          background: linear-gradient(to right, var(--gold), transparent);
+        }
+
+        .u-study-subtitle {
+          font-family: var(--u-serif); font-size: 1.4rem; font-weight: 500;
+          color: var(--cream); margin-bottom: 1.25rem;
+        }
+        .u-study-list {
+          list-style: none; padding: 0; margin: 0 0 1.5rem;
+        }
+        .u-study-list li {
+          font-size: 0.95rem; color: rgba(245,240,232,0.7); font-weight: 300;
+          padding: 0.5rem 0; padding-left: 1.5rem; position: relative; line-height: 1.6;
+        }
+        .u-study-list li::before {
+          content: ''; position: absolute; left: 0; top: 0.85rem;
+          width: 6px; height: 6px; border: 1px solid var(--gold); transform: rotate(45deg);
+        }
+
+        .u-study-enrichment {
+          font-size: 0.9rem; color: rgba(245,240,232,0.55); line-height: 1.8;
+          font-weight: 300; font-style: italic;
+        }
+
+        .u-study-living {
+          background: rgba(196,162,101,0.08); border: 1px solid rgba(196,162,101,0.15);
+          padding: 2rem 2.5rem; margin-top: 2.5rem;
+        }
+        .u-study-living h4 {
+          font-family: var(--u-serif); font-size: 1.25rem; font-weight: 500;
+          color: var(--gold-light); margin-bottom: 1rem;
+        }
+        .u-study-living p {
+          font-size: 0.95rem; color: rgba(245,240,232,0.7); line-height: 1.8;
+          font-weight: 300; margin-bottom: 0.75rem;
+        }
+        .u-study-living p:last-child { margin-bottom: 0; }
+
+        /* Book placeholder */
+        .u-study-book-col {
+          display: flex; align-items: flex-start; justify-content: center;
+          position: sticky; top: 6rem;
+        }
+        .u-study-book {
+          width: 100%; max-width: 380px; aspect-ratio: 3/4;
+          background: linear-gradient(145deg, var(--sage-dark) 0%, #3a5a3c 50%, var(--sage-dark) 100%);
+          position: relative; overflow: hidden;
+          box-shadow: 20px 20px 60px rgba(0,0,0,0.4), -2px -2px 10px rgba(255,255,255,0.03);
+          display: flex; align-items: center; justify-content: center;
+          flex-direction: column; gap: 1rem;
+        }
+        .u-study-book::before {
+          content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 20px;
+          background: linear-gradient(to right, rgba(0,0,0,0.25), rgba(0,0,0,0.05), transparent);
+        }
+        .u-study-book::after {
+          content: ''; position: absolute; inset: 12px;
+          border: 1px solid rgba(196,162,101,0.2);
+          pointer-events: none;
+        }
+        .u-study-book-ornament {
+          width: 50px; height: 1px;
+          background: linear-gradient(to right, transparent, var(--gold), transparent);
+          opacity: 0.4;
+        }
+        .u-study-book-title {
+          font-family: var(--u-serif); font-size: 1.5rem; font-weight: 500;
+          color: var(--gold); text-align: center; padding: 0 2rem; line-height: 1.4;
+          letter-spacing: 0.02em;
+        }
+        .u-study-book-arabic {
+          font-family: var(--u-serif); font-size: 1.8rem; font-weight: 400;
+          color: rgba(245,240,232,0.25); text-align: center; direction: rtl;
+          line-height: 1.5; padding: 0 1.5rem;
+        }
+        .u-study-book-author {
+          font-family: var(--u-sans); font-size: 0.65rem; letter-spacing: 0.2em;
+          text-transform: uppercase; color: rgba(245,240,232,0.3); margin-top: 0.5rem;
+        }
+        .u-study-book-label {
+          position: absolute; bottom: 2rem; font-family: var(--u-sans);
+          font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+          color: rgba(245,240,232,0.2);
+        }
+
+        /* ── Footer ── */
         .u-footer {
           padding: 3rem 2rem; text-align: center; background: #1a1510;
           color: rgba(245,240,232,0.3); font-size: 0.75rem; letter-spacing: 0.1em;
         }
 
-        /* Back to Top */
+        /* ── Back to Top ── */
         .u-btt {
           position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px;
           background: var(--warm-900); color: var(--gold); border: 1px solid var(--gold);
@@ -359,11 +573,13 @@ export default function Umrah() {
       `}</style>
 
       <div className="u-page" style={{ minHeight: '100vh' }}>
-        {/* Nav */}
+
+        {/* ═══ Nav ═══ */}
         <nav className={`u-nav ${navScrolled ? 'scrolled' : ''}`}>
           <a href="#" className="u-nav-logo">Mustafa Briggs</a>
           <ul className="u-nav-links">
             <li><a href="#experience">Experience</a></li>
+            <li><a href="#text">Text</a></li>
             <li><a href="#journey">Journey</a></li>
             <li><a href="#scholar">Scholar</a></li>
             <li><a href="#pricing">Pricing</a></li>
@@ -371,7 +587,7 @@ export default function Umrah() {
           </ul>
         </nav>
 
-        {/* Hero */}
+        {/* ═══ Hero ═══ */}
         <section className="u-hero">
           <div className="u-hero-bg" />
           <div className="u-grain" />
@@ -391,158 +607,240 @@ export default function Umrah() {
           </div>
         </section>
 
-        {/* Experience */}
+        {/* ═══ Experience ═══ */}
         <section className="u-section" id="experience">
           <div className="u-section-inner">
-            <div className="u-section-header">
+            <Reveal className="u-section-header">
               <p className="u-section-eyebrow">The Experience</p>
               <h2 className="u-section-title">What <em>Awaits</em> You</h2>
-            </div>
+            </Reveal>
             <div className="u-exp-grid">
-              <RevealCard className="u-exp-card" delay={0}>
+              <Reveal className="u-exp-card" delay={0}>
                 <svg className="u-exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
                 <h3>5-Star Sanctuary</h3>
                 <p>Premium accommodations within walking distance of the Haram, your home for reflection and rest.</p>
-              </RevealCard>
-              <RevealCard className="u-exp-card" delay={100}>
+              </Reveal>
+              <Reveal className="u-exp-card" delay={150}>
                 <svg className="u-exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></svg>
                 <h3>Daily Circles of Knowledge</h3>
                 <p>Intimate learning sessions with Shaykh Mustafa Briggs and distinguished guest scholars each day.</p>
-              </RevealCard>
-              <RevealCard className="u-exp-card" delay={200}>
+              </Reveal>
+              <Reveal className="u-exp-card" delay={300}>
                 <svg className="u-exp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></svg>
                 <h3>Guided Expeditions</h3>
                 <p>Journey to key historical sites where pivotal moments of Islamic history unfolded.</p>
-              </RevealCard>
+              </Reveal>
             </div>
           </div>
         </section>
 
-        {/* Quote Band */}
+        {/* ═══ Quote Band ═══ */}
         <div className="u-quote-band">
           <div className="u-pattern-overlay" />
           <div className="u-grain" style={{ opacity: 0.25 }} />
           <div style={{ position: 'relative', zIndex: 10 }}>
-            <div className="u-quote-mark">"</div>
-            <p className="u-quote-text">
-              This is more than an Umrah. It is a return — to knowledge, to the footsteps of the beloved ﷺ, and to the truest version of yourself.
-            </p>
-            <p className="u-quote-attr">— Shaykh Mustafa Briggs</p>
+            <Reveal delay={0}>
+              <div className="u-quote-mark">"</div>
+            </Reveal>
+            <Reveal delay={200}>
+              <p className="u-quote-text">
+                This is more than an Umrah. It is a return — to knowledge, to the footsteps of the beloved ﷺ, and to the truest version of yourself.
+              </p>
+            </Reveal>
+            <Reveal delay={400}>
+              <p className="u-quote-attr">— Shaykh Mustafa Briggs</p>
+            </Reveal>
           </div>
         </div>
 
-        {/* Journey */}
+        {/* ═══ Text of Study (Featured) ═══ */}
+        <section className="u-study" id="text">
+          <div className="u-pattern-overlay" />
+          <div className="u-grain" style={{ opacity: 0.2 }} />
+          <div className="u-study-inner">
+            <Reveal className="u-section-header" style={{ marginBottom: '3rem' }}>
+              <p className="u-section-eyebrow" style={{ color: 'var(--gold)' }}>Text of Study</p>
+              <h2 className="u-section-title" style={{ color: 'var(--cream)' }}>The <em>Poem</em> We Will Study</h2>
+            </Reveal>
+
+            <div className="u-study-layout">
+              {/* Left: Content */}
+              <div className="u-study-content">
+                <Reveal delay={0}>
+                  <p className="u-study-arabic">الأرجوزة الميئية في ذكر حال أشرف البرية</p>
+                  <p className="u-study-transliteration">Al-Arjūzah al-Mi'iyyah fī Dhikr Ḥāl Ashraf al-Bariyyah</p>
+                  <p className="u-study-english">A Hundred-Line Poem on the Life of the Noblest of Creation</p>
+                </Reveal>
+
+                <Reveal delay={150}>
+                  <p className="u-study-desc">
+                    A classical poem and concise yet powerful summary of the Seerah of the Prophet ﷺ. Composed in approximately one hundred lines of rajaz poetry, it traces the key moments of his blessed life — from lineage and birth to revelation, Hijrah, the Madinan period, and his passing ﷺ — while also highlighting his noble character and virtues.
+                  </p>
+                  <p className="u-study-desc">
+                    The poem was authored by Imām Ibn Abī al-ʿIzz al-Ḥanafī (d. 792 AH), a distinguished jurist of Damascus, best known for his commentary on al-ʿAqīdah al-Ṭaḥāwiyyah. This work reflects the classical scholarly tradition of distilling the Seerah into a structured, memorable form for study and reflection.
+                  </p>
+                </Reveal>
+
+                <Reveal delay={300}>
+                  <div className="u-study-divider" />
+                  <h3 className="u-study-subtitle">Method of Study</h3>
+                  <p className="u-study-desc">
+                    This poem will serve as the foundation of our daily sessions. Each lesson will include:
+                  </p>
+                  <ul className="u-study-list">
+                    <li>Recitation of selected lines</li>
+                    <li>Translation and concise commentary</li>
+                    <li>Key historical context and reflections</li>
+                  </ul>
+                  <p className="u-study-enrichment">
+                    We will further enrich the text through relevant Qur'anic verses, Prophetic hadith, and insights from the classical scholars, while also drawing on the Shamā'il to deepen our understanding of the character and presence of the Prophet ﷺ.
+                  </p>
+                </Reveal>
+
+                <Reveal delay={450}>
+                  <div className="u-study-living">
+                    <h4>A Living Seerah</h4>
+                    <p>
+                      Studied in the blessed city of Madinah, this text moves beyond theory. As we visit key sites and walk the very spaces where these events unfolded, the Seerah is experienced — not just learned.
+                    </p>
+                    <p>
+                      This is an opportunity to combine knowledge, place, and presence, and to connect to the life of the Prophet ﷺ with clarity, depth, and love.
+                    </p>
+                  </div>
+                </Reveal>
+              </div>
+
+              {/* Right: Book mockup placeholder */}
+              <div className="u-study-book-col">
+                <Reveal delay={200}>
+                  <div className="u-study-book">
+                    <div className="u-study-book-arabic">
+                      الأرجوزة<br />الميئية
+                    </div>
+                    <div className="u-study-book-ornament" />
+                    <div className="u-study-book-title">
+                      Al-Arjūzah<br />al-Mi'iyyah
+                    </div>
+                    <div className="u-study-book-ornament" />
+                    <div className="u-study-book-author">
+                      Ibn Abī al-ʿIzz al-Ḥanafī
+                    </div>
+                    <span className="u-study-book-label">Book mockup placeholder</span>
+                  </div>
+                </Reveal>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ Journey ═══ */}
         <section className="u-section" id="journey">
           <div className="u-section-inner">
-            <div className="u-section-header">
+            <Reveal className="u-section-header">
               <p className="u-section-eyebrow">The Journey</p>
               <h2 className="u-section-title">More Than <em>Umrah</em></h2>
-            </div>
+            </Reveal>
             <div className="u-journey-grid">
-              {[
-                { num: '01', icon: 'book', title: 'Seerah Immersion', desc: 'Morning sessions exploring the life of the Prophet ﷺ, Qur\'anic reflections, and insights from classical scholarship.' },
-                { num: '02', icon: 'globe', title: 'Sacred Geography', desc: 'Guided visits to places of profound significance — where revelation descended and history was shaped.' },
-                { num: '03', icon: 'users', title: 'Spiritual Brotherhood', desc: 'An intimate gathering of seekers. Forge bonds of faith alongside fellow travelers in a supportive, close-knit circle.' },
-                { num: '04', icon: 'star', title: 'Uncompromised Comfort', desc: 'Every detail handled — from 5-star lodging steps from the Haram to seamless logistics throughout your stay.' },
-              ].map((item, i) => (
-                <RevealCard key={i} className="u-journey-card" delay={i * 100}>
+              {journeyItems.map((item, i) => (
+                <Reveal key={i} className="u-journey-card" delay={i * 150}>
                   <span className="u-journey-num">{item.num}</span>
                   <JourneyIcon type={item.icon} />
                   <h4>{item.title}</h4>
                   <p>{item.desc}</p>
-                </RevealCard>
+                </Reveal>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Testimonial */}
+        {/* ═══ Testimonial ═══ */}
         <section className="u-section">
           <div className="u-section-inner">
-            <RevealCard className="u-testimonial" delay={0}>
+            <Reveal className="u-testimonial">
               <p className="u-testimonial-text">"Traveling with Shaykh Mustafa transformed the way I understand the places I visited. Every site became a lesson, every prayer became deeper. It wasn't tourism — it was transformation."</p>
               <p className="u-testimonial-name">Past Traveler</p>
               <p className="u-testimonial-trip">Previous Umrah Journey</p>
-            </RevealCard>
+            </Reveal>
           </div>
         </section>
 
-        {/* Scholar */}
+        {/* ═══ Scholar ═══ */}
         <section className="u-section" id="scholar" style={{ background: 'var(--cream-light)' }}>
           <div className="u-section-inner">
-            <div className="u-section-header">
+            <Reveal className="u-section-header">
               <p className="u-section-eyebrow">Your Guide</p>
               <h2 className="u-section-title">Shaykh <em>Mustafa Briggs</em></h2>
-            </div>
+            </Reveal>
             <div className="u-scholar">
-              <div className="u-scholar-image">
-                <span className="u-scholar-placeholder">م</span>
-              </div>
-              <div className="u-scholar-info">
-                <h3>Mustafa Briggs</h3>
-                <p className="u-scholar-role">Scholar · Author · Guide</p>
-                <p>Shaykh Mustafa Briggs is a scholar of Islamic history and the author of <em>Beyond Bilal: Black History in the Muslim World</em>. He has dedicated years to studying the Seerah and the rich tapestry of Islamic civilization across continents.</p>
-                <p>His approach weaves together deep historical knowledge with living spiritual practice — transforming the places you visit from landmarks into profound encounters with the legacy of the Prophet ﷺ and the scholars who followed.</p>
-              </div>
+              <Reveal delay={0}>
+                <div className="u-scholar-image">
+                  <span className="u-scholar-placeholder">م</span>
+                </div>
+              </Reveal>
+              <Reveal delay={200}>
+                <div className="u-scholar-info">
+                  <h3>Mustafa Briggs</h3>
+                  <p className="u-scholar-role">Scholar · Author · Guide</p>
+                  <p>Shaykh Mustafa Briggs is a scholar of Islamic history and the author of <em>Beyond Bilal: Black History in the Muslim World</em>. He has dedicated years to studying the Seerah and the rich tapestry of Islamic civilization across continents.</p>
+                  <p>His approach weaves together deep historical knowledge with living spiritual practice — transforming the places you visit from landmarks into profound encounters with the legacy of the Prophet ﷺ and the scholars who followed.</p>
+                </div>
+              </Reveal>
             </div>
           </div>
         </section>
 
-        {/* Pricing */}
+        {/* ═══ Pricing ═══ */}
         <section className="u-section u-pricing-section" id="pricing">
           <div className="u-pattern-overlay" />
           <div className="u-section-inner" style={{ position: 'relative', zIndex: 2 }}>
-            <div className="u-section-header">
+            <Reveal className="u-section-header">
               <p className="u-section-eyebrow">Investment</p>
               <h2 className="u-section-title">An Investment in <em>Knowledge</em></h2>
-            </div>
-            <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-              <p className="u-price-amount"><span>$</span>4,500</p>
-              <p className="u-price-note">Complete package per person</p>
-              <div className="u-price-deposit">$500 deposit secures your place</div>
-            </div>
-            <p style={{ textAlign: 'center', fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase' as const, color: 'var(--warm-600)', marginBottom: '2rem', fontWeight: 500 }}>
-              Flexible Payment Plans
-            </p>
+            </Reveal>
+
+            <Reveal>
+              <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+                <p className="u-price-amount"><span>$</span>4,500</p>
+                <p className="u-price-note">Complete package per person</p>
+                <div className="u-price-deposit">$500 deposit secures your place</div>
+              </div>
+            </Reveal>
+
+            <Reveal>
+              <p style={{ textAlign: 'center', fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase' as const, color: 'var(--warm-600)', marginBottom: '2rem', fontWeight: 500 }}>
+                Flexible Payment Plans
+              </p>
+            </Reveal>
+
             <div className="u-plans-grid">
-              {[
-                { name: '5 Months', price: '$800', period: 'per month × 5', featured: false },
-                { name: '4 Months', price: '$1,000', period: 'per month × 4', featured: true, badge: 'Most Popular' },
-                { name: '2 Months', price: '$2,000', period: 'per month × 2', featured: false },
-                { name: 'Pay in Full', price: '$4,500', period: 'one payment', featured: false },
-              ].map((plan, i) => (
-                <RevealCard key={i} className={`u-plan ${plan.featured ? 'featured' : ''}`} delay={i * 100}>
+              {plans.map((plan, i) => (
+                <Reveal key={i} className={`u-plan ${plan.featured ? 'featured' : ''}`} delay={i * 120}>
                   {plan.badge && <div className="u-plan-badge">{plan.badge}</div>}
                   <p className="u-plan-name" style={plan.featured ? { color: 'var(--cream)' } : undefined}>{plan.name}</p>
                   <p className="u-plan-price">{plan.price}</p>
                   <p className="u-plan-period">{plan.period}</p>
-                </RevealCard>
+                </Reveal>
               ))}
             </div>
-            <div className="u-details-strip">
+
+            <Reveal className="u-details-strip">
               <div className="u-detail-item"><strong>Payment Window</strong>April – October 2026</div>
               <div className="u-detail-item"><strong>Completion</strong>All payments before travel</div>
               <div className="u-detail-item"><strong>Deposit</strong>Non-refundable</div>
               <div className="u-detail-item"><strong>Availability</strong>Limited spaces</div>
-            </div>
+            </Reveal>
           </div>
         </section>
 
-        {/* FAQ */}
+        {/* ═══ FAQ ═══ */}
         <section className="u-section" id="faq">
           <div className="u-section-inner">
-            <div className="u-section-header">
+            <Reveal className="u-section-header">
               <p className="u-section-eyebrow">Questions</p>
               <h2 className="u-section-title">Frequently <em>Asked</em></h2>
-            </div>
-            <div className="u-faq-list">
-              {[
-                { q: 'What is included in the package?', a: 'Your package includes 5-star accommodation in Makkah and Madinah, daily classes with Shaykh Mustafa Briggs, guided historical site visits, ground transportation, and group coordination. Flights are arranged separately.' },
-                { q: 'How do I secure my spot?', a: 'Send the word "UMRAH" via WhatsApp to begin the registration process. A $500 non-refundable deposit will secure your place in the group.' },
-                { q: 'Are flights included?', a: 'Flights are not included in the package price. The team will provide guidance on booking flights once your spot is confirmed.' },
-                { q: 'What is the group size?', a: 'The group is kept intentionally intimate to ensure a meaningful, personal experience. Spaces are limited and allocated on a first-come basis.' },
-                { q: 'Do I need prior Islamic knowledge?', a: 'Not at all. The program is designed to meet you where you are. Whether beginning your journey or deepening existing knowledge, every session is accessible and enriching.' },
-              ].map((item, i) => (
+            </Reveal>
+            <Reveal className="u-faq-list">
+              {faqs.map((item, i) => (
                 <div key={i} className={`u-faq-item ${openFaq === i ? 'open' : ''}`}>
                   <button className="u-faq-q" onClick={() => setOpenFaq(openFaq === i ? null : i)}>
                     {item.q}
@@ -551,43 +849,51 @@ export default function Umrah() {
                   <div className="u-faq-a"><p>{item.a}</p></div>
                 </div>
               ))}
-            </div>
+            </Reveal>
           </div>
         </section>
 
-        {/* CTA */}
+        {/* ═══ CTA ═══ */}
         <section className="u-cta">
           <div className="u-pattern-overlay" />
           <div className="u-grain" style={{ opacity: 0.25 }} />
           <div className="u-cta-content">
-            <p className="u-cta-bismillah">بسم الله</p>
-            <h2 className="u-cta-title">Begin Your <em>Journey</em></h2>
-            <p className="u-cta-desc">This Thanksgiving, step away from the ordinary and into a journey that will reshape how you see the world, your faith, and yourself.</p>
-            <div className="u-cta-action">
-              <p className="u-cta-instruction">Send via WhatsApp to begin</p>
-              <div className="u-cta-keyword">UMRAH</div>
-              <button className="u-cta-button">
-                Open WhatsApp
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-              </button>
-              <div className="u-cta-spots">
-                <span className="u-cta-dot" />
-                Limited spaces remaining
+            <Reveal>
+              <p className="u-cta-bismillah">بسم الله</p>
+            </Reveal>
+            <Reveal delay={150}>
+              <h2 className="u-cta-title">Begin Your <em>Journey</em></h2>
+            </Reveal>
+            <Reveal delay={300}>
+              <p className="u-cta-desc">This Thanksgiving, step away from the ordinary and into a journey that will reshape how you see the world, your faith, and yourself.</p>
+            </Reveal>
+            <Reveal delay={450}>
+              <div className="u-cta-action">
+                <p className="u-cta-instruction">Send via WhatsApp to begin</p>
+                <div className="u-cta-keyword">UMRAH</div>
+                <button className="u-cta-button">
+                  Open WhatsApp
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                </button>
+                <div className="u-cta-spots">
+                  <span className="u-cta-dot" />
+                  Limited spaces remaining
+                </div>
               </div>
-            </div>
+            </Reveal>
           </div>
         </section>
 
-        {/* Footer */}
+        {/* ═══ Footer ═══ */}
         <footer className="u-footer">
           <p style={{ marginBottom: '0.5rem' }}>Umrah with Mustafa Briggs · Thanksgiving 2026</p>
           <p>&copy; 2026 All rights reserved</p>
         </footer>
 
-        {/* Back to Top */}
+        {/* ═══ Back to Top ═══ */}
         <button
           className={`u-btt ${showBackToTop ? 'visible' : ''}`}
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          onClick={scrollToTop}
           aria-label="Back to top"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 15l-6-6-6 6" /></svg>
@@ -597,40 +903,19 @@ export default function Umrah() {
   );
 }
 
-/* ── RevealCard component with IntersectionObserver ── */
-function RevealCard({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? 'translateY(0)' : 'translateY(40px)',
-        transition: `all 0.8s cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms`,
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-
-/* ── Journey icon helper ── */
+/* ══════════════════════════════════════════════════════════
+   Journey icon helper
+   ══════════════════════════════════════════════════════════ */
 function JourneyIcon({ type }: { type: string }) {
-  const props = { className: 'u-journey-icon', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.5, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
+  const props = {
+    className: 'u-journey-icon',
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: 1.5,
+    strokeLinecap: 'round' as const,
+    strokeLinejoin: 'round' as const,
+  };
   switch (type) {
     case 'book': return <svg {...props}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></svg>;
     case 'globe': return <svg {...props}><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></svg>;
