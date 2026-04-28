@@ -76,6 +76,26 @@ function FatihaHero() {
             >
               Seven verses. A thousand recitations a year. One conversation between you and your Lord, heard, perhaps, for the first time.
             </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-8 sm:mt-10 max-w-2xl mx-auto"
+            >
+              <p className="text-sm sm:text-base text-cream-100 font-medium">
+                <span className="whitespace-nowrap">Begins Sunday, 24 May</span>
+                <span className="mx-2 sm:mx-3 text-cream-200/50" aria-hidden="true">·</span>
+                <span className="whitespace-nowrap">Four Sundays</span>
+                <span className="mx-2 sm:mx-3 text-cream-200/50" aria-hidden="true">·</span>
+                <span className="whitespace-nowrap">Live and recorded</span>
+              </p>
+              <p className="mt-2 sm:mt-3 text-sm sm:text-base text-cream-100/85">
+                <span className="whitespace-nowrap">Q&amp;A with Shaykh Mustafa Briggs</span>
+                <span className="mx-2 sm:mx-3 text-cream-200/40" aria-hidden="true">·</span>
+                <span className="whitespace-nowrap">Pay what you can</span>
+              </p>
+            </motion.div>
           </Container>
         </div>
       </div>
@@ -260,17 +280,20 @@ export default function TafsirFatiha() {
           <Section id="join" title="Take Your Seat">
             <div className="space-y-6 sm:space-y-8">
               <Card variant="filled" className="p-6 sm:p-8 text-center">
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed mb-3 text-warm-900">
-                  Pledge whatever amount feels right to you.
+                <p className="text-base sm:text-lg md:text-xl leading-relaxed mb-3 text-warm-900 font-medium">
+                  Begins Sunday, 24 May. Four Sundays.
                 </p>
                 <p className="text-base sm:text-lg md:text-xl leading-relaxed text-warm-700">
-                  Sessions, recordings, and the WhatsApp circle, all included.
+                  Live and recorded, with a Q&amp;A with Shaykh Mustafa Briggs.
                 </p>
               </Card>
 
               <Card variant="elevated" className="p-6 sm:p-8 text-center border border-warm-200">
-                <p className="text-base sm:text-lg leading-relaxed text-warm-700 italic">
-                  Dates and time announced to the circle a week before we begin.
+                <p className="text-base sm:text-lg leading-relaxed text-warm-800 mb-2">
+                  Pay what you can.
+                </p>
+                <p className="text-sm sm:text-base leading-relaxed text-warm-700 italic">
+                  Sessions, recordings, and the WhatsApp circle, all included.
                 </p>
               </Card>
 
