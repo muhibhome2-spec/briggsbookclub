@@ -12,7 +12,7 @@ import Card from '../components/ui/Card';
 function FatihaHero() {
   return (
     <header className="relative" role="banner">
-      <div className="relative w-full min-h-[680px] h-[100svh] max-h-[960px] overflow-hidden">
+      <div className="relative w-full min-h-[640px] h-[100svh] max-h-[960px] overflow-hidden">
         <motion.img
           initial={{ scale: 1.06 }}
           animate={{ scale: 1 }}
@@ -20,7 +20,7 @@ function FatihaHero() {
           src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Al-Fatihah_Later_11th_century_Iran_Kufic_script_Khalili_Collection6inchx300dpi.jpg"
           alt="A folio of Sūrah al-Fātiḥah from an 11th-century Qur’an in Kufic script, Khalili Collection"
           className="absolute inset-0 w-full h-full object-cover object-center"
-          fetchPriority="high"
+          fetchpriority="high"
           loading="eager"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-warm-900/55 via-warm-900/70 to-warm-900/85" aria-hidden="true" />
@@ -31,7 +31,7 @@ function FatihaHero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="text-[0.7rem] sm:text-xs tracking-[0.28em] uppercase text-cream-200/90 mb-6 sm:mb-8"
+              className="text-xs sm:text-sm tracking-[0.28em] uppercase text-cream-200/90 mb-6 sm:mb-8"
             >
               A Briggs’ Book Club Series
             </motion.p>
@@ -81,20 +81,20 @@ function FatihaHero() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-8 sm:mt-10 max-w-2xl mx-auto"
+              className="mt-8 sm:mt-10 max-w-2xl mx-auto space-y-2 sm:space-y-3"
             >
-              <p className="text-sm sm:text-base text-cream-100 font-medium">
-                <span className="whitespace-nowrap">Begins Sunday, 24 May</span>
-                <span className="mx-2 sm:mx-3 text-cream-200/50" aria-hidden="true">·</span>
-                <span className="whitespace-nowrap">Four Sundays</span>
-                <span className="mx-2 sm:mx-3 text-cream-200/50" aria-hidden="true">·</span>
-                <span className="whitespace-nowrap">Live and recorded</span>
-              </p>
-              <p className="mt-2 sm:mt-3 text-sm sm:text-base text-cream-100/85">
-                <span className="whitespace-nowrap">Q&amp;A with Shaykh Mustafa Briggs</span>
-                <span className="mx-2 sm:mx-3 text-cream-200/40" aria-hidden="true">·</span>
-                <span className="whitespace-nowrap">Pay what you can</span>
-              </p>
+              <ul className="flex flex-wrap justify-center items-center gap-x-3 gap-y-1 text-sm sm:text-base text-cream-100 font-medium">
+                <li>Begins Sunday, 24 May</li>
+                <li className="text-cream-200/50" aria-hidden="true">·</li>
+                <li>Four Sundays</li>
+                <li className="text-cream-200/50" aria-hidden="true">·</li>
+                <li>Live and recorded</li>
+              </ul>
+              <ul className="flex flex-wrap justify-center items-center gap-x-3 gap-y-1 text-sm sm:text-base text-cream-100/85">
+                <li>Q&amp;A with Shaykh Mustafa Briggs</li>
+                <li className="text-cream-200/40" aria-hidden="true">·</li>
+                <li>Pay what you can</li>
+              </ul>
             </motion.div>
           </Container>
         </div>
