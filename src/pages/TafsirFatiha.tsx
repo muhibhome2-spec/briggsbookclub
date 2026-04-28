@@ -40,9 +40,9 @@ function FatihaHero() {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="font-serif font-normal text-white leading-[1.05] tracking-tight text-5xl sm:text-7xl lg:text-8xl mb-5 sm:mb-7 drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]"
+              className="font-serif font-normal text-white leading-[1.05] tracking-tight text-4xl sm:text-6xl lg:text-7xl mb-5 sm:mb-7 drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]"
             >
-              The Opening
+              The Ocean of the Opening
             </motion.h1>
 
             <motion.p
