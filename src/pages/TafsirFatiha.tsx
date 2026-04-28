@@ -11,58 +11,74 @@ import Card from '../components/ui/Card';
 
 function FatihaHero() {
   return (
-    <header className="relative bg-cream-50 pt-28 sm:pt-36 lg:pt-44 pb-16 sm:pb-24 lg:pb-32" role="banner">
-      <Container size="md" className="text-center">
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="text-xs sm:text-sm tracking-[0.25em] uppercase text-sage-600 mb-6 sm:mb-8"
-        >
-          A Briggs’ Book Club Series
-        </motion.p>
+    <header className="relative" role="banner">
+      <div className="relative w-full min-h-[680px] h-[100svh] max-h-[960px] overflow-hidden">
+        <motion.img
+          initial={{ scale: 1.06 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+          src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Al-Fatihah_Later_11th_century_Iran_Kufic_script_Khalili_Collection6inchx300dpi.jpg"
+          alt="A folio of Sūrah al-Fātiḥah from an 11th-century Qur’an in Kufic script, Khalili Collection"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          fetchPriority="high"
+          loading="eager"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-warm-900/55 via-warm-900/70 to-warm-900/85" aria-hidden="true" />
 
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          className="font-serif font-normal text-warm-900 leading-[1.05] tracking-tight text-5xl sm:text-7xl lg:text-8xl mb-5 sm:mb-7"
-        >
-          The Opening
-        </motion.h1>
+        <div className="absolute inset-0 flex items-center justify-center pt-24 pb-16 sm:pt-28 sm:pb-20 px-5">
+          <Container size="md" className="text-center">
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="text-[0.7rem] sm:text-xs tracking-[0.28em] uppercase text-cream-200/90 mb-6 sm:mb-8"
+            >
+              A Briggs’ Book Club Series
+            </motion.p>
 
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="font-serif italic text-warm-700 text-xl sm:text-2xl lg:text-3xl mb-8 sm:mb-10"
-        >
-          A Tafsir of Sūrah al-Fātiḥah
-        </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, y: 22 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="font-serif font-normal text-white leading-[1.05] tracking-tight text-5xl sm:text-7xl lg:text-8xl mb-5 sm:mb-7 drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]"
+            >
+              The Opening
+            </motion.h1>
 
-        <motion.div
-          initial={{ opacity: 0, scaleX: 0 }}
-          animate={{ opacity: 1, scaleX: 1 }}
-          transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="flex justify-center mb-8 sm:mb-10"
-          aria-hidden="true"
-        >
-          <div className="flex items-center gap-3">
-            <div className="w-16 sm:w-24 h-px bg-sage-500/40" />
-            <div className="w-1.5 h-1.5 rounded-full bg-sage-500/60" />
-            <div className="w-16 sm:w-24 h-px bg-sage-500/40" />
-          </div>
-        </motion.div>
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="font-serif italic text-cream-100 text-xl sm:text-2xl lg:text-3xl mb-8 sm:mb-10 leading-snug pb-1"
+            >
+              A Tafsir of Sūrah al-Fātiḥah
+            </motion.p>
 
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="text-base sm:text-lg lg:text-xl leading-relaxed text-warm-700 max-w-2xl mx-auto"
-        >
-          Seven verses. A thousand recitations a year. One conversation between you and your Lord, heard, perhaps, for the first time.
-        </motion.p>
-      </Container>
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={{ opacity: 1, scaleX: 1 }}
+              transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="flex justify-center mb-8 sm:mb-10"
+              aria-hidden="true"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-16 sm:w-24 h-px bg-cream-200/60" />
+                <div className="w-1.5 h-1.5 rounded-full bg-cream-200/80" />
+                <div className="w-16 sm:w-24 h-px bg-cream-200/60" />
+              </div>
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="text-base sm:text-lg lg:text-xl leading-relaxed text-cream-100/95 max-w-2xl mx-auto"
+            >
+              Seven verses. A thousand recitations a year. One conversation between you and your Lord, heard, perhaps, for the first time.
+            </motion.p>
+          </Container>
+        </div>
+      </div>
     </header>
   );
 }
@@ -150,7 +166,7 @@ export default function TafsirFatiha() {
               <AnimatedCard className="flex flex-col p-5 sm:p-6 md:p-7 bg-cream-100 rounded-lg" delay={0.1}>
                 <Heart className="w-8 h-8 sm:w-10 sm:h-10 text-sage-600 mb-3 flex-shrink-0" aria-hidden="true" />
                 <h3 className="font-semibold text-warm-900 mb-2 text-base sm:text-lg">Heart First</h3>
-                <p className="text-sm sm:text-base text-warm-700">Drawn from the West African tafsir tradition, where understanding is in service of presence, not the other way around.</p>
+                <p className="text-sm sm:text-base text-warm-700">Rooted in the classical tafsir tradition, where understanding is in service of presence, not the other way around.</p>
               </AnimatedCard>
 
               <AnimatedCard className="flex flex-col p-5 sm:p-6 md:p-7 bg-cream-100 rounded-lg" delay={0.2}>
@@ -223,7 +239,7 @@ export default function TafsirFatiha() {
                 <div className="flex items-start gap-3">
                   <span className="text-sage-600 text-2xl flex-shrink-0 leading-none" aria-hidden="true">·</span>
                   <p className="text-base sm:text-lg md:text-xl leading-relaxed pt-1 text-warm-800">
-                    You have studied, and you’d like to hear the Sūrah through a West African ear.
+                    You have studied, and you’d like to sit with it again, slowly, in good company.
                   </p>
                 </div>
               </Card>
