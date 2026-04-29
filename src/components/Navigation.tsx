@@ -74,18 +74,18 @@ export default function Navigation() {
               whileTap={{ scale: 0.95 }}
               onClick={() => scrollToSection('hadiyah')}
               className="text-sm tracking-wide text-warm-700 hover:text-sage-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-sage-500 rounded-sm px-1 py-0.5"
-              aria-label="Navigate to Hadiyah Model section"
+              aria-label="Navigate to Hadiyah section"
             >
-              Hadiyah Model
+              Hadiyah
             </motion.button>
-            <Link to="/tafsir-yusuf">
+            <Link to="/fatiha">
               <motion.button
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 className="text-sm tracking-wide text-warm-700 hover:text-sage-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-sage-500 rounded-sm px-1 py-0.5"
-                aria-label="Navigate to Tafsir of Surah Yusuf"
+                aria-label="Navigate to the Fatiha tafsir series"
               >
-                Tafsir Yusuf
+                Fatiha
               </motion.button>
             </Link>
             <Link to="/umrah">
@@ -93,9 +93,9 @@ export default function Navigation() {
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 className="text-sm tracking-wide text-warm-700 hover:text-sage-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-sage-500 rounded-sm px-1 py-0.5"
-                aria-label="Navigate to Umrah 2026"
+                aria-label="Navigate to Umrah"
               >
-                Umrah 2026
+                Umrah
               </motion.button>
             </Link>
             <motion.button
@@ -113,7 +113,7 @@ export default function Navigation() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => scrollToSection('join')}
-            className="lg:hidden px-4 py-2 bg-sage-600 text-cream-50 rounded-md text-sm font-medium hover:bg-sage-500 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2"
+            className="lg:hidden min-h-[44px] px-4 py-2.5 bg-sage-600 text-cream-50 rounded-md text-sm font-medium hover:bg-sage-500 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2"
             aria-label="Navigate to Join section"
           >
             Join
