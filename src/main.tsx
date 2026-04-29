@@ -15,7 +15,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<Home />} />
         <Route path="/hadiyah" element={<Hadiyah />} />
         <Route path="/tafsir-yusuf" element={<Tafsir />} />
-        <Route path="/tafsir-fatiha" element={<TafsirFatiha />} />
+        <Route path="/fatiha" element={<TafsirFatiha />} />
         <Route path="/umrah" element={<Umrah />} />
       </Routes>
     </BrowserRouter>
