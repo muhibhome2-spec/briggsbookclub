@@ -12,7 +12,7 @@ import Card from '../components/ui/Card';
 function FatihaHero() {
   return (
     <header className="relative" role="banner">
-      <div className="relative w-full min-h-[680px] h-[100svh] max-h-[960px] overflow-hidden">
+      <div className="relative w-full min-h-[640px] h-[100svh] max-h-[960px] overflow-hidden">
         <motion.img
           initial={{ scale: 1.06 }}
           animate={{ scale: 1 }}
@@ -20,7 +20,7 @@ function FatihaHero() {
           src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Al-Fatihah_Later_11th_century_Iran_Kufic_script_Khalili_Collection6inchx300dpi.jpg"
           alt="A folio of Sūrah al-Fātiḥah from an 11th-century Qur’an in Kufic script, Khalili Collection"
           className="absolute inset-0 w-full h-full object-cover object-center"
-          fetchPriority="high"
+          fetchpriority="high"
           loading="eager"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-warm-900/55 via-warm-900/70 to-warm-900/85" aria-hidden="true" />
@@ -31,7 +31,7 @@ function FatihaHero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="text-[0.7rem] sm:text-xs tracking-[0.28em] uppercase text-cream-200/90 mb-6 sm:mb-8"
+              className="text-xs sm:text-sm tracking-[0.28em] uppercase text-cream-200/90 mb-6 sm:mb-8"
             >
               A Briggs’ Book Club Series
             </motion.p>
@@ -40,9 +40,9 @@ function FatihaHero() {
               initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="font-serif font-normal text-white leading-[1.05] tracking-tight text-5xl sm:text-7xl lg:text-8xl mb-5 sm:mb-7 drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]"
+              className="font-serif font-normal text-white leading-[1.05] tracking-tight text-4xl sm:text-6xl lg:text-7xl mb-5 sm:mb-7 drop-shadow-[0_2px_24px_rgba(0,0,0,0.45)]"
             >
-              The Opening
+              The Ocean of the Opening
             </motion.h1>
 
             <motion.p
@@ -76,6 +76,26 @@ function FatihaHero() {
             >
               Seven verses. A thousand recitations a year. One conversation between you and your Lord, heard, perhaps, for the first time.
             </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-8 sm:mt-10 max-w-2xl mx-auto space-y-2 sm:space-y-3"
+            >
+              <ul className="flex flex-wrap justify-center items-center gap-x-3 gap-y-1 text-sm sm:text-base text-cream-100 font-medium">
+                <li>Sundays 10 &amp; 17 May</li>
+                <li className="text-cream-200/50" aria-hidden="true">·</li>
+                <li>A two-part special</li>
+                <li className="text-cream-200/50" aria-hidden="true">·</li>
+                <li>Live and recorded</li>
+              </ul>
+              <ul className="flex flex-wrap justify-center items-center gap-x-3 gap-y-1 text-sm sm:text-base text-cream-100/85">
+                <li>Q&amp;A with Shaykh Mustafa Briggs</li>
+                <li className="text-cream-200/40" aria-hidden="true">·</li>
+                <li>Monthly, pay what you can</li>
+              </ul>
+            </motion.div>
           </Container>
         </div>
       </div>
@@ -260,17 +280,20 @@ export default function TafsirFatiha() {
           <Section id="join" title="Take Your Seat">
             <div className="space-y-6 sm:space-y-8">
               <Card variant="filled" className="p-6 sm:p-8 text-center">
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed mb-3 text-warm-900">
-                  Pledge whatever amount feels right to you.
+                <p className="text-base sm:text-lg md:text-xl leading-relaxed mb-3 text-warm-900 font-medium">
+                  A two-part special. Sundays 10 &amp; 17 May.
                 </p>
                 <p className="text-base sm:text-lg md:text-xl leading-relaxed text-warm-700">
-                  Sessions, recordings, and the WhatsApp circle, all included.
+                  Live and recorded, with a Q&amp;A with Shaykh Mustafa Briggs.
                 </p>
               </Card>
 
               <Card variant="elevated" className="p-6 sm:p-8 text-center border border-warm-200">
-                <p className="text-base sm:text-lg leading-relaxed text-warm-700 italic">
-                  Dates and time announced to the circle a week before we begin.
+                <p className="text-base sm:text-lg leading-relaxed text-warm-800 mb-2">
+                  Joining Briggs’ Book Club is a monthly donation, pay what you can.
+                </p>
+                <p className="text-sm sm:text-base leading-relaxed text-warm-700 italic">
+                  It opens this series, all recordings, and our WhatsApp circle.
                 </p>
               </Card>
 
