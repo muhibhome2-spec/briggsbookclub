@@ -84,16 +84,16 @@ function FatihaHero() {
               className="mt-8 sm:mt-10 max-w-2xl mx-auto space-y-2 sm:space-y-3"
             >
               <ul className="flex flex-wrap justify-center items-center gap-x-3 gap-y-1 text-sm sm:text-base text-cream-100 font-medium">
-                <li>Begins Sunday, 24 May</li>
+                <li>Sundays 10 &amp; 17 May</li>
                 <li className="text-cream-200/50" aria-hidden="true">·</li>
-                <li>Four Sundays</li>
+                <li>A two-part special</li>
                 <li className="text-cream-200/50" aria-hidden="true">·</li>
                 <li>Live and recorded</li>
               </ul>
               <ul className="flex flex-wrap justify-center items-center gap-x-3 gap-y-1 text-sm sm:text-base text-cream-100/85">
                 <li>Q&amp;A with Shaykh Mustafa Briggs</li>
                 <li className="text-cream-200/40" aria-hidden="true">·</li>
-                <li>Pay what you can</li>
+                <li>Monthly, pay what you can</li>
               </ul>
             </motion.div>
           </Container>
@@ -281,7 +281,7 @@ export default function TafsirFatiha() {
             <div className="space-y-6 sm:space-y-8">
               <Card variant="filled" className="p-6 sm:p-8 text-center">
                 <p className="text-base sm:text-lg md:text-xl leading-relaxed mb-3 text-warm-900 font-medium">
-                  Begins Sunday, 24 May. Four Sundays.
+                  A two-part special. Sundays 10 &amp; 17 May.
                 </p>
                 <p className="text-base sm:text-lg md:text-xl leading-relaxed text-warm-700">
                   Live and recorded, with a Q&amp;A with Shaykh Mustafa Briggs.
@@ -290,10 +290,10 @@ export default function TafsirFatiha() {
 
               <Card variant="elevated" className="p-6 sm:p-8 text-center border border-warm-200">
                 <p className="text-base sm:text-lg leading-relaxed text-warm-800 mb-2">
-                  Pay what you can.
+                  Joining Briggs’ Book Club is a monthly donation, pay what you can.
                 </p>
                 <p className="text-sm sm:text-base leading-relaxed text-warm-700 italic">
-                  Sessions, recordings, and the WhatsApp circle, all included.
+                  It opens this series, all recordings, and our WhatsApp circle.
                 </p>
               </Card>
 
