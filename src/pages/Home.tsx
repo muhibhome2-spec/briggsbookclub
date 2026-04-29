@@ -1,4 +1,5 @@
-import { BookOpen, Users, Calendar } from 'lucide-react';
+import { BookOpen, Users, Calendar, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import Navigation from '../components/Navigation';
 import Section from '../components/Section';
@@ -8,15 +9,8 @@ import AnimatedCard from '../components/AnimatedCard';
 import BackToTop from '../components/ui/BackToTop';
 import Container from '../components/ui/Container';
 import Card from '../components/ui/Card';
-import BulletList from '../components/ui/BulletList';
 
 export default function Home() {
-  const whatToExpectItems = [
-    'Poem to be recited in Arabic, followed by English translation and explanation by Shaykh Mustafa',
-    'Explore the life and legacy of Shaykh Ahmad Bamba',
-    'Reflect on teachings for modern life',
-    'Share insights in a warm, inclusive circle',
-  ];
 
   return (
     <div className="min-h-screen bg-cream-50">
@@ -50,6 +44,43 @@ export default function Home() {
                   Read. Reflect. Remember.
                 </p>
               </div>
+            </div>
+          </Section>
+
+          <Divider />
+
+          <Section id="now-reading" title="Now Reading">
+            <div className="space-y-5 sm:space-y-6">
+              <ul className="flex flex-wrap justify-center items-center gap-x-3 gap-y-1 text-sm sm:text-base text-warm-600 mb-2">
+                <li className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-sage-500 animate-pulse" aria-hidden="true" />
+                  <span className="font-medium text-warm-800">500+ members and growing</span>
+                </li>
+                <li className="text-warm-300" aria-hidden="true">·</li>
+                <li>A new special each month</li>
+              </ul>
+
+              <Card variant="filled" className="p-6 sm:p-8 md:p-10 text-center">
+                <p className="text-xs sm:text-sm tracking-[0.25em] uppercase text-sage-700 mb-4">
+                  Current Special
+                </p>
+                <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl text-warm-900 mb-2 leading-tight">
+                  The Ocean of the Opening
+                </h3>
+                <p className="font-serif italic text-lg sm:text-xl text-warm-700 mb-5">
+                  A Tafsir of Sūrah al-Fātiḥah
+                </p>
+                <p className="text-base sm:text-lg leading-relaxed text-warm-700 max-w-xl mx-auto mb-7">
+                  Two Sundays in May, live and recorded, with a Q&amp;A with Shaykh Mustafa Briggs.
+                </p>
+                <Link
+                  to="/fatiha"
+                  className="inline-flex items-center gap-2 min-h-[44px] px-6 sm:px-8 py-3 bg-sage-600 text-cream-50 rounded-md text-sm sm:text-base font-medium hover:bg-sage-500 transition-all duration-200 shadow-sm hover:shadow focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2"
+                >
+                  Learn more
+                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                </Link>
+              </Card>
             </div>
           </Section>
 
@@ -149,7 +180,7 @@ export default function Home() {
             <div className="space-y-4 sm:space-y-5">
               <Card variant="filled" className="p-5 sm:p-6 md:p-8 text-center">
                 <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-                  Briggs' Book Club follows a <span className="font-semibold italic">hadiyah</span> model, not a subscription.
+                  Briggs’ Book Club runs on a <span className="font-semibold italic">hadiyah</span>: a monthly donation, pay what you can.
                 </p>
               </Card>
 
@@ -256,89 +287,6 @@ export default function Home() {
 
           <Divider />
 
-          <Section id="first-cycle" title="The First Cycle">
-            <div className="text-center mb-8 sm:mb-10">
-              <p className="text-lg sm:text-xl md:text-2xl font-serif italic text-warm-700 mb-3">
-                <span className="italic">Masalik al-Jinan</span>: The Paths to Paradise
-              </p>
-              <p className="text-base sm:text-lg text-warm-600 italic">
-                The Garden of eternal reward and beauty, and the Garden of knowledge and witnessing.
-              </p>
-            </div>
-
-            <div className="space-y-5 sm:space-y-6">
-              <Card variant="filled" className="p-5 sm:p-6 md:p-8">
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed text-center mb-4">
-                  Our first journey begins with <span className="italic font-semibold">Masalik al-Jinan</span> by Shaykh Ahmad Bamba of Senegal.
-                </p>
-                <p className="text-base sm:text-lg leading-relaxed text-warm-700 mb-4">
-                  <span className="italic">Masalik al-Jinan</span> (The Paths to Paradise) is a profound spiritual guide composed by Shaykh Ahmad Bamba (1853–1927) in Senegal. Written in elegant Arabic poetry, it serves as a roadmap for the soul's journey toward Allah, weaving together Qur'anic verses, Prophetic traditions, and the wisdom of classical scholars.
-                </p>
-                <p className="text-base sm:text-lg leading-relaxed text-warm-700">
-                  One Paradise, <span className="italic">Jannat al-Zakhārif wal-Khulūd</span>, is the Garden of everlasting reward that the believer hopes to enter in the next life. But the other, <span className="italic">Jannat al-Maʿārif wal-Shuhūd</span>, is the Garden of divine knowledge and witnessing, which can be experienced here and now, in the heart that is alive with remembrance and clarity.
-                </p>
-              </Card>
-
-              <Card variant="default" className="p-5 sm:p-6 md:p-8">
-                <h3 className="font-semibold text-warm-900 mb-3 sm:mb-4 text-base sm:text-lg md:text-xl">The Journey</h3>
-                <div className="space-y-3 text-base sm:text-lg leading-relaxed text-warm-700">
-                  <p>
-                    <span className="italic">Masalik al-Jinan</span> is about both Paradises. It is a guide to reach the Garden of the Hereafter by cultivating the Garden within: the inner paradise that blossoms through remembrance, reflection, and return to Allah.
-                  </p>
-                  <p>
-                    Drawing upon the wisdom of Imām al-Ghazālī, Ibn ʿAṭāʾillāh al-Iskandarī, and West African masters, this work speaks in a uniquely West African voice that turns knowledge into transformation. At its core, it mirrors the final books of <span className="italic">Iḥyāʾ ʿUlūm al-Dīn</span>, leading the reader from destructive traits to saving virtues.
-                  </p>
-                  <p>
-                    Every human being walks a path between light and shadow, striving to overcome four inner enemies: the <span className="italic">nafs</span> (ego), the <span className="italic">dunyā</span> (world), the <span className="italic">hawā</span> (desire), and the <span className="italic">shayṭān</span> (devil). This is a roadmap for purification of the heart and cultivation of spiritual excellence.
-                  </p>
-                  <p>
-                    The text explores how the believer overcomes the four great inner challenges through conscious practice and presence. It shows how acts such as <span className="italic">Ṣalāh</span> (prayer), <span className="italic">Ṣawm</span> (fasting), <span className="italic">Ṣadaqah</span> (charity), <span className="italic">Dhikr</span> (remembrance), and <span className="italic">Fikr</span> (meditation and reflection) are not just rituals, but pathways to mindfulness, intentionality, and harmony with Allah's will.
-                  </p>
-                </div>
-              </Card>
-
-              <Card variant="default" className="p-5 sm:p-6 md:p-8 bg-gradient-to-br from-sage-50 to-cream-50">
-                <h3 className="font-semibold text-warm-900 mb-3 sm:mb-4 text-base sm:text-lg md:text-xl">The Path</h3>
-                <div className="space-y-3 text-base sm:text-lg leading-relaxed text-warm-700">
-                  <p>
-                    The journey begins with outward disciplines: fasting, charity, family ties, remembrance, and reflection, that train the body to serve the soul.
-                  </p>
-                  <p>
-                    Then it turns inward to confront anger, envy, greed, and self-deception through repentance, patience, humility, and self-accounting. When purified, the heart becomes a mirror for divine light.
-                  </p>
-                  <p>
-                    From that light arise the saving virtues: gratitude, trust, contentment, and love, leading ultimately to constant awareness of Allah. True success is not in perfection but in persistence: in continually returning to Allah until the heart itself becomes a place of Paradise.
-                  </p>
-                </div>
-              </Card>
-
-              <Card variant="default" className="p-5 sm:p-6 md:p-8 border-2 border-sage-500">
-                <p className="text-lg sm:text-xl md:text-2xl font-semibold text-sage-600 text-center mb-2">
-                  First Class: 7th December
-                </p>
-                <p className="text-xs sm:text-sm text-warm-600 text-center mb-3">
-                  (time to be announced closer to date)
-                </p>
-                <p className="text-base sm:text-lg text-warm-700 text-center">
-                  Monthly sessions thereafter
-                </p>
-              </Card>
-
-              <Card variant="default" className="p-5 sm:p-6 md:p-8">
-                <h3 className="font-semibold text-warm-900 mb-4 sm:mb-5 text-base sm:text-lg md:text-xl">What to Expect</h3>
-                <BulletList items={whatToExpectItems} />
-              </Card>
-
-              <div className="bg-sage-600 text-cream-50 rounded-lg p-5 sm:p-6 md:p-8 text-center shadow-md">
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-                  Less like a classroom. More like a circle of friends.
-                </p>
-              </div>
-            </div>
-          </Section>
-
-          <Divider />
-
           <Section id="shaykh" title="Meet Shaykh Mustafa Briggs">
             <div className="space-y-5 sm:space-y-6">
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-8 p-6 sm:p-8 bg-gradient-to-br from-sage-50 to-cream-50 rounded-xl border border-sage-200">
@@ -369,11 +317,11 @@ export default function Home() {
           <Section id="join" title="How to Join">
             <div className="space-y-5 sm:space-y-6">
               <Card variant="filled" className="p-5 sm:p-6 md:p-8 text-center">
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed mb-2">
-                  Pledge whatever amount feels right to you.
+                <p className="text-base sm:text-lg md:text-xl leading-relaxed mb-2 text-warm-900 font-medium">
+                  A monthly donation, pay what you can.
                 </p>
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-                  Access to reading sessions and WhatsApp community included.
+                <p className="text-base sm:text-lg md:text-xl leading-relaxed text-warm-700">
+                  One pledge opens every session, every recording, and our WhatsApp circle.
                 </p>
               </Card>
 
