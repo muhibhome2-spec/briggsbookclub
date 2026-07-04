@@ -29,7 +29,7 @@ export default function Hadiyah() {
     <div className="min-h-screen bg-cream-50">
       <Navigation />
 
-      <header className="relative pt-28 sm:pt-36 lg:pt-40 pb-10 sm:pb-14" role="banner">
+      <header className="relative pt-10 sm:pt-16 pb-10 sm:pb-14" role="banner">
         <Container size="md" className="text-center">
           <motion.p
             initial={{ opacity: 0, y: 12 }}

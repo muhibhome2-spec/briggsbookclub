@@ -20,7 +20,7 @@ function FatihaHero() {
           src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Al-Fatihah_Later_11th_century_Iran_Kufic_script_Khalili_Collection6inchx300dpi.jpg"
           alt="A folio of Sūrah al-Fātiḥah from an 11th-century Qur’an in Kufic script, Khalili Collection"
           className="absolute inset-0 w-full h-full object-cover object-center"
-          fetchpriority="high"
+          fetchPriority="high"
           loading="eager"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-warm-900/55 via-warm-900/70 to-warm-900/85" aria-hidden="true" />

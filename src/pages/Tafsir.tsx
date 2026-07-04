@@ -10,13 +10,6 @@ import Container from '../components/ui/Container';
 import Card from '../components/ui/Card';
 
 export default function Tafsir() {
-  const whatToExpectItems = [
-    'Close engagement with the Qur\'anic text of Surah Yusuf',
-    'Insights from West African scholarly traditions',
-    'Reflection on patience, destiny, character, and reconciliation',
-    'Interactive discussion in a focused Ramadan learning environment',
-  ];
-
   const ramadanDates = [
     { date: 'Sunday, 22 February 2026', week: 'Week 1' },
     { date: 'Sunday, 1 March 2026', week: 'Week 2' },
