@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import Home from './pages/Home.tsx';
 import Hadiyah from './pages/Hadiyah.tsx';
 import Tafsir from './pages/Tafsir.tsx';
@@ -18,6 +19,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/fatiha" element={<TafsirFatiha />} />
         <Route path="/umrah" element={<Umrah />} />
       </Routes>
+      <Analytics />
     </BrowserRouter>
   </StrictMode>
 );

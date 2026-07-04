@@ -65,7 +65,7 @@ function Chapter({
 }
 
 export default function Home() {
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState('10');
 
   return (
     <div className="min-h-screen bg-cream-50">
@@ -133,6 +133,13 @@ export default function Home() {
                   transition={{ duration: 0.8, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
                   className="flex flex-col items-center gap-3"
                 >
+                  <p className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cream-200/40 bg-warm-900/40 backdrop-blur-sm text-cream-100 text-xs sm:text-sm">
+                    <span
+                      className="w-2 h-2 rounded-full bg-sage-500 animate-pulse"
+                      aria-hidden="true"
+                    />
+                    Next sitting &middot; Sunday 12 July &middot; Sūrah al-Ikhlāṣ
+                  </p>
                   <button
                     onClick={scrollToJoin}
                     className="w-full sm:w-auto min-h-[52px] px-10 py-4 bg-sage-600 text-cream-50 rounded-xl text-lg font-semibold hover:bg-sage-500 active:scale-[0.98] transition-all duration-200 shadow-lg focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2"
@@ -245,28 +252,42 @@ export default function Home() {
             <p className="text-xs sm:text-sm tracking-[0.25em] uppercase text-sage-700 mb-4">
               Current Special
             </p>
+            <p className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sage-600/10 border border-sage-500/30 text-sage-700 text-xs sm:text-sm font-medium mb-5">
+              <span
+                className="w-2 h-2 rounded-full bg-sage-500 animate-pulse"
+                aria-hidden="true"
+              />
+              Next sitting &middot; Sunday 12 July
+            </p>
             <h3 className="font-serif text-2xl sm:text-4xl text-warm-900 mb-2 leading-tight">
-              The Ocean of the Opening
+              Tafsir Sūrah al-Ikhlāṣ
             </h3>
             <p className="font-serif italic text-lg sm:text-xl text-warm-700 mb-5">
-              A Tafsir of Sūrah al-Fātiḥah
+              The Sūrah of Sincerity
             </p>
             <p className="text-base sm:text-lg leading-relaxed text-warm-700 mb-7">
-              The seven verses recited in every prayer, opened like an ocean —
-              live sessions with Q&amp;A, led by Shaykh Mustafa Briggs. Come as
-              you are; no preparation needed.
+              Four verses the Prophet ﷺ described as a third of the
+              Qur&rsquo;an — opened live with Q&amp;A, led by Shaykh Mustafa
+              Briggs. Come as you are; no preparation needed.
             </p>
-            <Link
-              to="/fatiha"
+            <button
+              onClick={scrollToJoin}
               className="inline-flex items-center justify-center gap-2 min-h-[48px] px-8 py-3 bg-sage-600 text-cream-50 rounded-xl text-base font-semibold hover:bg-sage-500 active:scale-[0.98] transition-all duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2"
             >
-              Explore the series
+              Join to attend live
               <ArrowRight className="w-4 h-4" aria-hidden="true" />
-            </Link>
+            </button>
           </motion.div>
-          <motion.p {...reveal} className="text-center text-sm sm:text-base text-warm-600 mt-6">
-            A new special every month — read live, kept forever in the replay
-            library.
+          <motion.p {...reveal} className="text-center text-sm sm:text-base text-warm-600 mt-6 max-w-md mx-auto">
+            A new special every month, kept forever in the replay library.
+            Last month:{' '}
+            <Link
+              to="/fatiha"
+              className="text-sage-600 hover:text-sage-500 font-medium underline underline-offset-2 transition-colors"
+            >
+              The Ocean of the Opening
+            </Link>
+            , a tafsir of Sūrah al-Fātiḥah.
           </motion.p>
         </Chapter>
 
@@ -324,8 +345,8 @@ export default function Home() {
               </div>
               <div className="bg-cream-100 rounded-xl p-4 sm:p-5 text-center">
                 <MessageCircle className="w-6 h-6 text-sage-600 mx-auto mb-2" aria-hidden="true" />
-                <p className="font-serif text-lg sm:text-2xl text-warm-900">Daily</p>
-                <p className="text-xs sm:text-sm text-warm-600">WhatsApp circle</p>
+                <p className="font-serif text-lg sm:text-2xl text-warm-900">WhatsApp</p>
+                <p className="text-xs sm:text-sm text-warm-600">member circle</p>
               </div>
             </motion.div>
           </div>
@@ -366,7 +387,11 @@ export default function Home() {
 
               <p className="text-lg sm:text-xl leading-relaxed text-cream-100">
                 We keep that spirit. One monthly gift — any amount — opens
-                everything.
+                everything. Join today and your first sitting is{' '}
+                <span className="font-semibold text-cream-50">
+                  Sunday 12 July — Tafsir Sūrah al-Ikhlāṣ
+                </span>
+                .
               </p>
             </motion.div>
 
@@ -381,11 +406,46 @@ export default function Home() {
               >
                 <input type="hidden" name="plan" value="141115" />
 
-                <label
-                  htmlFor="price"
-                  className="block text-sm font-medium text-warm-800 text-center"
-                >
+                <p className="text-sm font-medium text-warm-800 text-center">
                   Your monthly hadiyah
+                </p>
+
+                <div className="grid grid-cols-3 gap-2" role="group" aria-label="Choose an amount">
+                  {[
+                    { value: '5', label: '£5' },
+                    { value: '10', label: '£10', badge: 'Popular' },
+                    { value: '25', label: '£25' },
+                  ].map(({ value, label, badge }) => {
+                    const selected = amount === value;
+                    return (
+                      <button
+                        key={value}
+                        type="button"
+                        onClick={() => setAmount(value)}
+                        aria-pressed={selected}
+                        className={`flex flex-col items-center justify-center gap-0.5 min-h-[56px] rounded-xl border-2 text-lg font-semibold transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-sage-500 ${
+                          selected
+                            ? 'bg-sage-600 border-sage-600 text-cream-50 shadow-sm'
+                            : 'bg-cream-50 border-warm-300 text-warm-800 hover:border-sage-500'
+                        }`}
+                      >
+                        <span className="leading-none">{label}</span>
+                        {badge && (
+                          <span
+                            className={`text-[10px] leading-none font-medium tracking-wide uppercase ${
+                              selected ? 'text-cream-100' : 'text-sage-600'
+                            }`}
+                          >
+                            {badge}
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <label htmlFor="price" className="block text-xs text-warm-500 text-center pt-1">
+                  or enter your own amount
                 </label>
                 <div className="relative">
                   <span
@@ -418,8 +478,11 @@ export default function Home() {
                 </button>
 
                 <p className="text-xs text-center text-warm-500">
-                  Cancel anytime. Secure checkout via Memberful — the redirect
-                  after payment can take up to a minute.
+                  Takes about 60 seconds &middot; Cancel anytime in two taps
+                </p>
+                <p className="text-xs text-center text-warm-400">
+                  Secure checkout via Memberful — the redirect after payment
+                  can take up to a minute.
                 </p>
               </form>
             </motion.div>
@@ -444,6 +507,52 @@ export default function Home() {
                 </span>
               </li>
             </motion.ul>
+
+            <motion.div {...reveal} className="max-w-md mx-auto mt-12">
+              <h3 className="text-xs sm:text-sm tracking-[0.3em] uppercase text-cream-200/80 text-center mb-5">
+                Questions, answered
+              </h3>
+              <div className="space-y-3">
+                {[
+                  {
+                    q: 'When are the sittings?',
+                    a: 'We gather on Sundays, live online — the next sitting is Sunday 12 July. Every session is recorded, so if life happens, nothing is lost.',
+                  },
+                  {
+                    q: 'What if I can only give a little?',
+                    a: 'Then give a little. A £2 hadiyah is received with the same gratitude as £50 — it is not counted and not limited. Your presence is the point.',
+                  },
+                  {
+                    q: 'Do I need Arabic or previous study?',
+                    a: 'No. Shaykh Mustafa carries the text; you come as you are, sit, listen, and ask. There is no homework and nothing to keep up with.',
+                  },
+                  {
+                    q: 'What do I get access to?',
+                    a: 'Everything: every live sitting, the full replay library, reading guides, and the private WhatsApp community — all with one pledge.',
+                  },
+                  {
+                    q: 'How do I cancel?',
+                    a: 'Anytime, in a couple of taps, from your Memberful account. No questions asked, and you are always welcome back.',
+                  },
+                ].map(({ q, a }) => (
+                  <details
+                    key={q}
+                    className="group bg-cream-50/10 border border-cream-200/20 rounded-xl"
+                  >
+                    <summary className="flex items-center justify-between gap-3 cursor-pointer list-none [&::-webkit-details-marker]:hidden px-5 py-4 min-h-[52px] text-cream-50 font-medium text-sm sm:text-base">
+                      {q}
+                      <ChevronDown
+                        className="w-5 h-5 text-cream-200 flex-shrink-0 transition-transform duration-200 group-open:rotate-180"
+                        aria-hidden="true"
+                      />
+                    </summary>
+                    <p className="px-5 pb-5 text-sm sm:text-base leading-relaxed text-cream-100/90">
+                      {a}
+                    </p>
+                  </details>
+                ))}
+              </div>
+            </motion.div>
 
             <motion.p
               {...reveal}
