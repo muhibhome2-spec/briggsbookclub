@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 
 /* ══════════════════════════════════════════════════════════
-   Reveal hook — triggers once when element enters viewport
+   Reveal hook - triggers once when element enters viewport
    ══════════════════════════════════════════════════════════ */
 function useReveal(delay = 0, threshold = 0.15) {
   const ref = useRef<HTMLDivElement>(null);
@@ -81,9 +81,9 @@ export default function Umrah() {
 
   const journeyItems = [
     { num: '01', icon: 'book', title: 'Seerah Immersion', desc: 'Morning sessions exploring the life of the Prophet ﷺ, Qur\'anic reflections, and insights from classical scholarship.' },
-    { num: '02', icon: 'globe', title: 'Sacred Geography', desc: 'Guided visits to places of profound significance — where revelation descended and history was shaped.' },
+    { num: '02', icon: 'globe', title: 'Sacred Geography', desc: 'Guided visits to places of profound significance, where revelation descended and history was shaped.' },
     { num: '03', icon: 'users', title: 'Spiritual Brotherhood', desc: 'An intimate gathering of seekers. Forge bonds of faith alongside fellow travelers in a supportive, close-knit circle.' },
-    { num: '04', icon: 'star', title: 'Uncompromised Comfort', desc: 'Every detail handled — from 5-star lodging steps from the Haram to seamless logistics throughout your stay.' },
+    { num: '04', icon: 'star', title: 'Uncompromised Comfort', desc: 'Every detail handled, from 5-star lodging steps from the Haram to seamless logistics throughout your stay.' },
   ];
 
   const faqs = [
@@ -103,17 +103,17 @@ export default function Umrah() {
 
         :root {
           /* ── THREE COLORS ONLY ── */
-          /* 60% Ivory — backgrounds */
+          /* 60% Ivory - backgrounds */
           --ivory: #F8F5EF;
           --ivory-light: #FDFCF9;
           --ivory-warm: #F0ECE3;
 
-          /* 30% Charcoal — text, dark sections */
+          /* 30% Charcoal - text, dark sections */
           --charcoal: #3A3A38;
           --charcoal-light: #5A5A57;
           --charcoal-muted: #8A8A85;
 
-          /* 10% Crimson — accent only */
+          /* 10% Crimson - accent only */
           --crimson: #8d1c1e;
 
           /* Borders derived from charcoal */
@@ -407,7 +407,7 @@ export default function Umrah() {
         .u-scholar-role { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--crimson); font-weight: 500; margin-bottom: 1.5rem; }
         .u-scholar-info p { font-size: 1rem; color: var(--charcoal-muted); line-height: 1.8; font-weight: 300; margin-bottom: 1rem; }
 
-        /* Guest lecturer — same grid, lighter treatment */
+        /* Guest lecturer - same grid, lighter treatment */
         .u-guest-divider {
           max-width: 1100px; margin: 0 auto; padding: 0 0;
           display: flex; align-items: center; gap: 1.5rem;
@@ -660,7 +660,7 @@ export default function Umrah() {
           font-weight: 300;
         }
 
-        /* Book mockup — real cover image */
+        /* Book mockup - real cover image */
         .u-study-book-col {
           display: flex; align-items: center; justify-content: center;
         }
@@ -844,7 +844,7 @@ export default function Umrah() {
               <span className="u-hero-title-leading">Umrah with</span>
               <em>Shaykh Mustafa Briggs</em>
             </h1>
-            <p className="u-hero-subtitle">A seerah-based journey of knowledge, spirituality, and transformation — walking where the Prophet ﷺ walked.</p>
+            <p className="u-hero-subtitle">A seerah-based journey of knowledge, spirituality, and transformation, walking where the Prophet ﷺ walked.</p>
             <a href="#pricing" className="u-hero-cta">
               Secure Your Place
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
@@ -893,11 +893,11 @@ export default function Umrah() {
             </Reveal>
             <Reveal delay={200}>
               <p className="u-quote-text">
-                This is more than an Umrah. It is a return — to knowledge, to the footsteps of the beloved ﷺ, and to the truest version of yourself.
+                This is more than an Umrah. It is a return: to knowledge, to the footsteps of the beloved ﷺ, and to the truest version of yourself.
               </p>
             </Reveal>
             <Reveal delay={400}>
-              <p className="u-quote-attr">— Shaykh Mustafa Briggs</p>
+              <p className="u-quote-attr">Shaykh Mustafa Briggs</p>
             </Reveal>
           </div>
         </div>
@@ -918,7 +918,7 @@ export default function Umrah() {
                     <div className="u-study-book">
                       <img
                         src="https://images.arabicbookshop.net/318-057_4_3.jpg"
-                        alt="Al-Arjūzah al-Mi'iyyah — A Hundred-Line Poem on the Life of the Noblest of Creation"
+                        alt="Al-Arjūzah al-Mi'iyyah, A Hundred-Line Poem on the Life of the Noblest of Creation"
                         loading="lazy"
                       />
                       <div className="u-study-book-pages" />
@@ -930,7 +930,7 @@ export default function Umrah() {
                   <p className="u-study-transliteration">Al-Arjūzah al-Mi'iyyah fī Dhikr Ḥāl Ashraf al-Bariyyah</p>
                   <p className="u-study-english">A Hundred-Line Poem on the Life of the Noblest of Creation</p>
                   <p className="u-study-intro">
-                    Composed in approximately one hundred lines of rajaz poetry, this classical work traces the key moments of the Prophet's ﷺ blessed life — from lineage and birth to revelation, Hijrah, the Madinan period, and his passing — while highlighting his noble character and virtues.
+                    Composed in approximately one hundred lines of rajaz poetry, this classical work traces the key moments of the Prophet's ﷺ blessed life, from lineage and birth to revelation, Hijrah, the Madinan period, and his passing, while highlighting his noble character and virtues.
                   </p>
                 </div>
               </div>
@@ -965,7 +965,7 @@ export default function Umrah() {
             {/* Living Seerah banner */}
             <Reveal>
               <div className="u-study-banner">
-                <h4>Studied in Madinah, this text moves beyond theory — the Seerah is experienced, not just learned.</h4>
+                <h4>Studied in Madinah, this text moves beyond theory. The Seerah is experienced, not just learned.</h4>
                 <p>As we visit key sites and walk the very spaces where these events unfolded, this becomes an opportunity to combine knowledge, place, and presence, and to connect to the life of the Prophet ﷺ with clarity, depth, and love.</p>
               </div>
             </Reveal>
@@ -996,7 +996,7 @@ export default function Umrah() {
         <section className="u-section">
           <div className="u-section-inner">
             <Reveal className="u-testimonial">
-              <p className="u-testimonial-text">"Traveling with Shaykh Mustafa transformed the way I understand the places I visited. Every site became a lesson, every prayer became deeper. It wasn't tourism — it was transformation."</p>
+              <p className="u-testimonial-text">"Traveling with Shaykh Mustafa transformed the way I understand the places I visited. Every site became a lesson, every prayer became deeper. It wasn't tourism. It was transformation."</p>
               <p className="u-testimonial-name">Past Traveler</p>
               <p className="u-testimonial-trip">Previous Umrah Journey</p>
             </Reveal>
@@ -1023,7 +1023,7 @@ export default function Umrah() {
                   <h3>Shaykh Mustafa Briggs</h3>
                   <p className="u-scholar-role">Scholar · Author · Lead Guide</p>
                   <p>Shaykh Mustafa Briggs is a scholar of Islamic history and the author of <em>Beyond Bilal: Black History in the Muslim World</em>. He has dedicated years to studying the Seerah and the rich tapestry of Islamic civilization across continents.</p>
-                  <p>His approach weaves together deep historical knowledge with living spiritual practice — transforming the places you visit from landmarks into profound encounters with the legacy of the Prophet ﷺ and the scholars who followed.</p>
+                  <p>His approach weaves together deep historical knowledge with living spiritual practice, transforming the places you visit from landmarks into profound encounters with the legacy of the Prophet ﷺ and the scholars who followed.</p>
                 </div>
               </Reveal>
             </div>
@@ -1089,7 +1089,7 @@ export default function Umrah() {
             </div>
 
             <Reveal className="u-details-strip">
-              <div className="u-detail-item"><strong>Payment Window</strong>April – October 2026</div>
+              <div className="u-detail-item"><strong>Payment Window</strong>April to October 2026</div>
               <div className="u-detail-item"><strong>Completion</strong>All payments before travel</div>
               <div className="u-detail-item"><strong>Deposit</strong>Non-refundable</div>
               <div className="u-detail-item"><strong>Availability</strong>Limited spaces</div>

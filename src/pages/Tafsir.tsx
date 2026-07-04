@@ -116,7 +116,7 @@ export default function Tafsir() {
           <Section id="schedule" title="Ramadan Sundays 2026">
             <div className="mb-8 text-center">
               <p className="text-lg sm:text-xl text-warm-600 italic">
-                Expected dates for Ramadan 1447 AH (February–March 2026)
+                Expected dates for Ramadan 1447 AH (February to March 2026)
               </p>
             </div>
 

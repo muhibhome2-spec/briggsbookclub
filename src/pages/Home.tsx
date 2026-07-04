@@ -72,7 +72,7 @@ export default function Home() {
       <Navigation />
 
       <main role="main">
-        {/* Arrival — what this is */}
+        {/* Arrival: what this is */}
         <header className="relative" role="banner">
           <div className="relative w-full min-h-[560px] h-[88svh] max-h-[860px] overflow-hidden">
             <img
@@ -122,9 +122,8 @@ export default function Home() {
                   transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
                   className="text-base sm:text-lg text-cream-100/95 leading-relaxed mb-8 text-balance"
                 >
-                  Read classical Islamic texts with Shaykh Mustafa Briggs and
-                  500+ readers around the world — one book, one circle, one
-                  sitting at a time.
+                  A book club for classical Islamic texts, read together with
+                  Shaykh Mustafa Briggs and over 500 members around the world.
                 </motion.p>
 
                 <motion.div
@@ -173,23 +172,23 @@ export default function Home() {
           </div>
         </header>
 
-        {/* 01 — The Tradition */}
+        {/* 01: The Tradition */}
         <Chapter id="tradition" num="Chapter 01" title="The Tradition">
           <motion.div {...reveal} className="max-w-xl mx-auto text-center space-y-6">
             <p className="text-lg sm:text-xl leading-relaxed text-warm-800">
               For fourteen centuries, knowledge has travelled{' '}
-              <span className="font-semibold text-warm-900">heart to heart</span>{' '}
-              — from the Prophet ﷺ to his Companions, from Madina to Kufa, from
-              Tunis to Timbuktu. An unbroken chain of readers, the{' '}
-              <span className="italic">isnād</span>, carried one gathering at a
-              time.
+              <span className="font-semibold text-warm-900">heart to heart</span>:
+              from the Prophet ﷺ to his Companions, from Madina to Kufa, from
+              Tunis to Timbuktu. Scholars call this unbroken chain the{' '}
+              <span className="italic">isnād</span>. It was built in small
+              gatherings, one reading at a time.
             </p>
             <p className="text-lg sm:text-xl leading-relaxed text-warm-800">
-              Briggs&rsquo; Book Club is a seat in that circle — where{' '}
+              Briggs&rsquo; Book Club is a seat in that circle. The same{' '}
               <span className="font-semibold text-warm-900">
-                sacred tradition meets contemporary conversation
+                sacred tradition
               </span>
-              , in the familiar form of a book club.
+              , carried on in a form everyone already knows: a book club.
             </p>
             <div className="flex justify-center pt-2" aria-hidden="true">
               <div className="w-24 h-px bg-gradient-to-r from-transparent via-sage-500 to-transparent" />
@@ -197,15 +196,15 @@ export default function Home() {
           </motion.div>
         </Chapter>
 
-        {/* 02 — The Circle */}
+        {/* 02: The Circle */}
         <Chapter id="circle" num="Chapter 02" title="The Circle" className="bg-cream-100">
           <div className="max-w-xl mx-auto space-y-6">
             <motion.p {...reveal} className="text-lg sm:text-xl leading-relaxed text-warm-800 text-center">
-              No homework. No prerequisites. No performing. Each sitting,
-              Shaykh Mustafa opens the text and carries us through it — drawing
-              on the Qur&rsquo;an, the Sunnah, and the living chain of{' '}
-              <span className="italic">isnād</span> — while you simply sit,
-              listen, and ask.
+              There is no homework and nothing to prepare. In each sitting,
+              Shaykh Mustafa opens the text and takes us through it, drawing on
+              the Qur&rsquo;an, the Sunnah, and the living chain of{' '}
+              <span className="italic">isnād</span>. You sit, listen, and ask
+              whatever you like.
             </motion.p>
 
             <motion.div {...reveal} className="grid grid-cols-2 gap-3 sm:gap-4">
@@ -236,14 +235,14 @@ export default function Home() {
               className="bg-sage-600 text-cream-50 rounded-2xl p-7 sm:p-9 text-center shadow-md"
             >
               <p className="font-serif text-xl sm:text-2xl leading-relaxed">
-                &ldquo;It isn&rsquo;t about keeping up or catching up —
-                it&rsquo;s about <span className="font-semibold">showing up</span>.&rdquo;
+                &ldquo;It isn&rsquo;t about keeping up or catching up.
+                It&rsquo;s about <span className="font-semibold">showing up</span>.&rdquo;
               </p>
             </motion.blockquote>
           </div>
         </Chapter>
 
-        {/* 03 — The Book */}
+        {/* 03: The Book */}
         <Chapter id="reading" num="Chapter 03" title="What We're Reading">
           <motion.div
             {...reveal}
@@ -266,9 +265,10 @@ export default function Home() {
               The Sūrah of Sincerity
             </p>
             <p className="text-base sm:text-lg leading-relaxed text-warm-700 mb-7">
-              Four verses the Prophet ﷺ described as a third of the
-              Qur&rsquo;an — opened live with Q&amp;A, led by Shaykh Mustafa
-              Briggs. Come as you are; no preparation needed.
+              The Prophet ﷺ described these four short verses as a third of
+              the Qur&rsquo;an. Shaykh Mustafa will open them up in live
+              sittings, with time for your questions. Come as you are. There is
+              nothing to prepare.
             </p>
             <button
               onClick={scrollToJoin}
@@ -291,7 +291,7 @@ export default function Home() {
           </motion.p>
         </Chapter>
 
-        {/* 04 — The Guide */}
+        {/* 04: The Guide */}
         <Chapter id="guide" num="Chapter 04" title="The Guide" className="bg-cream-100">
           <motion.div
             {...reveal}
@@ -308,13 +308,12 @@ export default function Home() {
                 Shaykh Mustafa Briggs
               </h3>
               <p className="text-base sm:text-lg leading-relaxed text-warm-700">
-                Author of the Amazon bestseller{' '}
-                <span className="italic">Beyond Bilal: Black History in Islam</span>,
-                taught at over 50 universities across three continents —
-                Oxford, Cambridge, Harvard, and Yale among them. Trained at
-                SOAS and al-Azhar, he carries classical{' '}
-                <span className="italic">ijazat</span> from Shariff Ibrahim Ibn
-                Saleh al-Hussaini.
+                Mustafa Briggs wrote the Amazon bestseller{' '}
+                <span className="italic">Beyond Bilal: Black History in Islam</span>{' '}
+                and has taught at more than 50 universities, including Oxford,
+                Cambridge, Harvard, and Yale. He studied at SOAS and al-Azhar,
+                and holds classical <span className="italic">ijazat</span> from
+                Shariff Ibrahim Ibn Saleh al-Hussaini.
               </p>
               <p className="text-base sm:text-lg leading-relaxed text-warm-800 font-medium mt-4">
                 Every month, he sits down to read with us.
@@ -323,13 +322,14 @@ export default function Home() {
           </motion.div>
         </Chapter>
 
-        {/* 05 — The Community */}
+        {/* 05: The Community */}
         <Chapter id="community" num="Chapter 05" title="The Company You Keep">
           <div className="max-w-xl mx-auto">
             <motion.p {...reveal} className="text-lg sm:text-xl leading-relaxed text-warm-800 text-center mb-8">
-              The Prophet ﷺ taught through <span className="italic">suhbah</span>{' '}
-              — companionship. Knowledge here is not a commodity but a
-              relationship: readers across the world, growing through presence.
+              The Prophet ﷺ taught through{' '}
+              <span className="italic">suhbah</span>, companionship. That is
+              what we are building here: readers all over the world who show up
+              for the text, and for each other.
             </motion.p>
 
             <motion.div {...reveal} className="grid grid-cols-3 gap-3 sm:gap-4">
@@ -352,7 +352,7 @@ export default function Home() {
           </div>
         </Chapter>
 
-        {/* 06 — The Hadiyah: destination */}
+        {/* 06: The Hadiyah: destination */}
         <section id="join" className="py-16 sm:py-24 scroll-mt-16 bg-sage-700">
           <Container size="md">
             <motion.p
@@ -371,9 +371,9 @@ export default function Home() {
             <motion.div {...reveal} className="max-w-xl mx-auto text-center space-y-6 mb-10">
               <p className="text-lg sm:text-xl leading-relaxed text-cream-100">
                 In the West African tradition, knowledge was never sold. The
-                teacher taught freely; the student, moved by gratitude, offered
-                what they could — a <span className="italic font-medium">hadiyah</span>,
-                a gift.
+                teacher taught freely, and the student gave what they could out
+                of gratitude. That gift is called a{' '}
+                <span className="italic font-medium">hadiyah</span>.
               </p>
 
               <blockquote className="py-2">
@@ -386,10 +386,10 @@ export default function Home() {
               </blockquote>
 
               <p className="text-lg sm:text-xl leading-relaxed text-cream-100">
-                We keep that spirit. One monthly gift — any amount — opens
+                We keep that spirit. One monthly gift of any amount opens
                 everything. Join today and your first sitting is{' '}
                 <span className="font-semibold text-cream-50">
-                  Sunday 12 July — Tafsir Sūrah al-Ikhlāṣ
+                  Sunday 12 July, Tafsir Sūrah al-Ikhlāṣ
                 </span>
                 .
               </p>
@@ -481,7 +481,7 @@ export default function Home() {
                   Takes about 60 seconds &middot; Cancel anytime in two taps
                 </p>
                 <p className="text-xs text-center text-warm-400">
-                  Secure checkout via Memberful — the redirect after payment
+                  Secure checkout via Memberful. The redirect after payment
                   can take up to a minute.
                 </p>
               </form>
@@ -491,7 +491,7 @@ export default function Home() {
               <li className="flex items-center gap-4">
                 <PlayCircle className="w-6 h-6 text-cream-200 flex-shrink-0" aria-hidden="true" />
                 <span className="text-base sm:text-lg text-cream-100">
-                  Every live sitting with Shaykh Mustafa — and every replay
+                  Every live sitting with Shaykh Mustafa, plus every replay
                 </span>
               </li>
               <li className="flex items-center gap-4">
@@ -516,11 +516,11 @@ export default function Home() {
                 {[
                   {
                     q: 'When are the sittings?',
-                    a: 'We gather on Sundays, live online — the next sitting is Sunday 12 July. Every session is recorded, so if life happens, nothing is lost.',
+                    a: 'We gather on Sundays, live online. The next sitting is Sunday 12 July. Every session is recorded, so you can catch up whenever you need to.',
                   },
                   {
                     q: 'What if I can only give a little?',
-                    a: 'Then give a little. A £2 hadiyah is received with the same gratitude as £50 — it is not counted and not limited. Your presence is the point.',
+                    a: 'Then give a little. A £2 hadiyah is received with the same gratitude as £50. What matters is that you are in the room.',
                   },
                   {
                     q: 'Do I need Arabic or previous study?',
@@ -528,7 +528,7 @@ export default function Home() {
                   },
                   {
                     q: 'What do I get access to?',
-                    a: 'Everything: every live sitting, the full replay library, reading guides, and the private WhatsApp community — all with one pledge.',
+                    a: 'Everything. Every live sitting, the full replay library, the reading guides, and the private WhatsApp community. One pledge covers it all.',
                   },
                   {
                     q: 'How do I cancel?',
@@ -565,7 +565,7 @@ export default function Home() {
         </section>
       </main>
 
-      {/* Footer — essentials only */}
+      {/* Footer: essentials only */}
       <footer className="border-t border-warm-200 py-10 bg-cream-50">
         <Container size="md" className="text-center space-y-4">
           <p className="font-serif text-lg text-warm-900">
