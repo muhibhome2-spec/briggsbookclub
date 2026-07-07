@@ -10,13 +10,6 @@ import Container from '../components/ui/Container';
 import Card from '../components/ui/Card';
 
 export default function Tafsir() {
-  const whatToExpectItems = [
-    'Close engagement with the Qur\'anic text of Surah Yusuf',
-    'Insights from West African scholarly traditions',
-    'Reflection on patience, destiny, character, and reconciliation',
-    'Interactive discussion in a focused Ramadan learning environment',
-  ];
-
   const ramadanDates = [
     { date: 'Sunday, 22 February 2026', week: 'Week 1' },
     { date: 'Sunday, 1 March 2026', week: 'Week 2' },
@@ -123,7 +116,7 @@ export default function Tafsir() {
           <Section id="schedule" title="Ramadan Sundays 2026">
             <div className="mb-8 text-center">
               <p className="text-lg sm:text-xl text-warm-600 italic">
-                Expected dates for Ramadan 1447 AH (February–March 2026)
+                Expected dates for Ramadan 1447 AH (February to March 2026)
               </p>
             </div>
 

@@ -1,363 +1,604 @@
-import { BookOpen, Users, Calendar, ArrowRight } from 'lucide-react';
+import { useState, ReactNode } from 'react';
+import { motion } from 'framer-motion';
+import {
+  Heart,
+  Users,
+  MessageCircle,
+  PlayCircle,
+  BookOpen,
+  ArrowRight,
+  ChevronDown,
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
-import Hero from '../components/Hero';
 import Navigation from '../components/Navigation';
-import Section from '../components/Section';
-import Divider from '../components/Divider';
-import CallToAction from '../components/CallToAction';
-import AnimatedCard from '../components/AnimatedCard';
-import BackToTop from '../components/ui/BackToTop';
 import Container from '../components/ui/Container';
-import Card from '../components/ui/Card';
+
+function scrollToJoin() {
+  document.getElementById('join')?.scrollIntoView({ behavior: 'smooth' });
+}
+
+const reveal = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-60px' },
+  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+} as const;
+
+function Chapter({
+  id,
+  num,
+  title,
+  dark = false,
+  className = '',
+  children,
+}: {
+  id: string;
+  num: string;
+  title: string;
+  dark?: boolean;
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <section id={id} className={`py-14 sm:py-20 scroll-mt-16 ${className}`}>
+      <Container size="md">
+        <motion.p
+          {...reveal}
+          className={`text-xs sm:text-sm tracking-[0.3em] uppercase text-center mb-3 ${
+            dark ? 'text-cream-200/80' : 'text-sage-600'
+          }`}
+        >
+          {num}
+        </motion.p>
+        <motion.h2
+          {...reveal}
+          className={`font-serif text-2xl sm:text-4xl tracking-tight text-center mb-8 sm:mb-10 ${
+            dark ? 'text-cream-50' : 'text-warm-900'
+          }`}
+        >
+          {title}
+        </motion.h2>
+        {children}
+      </Container>
+    </section>
+  );
+}
 
 export default function Home() {
+  const [amount, setAmount] = useState('10');
 
   return (
     <div className="min-h-screen bg-cream-50">
       <Navigation />
-      <Hero />
 
       <main role="main">
-        <Container size="lg" className="pb-16 sm:pb-24 md:pb-32">
-          <Section id="introduction" title="Introduction">
-            <div className="space-y-4 sm:space-y-5">
-              <AnimatedCard className="bg-cream-100 rounded-lg p-5 sm:p-6 md:p-8" delay={0}>
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-                  Inspired by Shaykh Mustafa Briggs, a small community of students and those who wished to study with him formed Briggs' Book Club, a space to learn, connect, and grow together through books and conversation.
-                </p>
-              </AnimatedCard>
+        {/* Arrival: what this is */}
+        <header className="relative" role="banner">
+          <div className="relative w-full min-h-[560px] h-[88svh] max-h-[860px] overflow-hidden">
+            <img
+              src="/WhatsApp Image 2025-11-03 at 3.08.19 PM.jpeg"
+              alt="A scholar among centuries-old manuscripts"
+              className="absolute inset-0 w-full h-full object-cover"
+              fetchPriority="high"
+              loading="eager"
+            />
+            <div
+              className="absolute inset-0 bg-gradient-to-b from-warm-900/50 via-warm-900/60 to-warm-900/85"
+              aria-hidden="true"
+            />
 
-              <AnimatedCard className="bg-cream-100 rounded-lg p-5 sm:p-6 md:p-8" delay={0.1}>
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-                  Where <span className="font-semibold text-warm-900">sacred tradition meets contemporary conversation</span>.
-                </p>
-              </AnimatedCard>
-
-              <AnimatedCard className="bg-cream-100 rounded-lg p-5 sm:p-6 md:p-8" delay={0.2}>
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-                  A circle for seekers who wish to experience classical learning through the familiar form of a book club.
-                </p>
-              </AnimatedCard>
-
-              <div className="text-center py-6 sm:py-8">
-                <p className="text-xl sm:text-2xl md:text-3xl font-serif italic text-warm-700">
-                  Read. Reflect. Remember.
-                </p>
-              </div>
-            </div>
-          </Section>
-
-          <Divider />
-
-          <Section id="now-reading" title="Now Reading">
-            <div className="space-y-5 sm:space-y-6">
-              <ul className="flex flex-wrap justify-center items-center gap-x-3 gap-y-1 text-sm sm:text-base text-warm-600 mb-2">
-                <li className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-sage-500 animate-pulse" aria-hidden="true" />
-                  <span className="font-medium text-warm-800">500+ members and growing</span>
-                </li>
-                <li className="text-warm-300" aria-hidden="true">·</li>
-                <li>A new special each month</li>
-              </ul>
-
-              <Card variant="filled" className="p-6 sm:p-8 md:p-10 text-center">
-                <p className="text-xs sm:text-sm tracking-[0.25em] uppercase text-sage-700 mb-4">
-                  Current Special
-                </p>
-                <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl text-warm-900 mb-2 leading-tight">
-                  The Ocean of the Opening
-                </h3>
-                <p className="font-serif italic text-lg sm:text-xl text-warm-700 mb-5">
-                  A Tafsir of Sūrah al-Fātiḥah
-                </p>
-                <p className="text-base sm:text-lg leading-relaxed text-warm-700 max-w-xl mx-auto mb-7">
-                  Two Sundays in May, live and recorded, with a Q&amp;A with Shaykh Mustafa Briggs.
-                </p>
-                <Link
-                  to="/fatiha"
-                  className="inline-flex items-center gap-2 min-h-[44px] px-6 sm:px-8 py-3 bg-sage-600 text-cream-50 rounded-md text-sm sm:text-base font-medium hover:bg-sage-500 transition-all duration-200 shadow-sm hover:shadow focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2"
+            <div className="absolute inset-0 flex items-center justify-center px-5">
+              <div className="text-center max-w-xl mx-auto">
+                <motion.p
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                  className="text-xs sm:text-sm tracking-[0.3em] uppercase text-cream-200/90 mb-5"
                 >
-                  Learn more
-                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                </Link>
-              </Card>
-            </div>
-          </Section>
+                  A community of sacred reading
+                </motion.p>
 
-          <Divider />
+                <motion.h1
+                  initial={{ opacity: 0, y: 22 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                  className="font-serif text-4xl sm:text-6xl text-white tracking-tight leading-tight mb-4 drop-shadow-lg"
+                >
+                  Briggs&rsquo; Book Club
+                </motion.h1>
 
-          <Section id="vision" title="The Vision">
-            <div className="space-y-4 sm:space-y-5">
-              <Card variant="default" className="p-5 sm:p-6 md:p-8 border-l-4 border-sage-500">
-                <h3 className="font-serif text-xl sm:text-2xl md:text-3xl text-warm-900 mb-3 sm:mb-4">
-                  The Tradition of <span className="italic">Isnad</span>
-                </h3>
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed text-warm-700">
-                  The unbroken chain from the Prophet ﷺ through his Companions and scholars of every age. From Madina to Kufa, from Tunis to Timbuktu — knowledge transmitted heart to heart.
-                </p>
-              </Card>
+                <motion.p
+                  initial={{ opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  className="font-serif italic text-xl sm:text-2xl text-cream-100 mb-5 drop-shadow"
+                >
+                  Read. Reflect. Remember.
+                </motion.p>
 
-              <Card variant="default" className="p-5 sm:p-6 md:p-8 border-l-4 border-sage-500">
-                <h3 className="font-serif text-xl sm:text-2xl md:text-3xl text-warm-900 mb-3 sm:mb-4">
-                  The Modern Book Club
-                </h3>
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed text-warm-700">
-                  An open gathering of readers exploring texts together, sharing insights, and growing in understanding.
-                </p>
-              </Card>
+                <motion.p
+                  initial={{ opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  className="text-base sm:text-lg text-cream-100/95 leading-relaxed mb-8 text-balance"
+                >
+                  A book club for classical Islamic texts, read together with
+                  Shaykh Mustafa Briggs and over 500 members around the world.
+                </motion.p>
 
-              <Card variant="filled" className="p-6 sm:p-7 md:p-8 text-center">
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed text-warm-900 font-medium">
-                  Briggs' Book Club unites these two worlds.
-                </p>
-              </Card>
-            </div>
-          </Section>
-
-          <Divider />
-
-          <Section id="companionship" title="Knowledge as Companionship">
-            <div className="space-y-4 sm:space-y-5">
-              <Card variant="default" className="p-5 sm:p-6 md:p-8">
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-                  The Prophet ﷺ taught through <span className="italic font-medium">suhbah</span> — companionship. Knowledge was not a commodity but a relationship.
-                </p>
-              </Card>
-
-              <Card variant="default" className="p-5 sm:p-6 md:p-8">
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-                  The early generations preserved this: learning through love, trust, and proximity to people of knowledge.
-                </p>
-              </Card>
-
-              <div className="bg-sage-600 text-cream-50 rounded-lg p-6 sm:p-8 md:p-10 text-center shadow-lg mt-8">
-                <p className="text-lg sm:text-xl md:text-2xl font-serif leading-relaxed">
-                  Briggs' Book Club revives this ethos for our time.
-                </p>
+                <motion.div
+                  initial={{ opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex flex-col items-center gap-3"
+                >
+                  <p className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cream-200/40 bg-warm-900/40 backdrop-blur-sm text-cream-100 text-xs sm:text-sm">
+                    <span
+                      className="w-2 h-2 rounded-full bg-sage-500 animate-pulse"
+                      aria-hidden="true"
+                    />
+                    Next sitting &middot; Sunday 12 July &middot; Sūrah al-Ikhlāṣ
+                  </p>
+                  <button
+                    onClick={scrollToJoin}
+                    className="w-full sm:w-auto min-h-[52px] px-10 py-4 bg-sage-600 text-cream-50 rounded-xl text-lg font-semibold hover:bg-sage-500 active:scale-[0.98] transition-all duration-200 shadow-lg focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2"
+                  >
+                    Join the circle
+                  </button>
+                  <p className="text-sm text-cream-200/90">
+                    Pay what you can &middot; Cancel anytime
+                  </p>
+                </motion.div>
               </div>
             </div>
-          </Section>
 
-          <Divider />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.2, duration: 0.8 }}
+              className="absolute bottom-5 left-0 right-0 flex flex-col items-center text-cream-200/80"
+              aria-hidden="true"
+            >
+              <span className="text-[11px] tracking-[0.25em] uppercase mb-1">
+                The journey begins
+              </span>
+              <motion.span
+                animate={{ y: [0, 6, 0] }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                <ChevronDown className="w-5 h-5" />
+              </motion.span>
+            </motion.div>
+          </div>
+        </header>
 
-          <Section id="ethos" title="The Ethos">
-            <div className="text-center mb-8 sm:mb-10 md:mb-12">
-              <p className="text-lg sm:text-xl md:text-2xl text-warm-700 font-medium">
-                Knowledge Is a Trust, Not a Transaction
+        {/* 01: The Tradition */}
+        <Chapter id="tradition" num="Chapter 01" title="The Tradition">
+          <motion.div {...reveal} className="max-w-xl mx-auto text-center space-y-6">
+            <p className="text-lg sm:text-xl leading-relaxed text-warm-800">
+              For fourteen centuries, knowledge has travelled{' '}
+              <span className="font-semibold text-warm-900">heart to heart</span>:
+              from the Prophet ﷺ to his Companions, from Madina to Kufa, from
+              Tunis to Timbuktu. Scholars call this unbroken chain the{' '}
+              <span className="italic">isnād</span>. It was built in small
+              gatherings, one reading at a time.
+            </p>
+            <p className="text-lg sm:text-xl leading-relaxed text-warm-800">
+              Briggs&rsquo; Book Club is a seat in that circle. The same{' '}
+              <span className="font-semibold text-warm-900">
+                sacred tradition
+              </span>
+              , carried on in a form everyone already knows: a book club.
+            </p>
+            <div className="flex justify-center pt-2" aria-hidden="true">
+              <div className="w-24 h-px bg-gradient-to-r from-transparent via-sage-500 to-transparent" />
+            </div>
+          </motion.div>
+        </Chapter>
+
+        {/* 02: The Circle */}
+        <Chapter id="circle" num="Chapter 02" title="The Circle" className="bg-cream-100">
+          <div className="max-w-xl mx-auto space-y-6">
+            <motion.p {...reveal} className="text-lg sm:text-xl leading-relaxed text-warm-800 text-center">
+              There is no homework and nothing to prepare. In each sitting,
+              Shaykh Mustafa opens the text and takes us through it, drawing on
+              the Qur&rsquo;an, the Sunnah, and the living chain of{' '}
+              <span className="italic">isnād</span>. You sit, listen, and ask
+              whatever you like.
+            </motion.p>
+
+            <motion.div {...reveal} className="grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="bg-white rounded-xl border border-warm-200 p-5 sm:p-6">
+                <h3 className="font-semibold text-warm-900 mb-3 text-sm sm:text-base">
+                  This isn&rsquo;t
+                </h3>
+                <ul className="space-y-2 text-sm sm:text-base text-warm-600">
+                  <li>A class with homework</li>
+                  <li>A course with requirements</li>
+                  <li>A place to perform</li>
+                </ul>
+              </div>
+              <div className="bg-sage-600/10 rounded-xl border border-sage-500/20 p-5 sm:p-6">
+                <h3 className="font-semibold text-warm-900 mb-3 text-sm sm:text-base">
+                  This is
+                </h3>
+                <ul className="space-y-2 text-sm sm:text-base text-warm-700">
+                  <li>A circle of sincerity</li>
+                  <li>Love of knowledge</li>
+                  <li>Stillness in your week</li>
+                </ul>
+              </div>
+            </motion.div>
+
+            <motion.blockquote
+              {...reveal}
+              className="bg-sage-600 text-cream-50 rounded-2xl p-7 sm:p-9 text-center shadow-md"
+            >
+              <p className="font-serif text-xl sm:text-2xl leading-relaxed">
+                &ldquo;It isn&rsquo;t about keeping up or catching up.
+                It&rsquo;s about <span className="font-semibold">showing up</span>.&rdquo;
+              </p>
+            </motion.blockquote>
+          </div>
+        </Chapter>
+
+        {/* 03: The Book */}
+        <Chapter id="reading" num="Chapter 03" title="What We're Reading">
+          <motion.div
+            {...reveal}
+            className="max-w-xl mx-auto bg-white rounded-2xl shadow-sm border border-warm-200 p-6 sm:p-10 text-center"
+          >
+            <p className="text-xs sm:text-sm tracking-[0.25em] uppercase text-sage-700 mb-4">
+              Current Special
+            </p>
+            <p className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sage-600/10 border border-sage-500/30 text-sage-700 text-xs sm:text-sm font-medium mb-5">
+              <span
+                className="w-2 h-2 rounded-full bg-sage-500 animate-pulse"
+                aria-hidden="true"
+              />
+              Next sitting &middot; Sunday 12 July
+            </p>
+            <h3 className="font-serif text-2xl sm:text-4xl text-warm-900 mb-2 leading-tight">
+              Tafsir Sūrah al-Ikhlāṣ
+            </h3>
+            <p className="font-serif italic text-lg sm:text-xl text-warm-700 mb-5">
+              The Sūrah of Sincerity
+            </p>
+            <p className="text-base sm:text-lg leading-relaxed text-warm-700 mb-7">
+              The Prophet ﷺ described these four short verses as a third of
+              the Qur&rsquo;an. Shaykh Mustafa will open them up in live
+              sittings, with time for your questions. Come as you are. There is
+              nothing to prepare.
+            </p>
+            <button
+              onClick={scrollToJoin}
+              className="inline-flex items-center justify-center gap-2 min-h-[48px] px-8 py-3 bg-sage-600 text-cream-50 rounded-xl text-base font-semibold hover:bg-sage-500 active:scale-[0.98] transition-all duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2"
+            >
+              Join to attend live
+              <ArrowRight className="w-4 h-4" aria-hidden="true" />
+            </button>
+          </motion.div>
+          <motion.p {...reveal} className="text-center text-sm sm:text-base text-warm-600 mt-6 max-w-md mx-auto">
+            A new special every month, kept forever in the replay library.
+            Last month:{' '}
+            <Link
+              to="/fatiha"
+              className="text-sage-600 hover:text-sage-500 font-medium underline underline-offset-2 transition-colors"
+            >
+              The Ocean of the Opening
+            </Link>
+            , a tafsir of Sūrah al-Fātiḥah.
+          </motion.p>
+        </Chapter>
+
+        {/* 04: The Guide */}
+        <Chapter id="guide" num="Chapter 04" title="The Guide" className="bg-cream-100">
+          <motion.div
+            {...reveal}
+            className="max-w-xl mx-auto flex flex-col items-center text-center gap-6 bg-white rounded-2xl border border-warm-200 p-7 sm:p-10"
+          >
+            <img
+              src="/481670751_1186997073434369_6966345736034781904_n.jpg"
+              alt="Shaykh Mustafa Briggs"
+              className="w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-sage-500 shadow-md"
+              loading="lazy"
+            />
+            <div>
+              <h3 className="font-serif text-xl sm:text-2xl text-warm-900 mb-3">
+                Shaykh Mustafa Briggs
+              </h3>
+              <p className="text-base sm:text-lg leading-relaxed text-warm-700">
+                Mustafa Briggs wrote the Amazon bestseller{' '}
+                <span className="italic">Beyond Bilal: Black History in Islam</span>{' '}
+                and has taught at more than 50 universities, including Oxford,
+                Cambridge, Harvard, and Yale. He studied at SOAS and al-Azhar,
+                and holds classical <span className="italic">ijazat</span> from
+                Shariff Ibrahim Ibn Saleh al-Hussaini.
+              </p>
+              <p className="text-base sm:text-lg leading-relaxed text-warm-800 font-medium mt-4">
+                Every month, he sits down to read with us.
               </p>
             </div>
+          </motion.div>
+        </Chapter>
 
-            <div className="space-y-5 sm:space-y-6">
-              <Card variant="default" className="p-5 sm:p-6 md:p-8">
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-                  In West African tradition, a student would approach a teacher with a book. The teacher gave freely. The student, moved by gratitude, would offer what they could — a <span className="italic font-medium">hadiyah</span>. No set price. No obligation. Only sincerity, <span className="italic">adab</span>, and love for knowledge.
-                </p>
-              </Card>
+        {/* 05: The Community */}
+        <Chapter id="community" num="Chapter 05" title="The Company You Keep">
+          <div className="max-w-xl mx-auto">
+            <motion.p {...reveal} className="text-lg sm:text-xl leading-relaxed text-warm-800 text-center mb-8">
+              The Prophet ﷺ taught through{' '}
+              <span className="italic">suhbah</span>, companionship. That is
+              what we are building here: readers all over the world who show up
+              for the text, and for each other.
+            </motion.p>
 
-              <blockquote className="my-6 sm:my-8 py-6 sm:py-8 md:py-10 px-5 sm:px-8 md:px-10 bg-sage-600/5 border-l-4 border-sage-500 rounded-r">
-                <p className="text-xl sm:text-2xl md:text-3xl text-center font-arabic leading-loose text-warm-900 mb-4 sm:mb-5" dir="rtl">
+            <motion.div {...reveal} className="grid grid-cols-3 gap-3 sm:gap-4">
+              <div className="bg-cream-100 rounded-xl p-4 sm:p-5 text-center">
+                <Users className="w-6 h-6 text-sage-600 mx-auto mb-2" aria-hidden="true" />
+                <p className="font-serif text-lg sm:text-2xl text-warm-900">500+</p>
+                <p className="text-xs sm:text-sm text-warm-600">readers worldwide</p>
+              </div>
+              <div className="bg-cream-100 rounded-xl p-4 sm:p-5 text-center">
+                <PlayCircle className="w-6 h-6 text-sage-600 mx-auto mb-2" aria-hidden="true" />
+                <p className="font-serif text-lg sm:text-2xl text-warm-900">Live</p>
+                <p className="text-xs sm:text-sm text-warm-600">all recorded</p>
+              </div>
+              <div className="bg-cream-100 rounded-xl p-4 sm:p-5 text-center">
+                <MessageCircle className="w-6 h-6 text-sage-600 mx-auto mb-2" aria-hidden="true" />
+                <p className="font-serif text-lg sm:text-2xl text-warm-900">WhatsApp</p>
+                <p className="text-xs sm:text-sm text-warm-600">member circle</p>
+              </div>
+            </motion.div>
+          </div>
+        </Chapter>
+
+        {/* 06: The Hadiyah: destination */}
+        <section id="join" className="py-16 sm:py-24 scroll-mt-16 bg-sage-700">
+          <Container size="md">
+            <motion.p
+              {...reveal}
+              className="text-xs sm:text-sm tracking-[0.3em] uppercase text-center mb-3 text-cream-200/80"
+            >
+              Chapter 06 &middot; Your Seat in the Circle
+            </motion.p>
+            <motion.h2
+              {...reveal}
+              className="font-serif text-2xl sm:text-4xl tracking-tight text-center mb-8 sm:mb-10 text-cream-50"
+            >
+              The Hadiyah
+            </motion.h2>
+
+            <motion.div {...reveal} className="max-w-xl mx-auto text-center space-y-6 mb-10">
+              <p className="text-lg sm:text-xl leading-relaxed text-cream-100">
+                In the West African tradition, knowledge was never sold. The
+                teacher taught freely, and the student gave what they could out
+                of gratitude. That gift is called a{' '}
+                <span className="italic font-medium">hadiyah</span>.
+              </p>
+
+              <blockquote className="py-2">
+                <p className="text-2xl sm:text-3xl leading-loose text-cream-50 mb-3" dir="rtl">
                   لَا تُرَدّ وَلَا تُعَدّ وَلَا تُحَدّ
                 </p>
-                <p className="text-base sm:text-lg md:text-xl text-center italic text-warm-700 mb-3">
-                  "It is not rejected, not counted, and not limited."
-                </p>
-                <p className="text-sm sm:text-base text-center text-warm-600">
-                  — On the gift of <span className="italic">hadiyah</span>
+                <p className="text-base sm:text-lg italic text-cream-200">
+                  &ldquo;It is not rejected, not counted, and not limited.&rdquo;
                 </p>
               </blockquote>
 
-              <Card variant="default" className="p-5 sm:p-6 md:p-8 text-center">
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed italic">
-                  Generosity without calculation. Gratitude without obligation.
+              <p className="text-lg sm:text-xl leading-relaxed text-cream-100">
+                We keep that spirit. One monthly gift of any amount opens
+                everything. Join today and your first sitting is{' '}
+                <span className="font-semibold text-cream-50">
+                  Sunday 12 July, Tafsir Sūrah al-Ikhlāṣ
+                </span>
+                .
+              </p>
+            </motion.div>
+
+            <motion.div
+              {...reveal}
+              className="max-w-md mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8"
+            >
+              <form
+                action="https://briggsbookclubltd.memberful.com/checkout"
+                method="get"
+                className="space-y-4"
+              >
+                <input type="hidden" name="plan" value="141115" />
+
+                <p className="text-sm font-medium text-warm-800 text-center">
+                  Your monthly hadiyah
                 </p>
-              </Card>
-            </div>
-          </Section>
 
-          <Divider />
-
-          <Section id="hadiyah" title="The Hadiyah Model">
-            <div className="space-y-4 sm:space-y-5">
-              <Card variant="filled" className="p-5 sm:p-6 md:p-8 text-center">
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-                  Briggs’ Book Club runs on a <span className="font-semibold italic">hadiyah</span>: a monthly donation, pay what you can.
-                </p>
-              </Card>
-
-              <Card variant="default" className="p-5 sm:p-6 md:p-8">
-                <div className="flex items-start gap-3">
-                  <span className="text-sage-600 text-2xl flex-shrink-0" aria-hidden="true">•</span>
-                  <p className="text-base sm:text-lg md:text-xl leading-relaxed pt-1">
-                    Pledge whatever amount feels right to you — there is no minimum or maximum
-                  </p>
+                <div className="grid grid-cols-3 gap-2" role="group" aria-label="Choose an amount">
+                  {[
+                    { value: '5', label: '£5' },
+                    { value: '10', label: '£10', badge: 'Popular' },
+                    { value: '25', label: '£25' },
+                  ].map(({ value, label, badge }) => {
+                    const selected = amount === value;
+                    return (
+                      <button
+                        key={value}
+                        type="button"
+                        onClick={() => setAmount(value)}
+                        aria-pressed={selected}
+                        className={`flex flex-col items-center justify-center gap-0.5 min-h-[56px] rounded-xl border-2 text-lg font-semibold transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-sage-500 ${
+                          selected
+                            ? 'bg-sage-600 border-sage-600 text-cream-50 shadow-sm'
+                            : 'bg-cream-50 border-warm-300 text-warm-800 hover:border-sage-500'
+                        }`}
+                      >
+                        <span className="leading-none">{label}</span>
+                        {badge && (
+                          <span
+                            className={`text-[10px] leading-none font-medium tracking-wide uppercase ${
+                              selected ? 'text-cream-100' : 'text-sage-600'
+                            }`}
+                          >
+                            {badge}
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
-              </Card>
 
-              <Card variant="default" className="p-5 sm:p-6 md:p-8">
-                <div className="flex items-start gap-3">
-                  <span className="text-sage-600 text-2xl flex-shrink-0" aria-hidden="true">•</span>
-                  <p className="text-base sm:text-lg md:text-xl leading-relaxed pt-1">
-                    Full access to reading sessions, WhatsApp community, and all content
-                  </p>
-                </div>
-              </Card>
-
-              <Card variant="default" className="p-5 sm:p-6 md:p-8">
-                <div className="flex items-start gap-3">
-                  <span className="text-sage-600 text-2xl flex-shrink-0" aria-hidden="true">•</span>
-                  <p className="text-base sm:text-lg md:text-xl leading-relaxed pt-1">
-                    Give what you can — every contribution sustains the circle
-                  </p>
-                </div>
-              </Card>
-
-              <div className="bg-sage-600 text-cream-50 rounded-lg p-5 sm:p-6 md:p-8 text-center shadow-md">
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed">
-                  Every contribution benefits the entire community. Whoever gives shares in the <span className="italic">reward</span> of all who benefit.
-                </p>
-              </div>
-            </div>
-          </Section>
-
-          <Divider />
-
-          <Section id="how-it-works" title="How It Works">
-            <div className="space-y-6 sm:space-y-8">
-              <div className="bg-gradient-to-br from-sage-50 to-cream-50 rounded-xl p-6 sm:p-8 md:p-10 border-2 border-sage-500/20 shadow-sm">
-                <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-sage-700 mb-6 sm:mb-8 text-center">
-                  A Return to West African Learning
-                </h2>
-
-                <div className="max-w-3xl mx-auto space-y-5 sm:space-y-6 text-base sm:text-lg md:text-xl leading-relaxed text-warm-800">
-                  <p>
-                    Briggs' Book Club is a return to the West African way of learning: through <span className="font-semibold text-warm-900">companionship</span>, <span className="font-semibold text-warm-900">conversation</span>, and <span className="font-semibold text-warm-900">reflection</span>.
-                  </p>
-
-                  <p>
-                    It's a space where knowledge is shared openly, where hearts grow through presence, and where <span className="italic font-medium text-sage-700">showing up matters more than being prepared</span>.
-                  </p>
-                </div>
-              </div>
-
-              <Card variant="default" className="p-6 sm:p-7 md:p-8">
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed text-warm-800 mb-4">
-                  Shaykh Mustafa takes us through a part of the text, sharing insights from the Qur'an, the Sunnah, and the living chain of <span className="italic">isnād</span>.
-                </p>
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed text-warm-800">
-                  You don't need to read ahead or study beforehand — you just come as you are, to sit, listen, and remember together.
-                </p>
-              </Card>
-
-              <div className="grid sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
-                <Card variant="default" className="p-5 sm:p-6 md:p-7 border-l-4 border-sage-500">
-                  <h3 className="font-semibold text-warm-900 mb-3 sm:mb-4 text-base sm:text-lg md:text-xl">What This Isn't</h3>
-                  <div className="space-y-2 text-sm sm:text-base md:text-lg text-warm-700">
-                    <p>A class with homework</p>
-                    <p>A course with requirements</p>
-                    <p>A space where you must perform</p>
-                  </div>
-                </Card>
-
-                <Card variant="filled" className="p-5 sm:p-6 md:p-7 border-l-4 border-sage-600">
-                  <h3 className="font-semibold text-warm-900 mb-3 sm:mb-4 text-base sm:text-lg md:text-xl">What This Is</h3>
-                  <div className="space-y-2 text-sm sm:text-base md:text-lg text-warm-700">
-                    <p>A circle for sincerity</p>
-                    <p>A space for love of knowledge</p>
-                    <p>A moment of stillness in your week</p>
-                  </div>
-                </Card>
-              </div>
-
-              <div className="bg-sage-600 text-cream-50 rounded-xl p-6 sm:p-8 md:p-10 text-center shadow-lg">
-                <p className="text-lg sm:text-xl md:text-2xl leading-relaxed font-serif italic mb-3">
-                  "It isn't about keeping up or catching up—"
-                </p>
-                <p className="text-xl sm:text-2xl md:text-3xl leading-relaxed font-serif font-semibold">
-                  It's about showing up.
-                </p>
-              </div>
-
-              <Card variant="elevated" className="p-6 sm:p-7 md:p-8 border border-warm-200">
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed text-warm-700 text-center">
-                  Even the smallest amount of knowledge gained is valuable. There's no pressure — only a space to grow, at your own pace, alongside others who love knowledge and remembrance.
-                </p>
-              </Card>
-            </div>
-          </Section>
-
-          <Divider />
-
-          <Section id="shaykh" title="Meet Shaykh Mustafa Briggs">
-            <div className="space-y-5 sm:space-y-6">
-              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-8 p-6 sm:p-8 bg-gradient-to-br from-sage-50 to-cream-50 rounded-xl border border-sage-200">
-                <div className="flex-shrink-0">
-                  <img
-                    src="/481670751_1186997073434369_6966345736034781904_n.jpg"
-                    alt="Shaykh Mustafa Briggs"
-                    className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-4 border-sage-500 shadow-lg"
+                <label htmlFor="price" className="block text-xs text-warm-500 text-center pt-1">
+                  or enter your own amount
+                </label>
+                <div className="relative">
+                  <span
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-xl text-warm-500"
+                    aria-hidden="true"
+                  >
+                    £
+                  </span>
+                  <input
+                    type="number"
+                    id="price"
+                    name="price"
+                    placeholder="10"
+                    required
+                    min="1.00"
+                    step="0.01"
+                    inputMode="decimal"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    className="w-full pl-10 pr-4 py-4 text-xl text-center bg-cream-50 border-2 border-warm-300 rounded-xl text-warm-900 font-medium focus:outline-none focus:ring-2 focus:ring-sage-500 focus:border-sage-500 transition-all placeholder:text-warm-400"
                   />
                 </div>
-                <div className="flex-1 text-center sm:text-left">
-                  <h2 className="font-serif text-2xl sm:text-3xl text-warm-900 mb-4">Shaykh Mustafa Briggs</h2>
-                  <div className="space-y-3 text-base sm:text-lg leading-relaxed text-warm-700">
-                    <p>
-                      Mustafa Briggs is a graduate of Arabic and International Relations from the University of Westminster. He studied Arabic and Islamic Texts at SOAS before continuing his studies at al-Azhar University in Cairo, where he is currently pursuing a degree in Islamic Studies and Arabic.
-                    </p>
-                    <p>
-                      He gained international acclaim for his <span className="italic font-medium">Beyond Bilal: Black History in Islam</span> lecture series, presented at over 50 universities across 3 continents including Oxford, Cambridge, Harvard and Yale. His book <span className="italic">Beyond Bilal</span> became an Amazon bestseller and is now part of the educational curriculum at Edinburgh University. He holds classical ijazat from the distinguished Shariff Ibrahim Ibn Saleh al-Hussaini. 
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Section>
 
-          <Divider />
+                <button
+                  type="submit"
+                  className="w-full min-h-[52px] py-4 bg-sage-600 text-cream-50 text-lg font-semibold rounded-xl shadow-sm hover:bg-sage-500 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2"
+                >
+                  <Heart className="w-5 h-5" aria-hidden="true" />
+                  Take your seat
+                </button>
 
-          <Section id="join" title="How to Join">
-            <div className="space-y-5 sm:space-y-6">
-              <Card variant="filled" className="p-5 sm:p-6 md:p-8 text-center">
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed mb-2 text-warm-900 font-medium">
-                  A monthly donation, pay what you can.
+                <p className="text-xs text-center text-warm-500">
+                  Takes about 60 seconds &middot; Cancel anytime in two taps
                 </p>
-                <p className="text-base sm:text-lg md:text-xl leading-relaxed text-warm-700">
-                  One pledge opens every session, every recording, and our WhatsApp circle.
+                <p className="text-xs text-center text-warm-400">
+                  Secure checkout via Memberful. The redirect after payment
+                  can take up to a minute.
                 </p>
-              </Card>
+              </form>
+            </motion.div>
 
-              <div className="grid gap-4 sm:gap-5 md:gap-6 mb-8">
-                <AnimatedCard className="flex items-start p-5 sm:p-6 md:p-7 bg-cream-100 rounded-lg" delay={0}>
-                  <BookOpen className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-sage-600 mr-4 sm:mr-5 flex-shrink-0 mt-1" aria-hidden="true" />
-                  <div>
-                    <h3 className="font-semibold text-warm-900 mb-1 sm:mb-2 text-base sm:text-lg md:text-xl">Reading Guides</h3>
-                    <p className="text-sm sm:text-base md:text-lg text-warm-700">Curated materials and reflection prompts</p>
-                  </div>
-                </AnimatedCard>
+            <motion.ul {...reveal} className="max-w-md mx-auto mt-8 space-y-4">
+              <li className="flex items-center gap-4">
+                <PlayCircle className="w-6 h-6 text-cream-200 flex-shrink-0" aria-hidden="true" />
+                <span className="text-base sm:text-lg text-cream-100">
+                  Every live sitting with Shaykh Mustafa, plus every replay
+                </span>
+              </li>
+              <li className="flex items-center gap-4">
+                <MessageCircle className="w-6 h-6 text-cream-200 flex-shrink-0" aria-hidden="true" />
+                <span className="text-base sm:text-lg text-cream-100">
+                  The private WhatsApp community
+                </span>
+              </li>
+              <li className="flex items-center gap-4">
+                <BookOpen className="w-6 h-6 text-cream-200 flex-shrink-0" aria-hidden="true" />
+                <span className="text-base sm:text-lg text-cream-100">
+                  Reading guides and a new special every month
+                </span>
+              </li>
+            </motion.ul>
 
-                <AnimatedCard className="flex items-start p-5 sm:p-6 md:p-7 bg-cream-100 rounded-lg" delay={0.1}>
-                  <Users className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-sage-600 mr-4 sm:mr-5 flex-shrink-0 mt-1" aria-hidden="true" />
-                  <div>
-                    <h3 className="font-semibold text-warm-900 mb-1 sm:mb-2 text-base sm:text-lg md:text-xl">Community Access</h3>
-                    <p className="text-sm sm:text-base md:text-lg text-warm-700">WhatsApp group for discussion and connection</p>
-                  </div>
-                </AnimatedCard>
-
-                <AnimatedCard className="flex items-start p-5 sm:p-6 md:p-7 bg-cream-100 rounded-lg" delay={0.2}>
-                  <Calendar className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-sage-600 mr-4 sm:mr-5 flex-shrink-0 mt-1" aria-hidden="true" />
-                  <div>
-                    <h3 className="font-semibold text-warm-900 mb-1 sm:mb-2 text-base sm:text-lg md:text-xl">Session Replays</h3>
-                    <p className="text-sm sm:text-base md:text-lg text-warm-700">Access to recordings and continued dialogue</p>
-                  </div>
-                </AnimatedCard>
+            <motion.div {...reveal} className="max-w-md mx-auto mt-12">
+              <h3 className="text-xs sm:text-sm tracking-[0.3em] uppercase text-cream-200/80 text-center mb-5">
+                Questions, answered
+              </h3>
+              <div className="space-y-3">
+                {[
+                  {
+                    q: 'When are the sittings?',
+                    a: 'We gather on Sundays, live online. The next sitting is Sunday 12 July. Every session is recorded, so you can catch up whenever you need to.',
+                  },
+                  {
+                    q: 'What if I can only give a little?',
+                    a: 'Then give a little. A £2 hadiyah is received with the same gratitude as £50. What matters is that you are in the room.',
+                  },
+                  {
+                    q: 'Do I need Arabic or previous study?',
+                    a: 'No. Shaykh Mustafa carries the text; you come as you are, sit, listen, and ask. There is no homework and nothing to keep up with.',
+                  },
+                  {
+                    q: 'What do I get access to?',
+                    a: 'Everything. Every live sitting, the full replay library, the reading guides, and the private WhatsApp community. One pledge covers it all.',
+                  },
+                  {
+                    q: 'How do I cancel?',
+                    a: 'Anytime, in a couple of taps, from your Memberful account. No questions asked, and you are always welcome back.',
+                  },
+                ].map(({ q, a }) => (
+                  <details
+                    key={q}
+                    className="group bg-cream-50/10 border border-cream-200/20 rounded-xl"
+                  >
+                    <summary className="flex items-center justify-between gap-3 cursor-pointer list-none [&::-webkit-details-marker]:hidden px-5 py-4 min-h-[52px] text-cream-50 font-medium text-sm sm:text-base">
+                      {q}
+                      <ChevronDown
+                        className="w-5 h-5 text-cream-200 flex-shrink-0 transition-transform duration-200 group-open:rotate-180"
+                        aria-hidden="true"
+                      />
+                    </summary>
+                    <p className="px-5 pb-5 text-sm sm:text-base leading-relaxed text-cream-100/90">
+                      {a}
+                    </p>
+                  </details>
+                ))}
               </div>
+            </motion.div>
 
-              <CallToAction />
-            </div>
-          </Section>
-        </Container>
+            <motion.p
+              {...reveal}
+              className="text-center text-sm sm:text-base text-cream-200/90 mt-10 max-w-md mx-auto"
+            >
+              Whoever gives shares in the reward of all who benefit. Every
+              contribution sustains the circle.
+            </motion.p>
+          </Container>
+        </section>
       </main>
 
-      <BackToTop threshold={400} />
+      {/* Footer: essentials only */}
+      <footer className="border-t border-warm-200 py-10 bg-cream-50">
+        <Container size="md" className="text-center space-y-4">
+          <p className="font-serif text-lg text-warm-900">
+            Briggs&rsquo; Book Club
+          </p>
+          <p className="font-serif italic text-sm text-warm-600">
+            Read. Reflect. Remember.
+          </p>
+          <nav aria-label="Footer" className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
+            <Link
+              to="/hadiyah"
+              className="text-warm-600 hover:text-sage-600 transition-colors py-2"
+            >
+              Hadiyah
+            </Link>
+            <Link
+              to="/fatiha"
+              className="text-warm-600 hover:text-sage-600 transition-colors py-2"
+            >
+              Fātiḥah Series
+            </Link>
+            <Link
+              to="/umrah"
+              className="text-warm-600 hover:text-sage-600 transition-colors py-2"
+            >
+              Umrah
+            </Link>
+          </nav>
+          <p className="text-xs text-warm-500">
+            &copy; {new Date().getFullYear()} Briggs&rsquo; Book Club
+          </p>
+        </Container>
+      </footer>
     </div>
   );
 }

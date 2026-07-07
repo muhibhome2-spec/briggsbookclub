@@ -24,7 +24,7 @@ export default function Hero({ title = "Briggs' Book Club", subtitle = "Read. Re
           src={backgroundImage}
           alt="Islamic scholarly tradition and heritage"
           className="w-full h-full object-cover"
-          fetchpriority="high"
+          fetchPriority="high"
           loading="eager"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/70" aria-hidden="true"></div>
