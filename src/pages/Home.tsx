@@ -137,7 +137,7 @@ export default function Home() {
                       className="w-2 h-2 rounded-full bg-sage-500 animate-pulse"
                       aria-hidden="true"
                     />
-                    Next sitting &middot; Sunday 12 July &middot; Sūrah al-Ikhlāṣ
+                    Currently reading &middot; Masālik al-Jinān
                   </p>
                   <button
                     onClick={scrollToJoin}
@@ -249,26 +249,26 @@ export default function Home() {
             className="max-w-xl mx-auto bg-white rounded-2xl shadow-sm border border-warm-200 p-6 sm:p-10 text-center"
           >
             <p className="text-xs sm:text-sm tracking-[0.25em] uppercase text-sage-700 mb-4">
-              Current Special
+              Our Weekly Reading
             </p>
             <p className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sage-600/10 border border-sage-500/30 text-sage-700 text-xs sm:text-sm font-medium mb-5">
               <span
                 className="w-2 h-2 rounded-full bg-sage-500 animate-pulse"
                 aria-hidden="true"
               />
-              Next sitting &middot; Sunday 12 July
+              Reading now
             </p>
             <h3 className="font-serif text-2xl sm:text-4xl text-warm-900 mb-2 leading-tight">
-              Tafsir Sūrah al-Ikhlāṣ
+              Masālik al-Jinān
             </h3>
             <p className="font-serif italic text-lg sm:text-xl text-warm-700 mb-5">
-              The Sūrah of Sincerity
+              The Pathways to Paradise
             </p>
             <p className="text-base sm:text-lg leading-relaxed text-warm-700 mb-7">
-              The Prophet ﷺ described these four short verses as a third of
-              the Qur&rsquo;an. Shaykh Mustafa will open them up in live
-              sittings, with time for your questions. Come as you are. There is
-              nothing to prepare.
+              A classical poem on the path of spiritual purification, read line
+              by line in our live sittings. Shaykh Mustafa carries the text and
+              opens it up, with time for your questions. Come as you are. There
+              is nothing to prepare.
             </p>
             <button
               onClick={scrollToJoin}
@@ -279,15 +279,8 @@ export default function Home() {
             </button>
           </motion.div>
           <motion.p {...reveal} className="text-center text-sm sm:text-base text-warm-600 mt-6 max-w-md mx-auto">
-            A new special every month, kept forever in the replay library.
-            Last month:{' '}
-            <Link
-              to="/fatiha"
-              className="text-sage-600 hover:text-sage-500 font-medium underline underline-offset-2 transition-colors"
-            >
-              The Ocean of the Opening
-            </Link>
-            , a tafsir of Sūrah al-Fātiḥah.
+            We read a little each week, and every sitting is kept in the replay
+            library.
           </motion.p>
         </Chapter>
 
@@ -316,7 +309,7 @@ export default function Home() {
                 Shariff Ibrahim Ibn Saleh al-Hussaini.
               </p>
               <p className="text-base sm:text-lg leading-relaxed text-warm-800 font-medium mt-4">
-                Every month, he sits down to read with us.
+                Every week, he sits down to read with us.
               </p>
             </div>
           </motion.div>
@@ -387,9 +380,9 @@ export default function Home() {
 
               <p className="text-lg sm:text-xl leading-relaxed text-cream-100">
                 We keep that spirit. One monthly gift of any amount opens
-                everything. Join today and your first sitting is{' '}
+                everything. Join today and take your seat for our reading of{' '}
                 <span className="font-semibold text-cream-50">
-                  Sunday 12 July, Tafsir Sūrah al-Ikhlāṣ
+                  Masālik al-Jinān
                 </span>
                 .
               </p>
@@ -503,7 +496,7 @@ export default function Home() {
               <li className="flex items-center gap-4">
                 <BookOpen className="w-6 h-6 text-cream-200 flex-shrink-0" aria-hidden="true" />
                 <span className="text-base sm:text-lg text-cream-100">
-                  Reading guides and a new special every month
+                  Reading guides for the text we are reading together
                 </span>
               </li>
             </motion.ul>
@@ -516,7 +509,7 @@ export default function Home() {
                 {[
                   {
                     q: 'When are the sittings?',
-                    a: 'We gather on Sundays, live online. The next sitting is Sunday 12 July. Every session is recorded, so you can catch up whenever you need to.',
+                    a: 'We gather weekly on Sundays, live online. Every sitting is recorded, so you can catch up whenever you need to.',
                   },
                   {
                     q: 'What if I can only give a little?',
@@ -580,12 +573,6 @@ export default function Home() {
               className="text-warm-600 hover:text-sage-600 transition-colors py-2"
             >
               Hadiyah
-            </Link>
-            <Link
-              to="/fatiha"
-              className="text-warm-600 hover:text-sage-600 transition-colors py-2"
-            >
-              Fātiḥah Series
             </Link>
             <Link
               to="/umrah"
