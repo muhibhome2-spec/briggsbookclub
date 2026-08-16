@@ -1,4 +1,4 @@
-import { useState, ReactNode } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import {
   Heart,
@@ -8,13 +8,19 @@ import {
   BookOpen,
   ArrowRight,
   ChevronDown,
+  ArrowUp,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import Navigation from '../components/Navigation';
-import Container from '../components/ui/Container';
+import Container from './components/ui/Container';
 
-function scrollToJoin() {
-  document.getElementById('join')?.scrollIntoView({ behavior: 'smooth' });
+const NAV_LINKS = [
+  { id: 'name', label: 'The Name' },
+  { id: 'circle', label: 'The Circle' },
+  { id: 'reading', label: 'The Reading' },
+  { id: 'guide', label: 'The Guide' },
+];
+
+function scrollTo(id: string) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 }
 
 const reveal = {
@@ -23,6 +29,63 @@ const reveal = {
   viewport: { once: true, margin: '-60px' },
   transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
 } as const;
+
+function Navigation() {
+  return (
+    <nav
+      className="sticky top-0 left-0 right-0 z-50 bg-cream-100/95 backdrop-blur-md border-b border-clay-100"
+      aria-label="Main navigation"
+    >
+      <Container size="lg" className="flex items-center justify-between h-16">
+        <a
+          href="#top"
+          onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          className="flex items-center gap-2.5 rounded-sm"
+          aria-label="Ajami Book Club, back to top"
+        >
+          <img
+            src="/ajami-icon.png"
+            alt=""
+            className="h-9 w-auto"
+            width={512}
+            height={522}
+          />
+          <span className="font-serif text-base sm:text-lg text-clay-700 leading-none">
+            Ajami Book Club
+          </span>
+        </a>
+
+        <div className="flex items-center gap-6">
+          <ul className="hidden md:flex items-center gap-6 text-sm text-warm-600">
+            {NAV_LINKS.map(({ id, label }) => (
+              <li key={id}>
+                <a
+                  href={`#${id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollTo(id);
+                  }}
+                  className="hover:text-ochre-600 transition-colors duration-200 py-2"
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <button
+            onClick={() => scrollTo('join')}
+            className="min-h-[44px] px-5 py-2.5 bg-clay-600 text-cream-50 rounded-lg text-sm font-semibold hover:bg-clay-500 active:scale-[0.98] transition-all duration-200 shadow-sm"
+          >
+            Join
+          </button>
+        </div>
+      </Container>
+    </nav>
+  );
+}
 
 function Chapter({
   id,
@@ -45,7 +108,7 @@ function Chapter({
         <motion.p
           {...reveal}
           className={`text-xs sm:text-sm tracking-[0.3em] uppercase text-center mb-3 ${
-            dark ? 'text-cream-200/80' : 'text-sage-600'
+            dark ? 'text-cream-200/80' : 'text-ochre-600'
           }`}
         >
           {num}
@@ -53,7 +116,7 @@ function Chapter({
         <motion.h2
           {...reveal}
           className={`font-serif text-2xl sm:text-4xl tracking-tight text-center mb-8 sm:mb-10 ${
-            dark ? 'text-cream-50' : 'text-warm-900'
+            dark ? 'text-cream-50' : 'text-clay-800'
           }`}
         >
           {title}
@@ -64,11 +127,34 @@ function Chapter({
   );
 }
 
-export default function Home() {
+function BackToTop() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 700);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  if (!visible) return null;
+
+  return (
+    <button
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      className="fixed bottom-5 right-5 z-40 w-11 h-11 rounded-full bg-clay-600/90 text-cream-50 shadow-lg backdrop-blur-sm flex items-center justify-center hover:bg-clay-500 transition-colors duration-200"
+      aria-label="Back to top"
+    >
+      <ArrowUp className="w-5 h-5" aria-hidden="true" />
+    </button>
+  );
+}
+
+export default function App() {
   const [amount, setAmount] = useState('10');
 
   return (
-    <div className="min-h-screen bg-cream-50">
+    <div className="min-h-screen bg-cream-50" id="top">
       <Navigation />
 
       <main role="main">
@@ -83,7 +169,7 @@ export default function Home() {
               loading="eager"
             />
             <div
-              className="absolute inset-0 bg-gradient-to-b from-warm-900/50 via-warm-900/60 to-warm-900/85"
+              className="absolute inset-0 bg-gradient-to-b from-clay-900/55 via-clay-900/65 to-clay-900/90"
               aria-hidden="true"
             />
 
@@ -93,7 +179,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                  className="text-xs sm:text-sm tracking-[0.3em] uppercase text-cream-200/90 mb-5"
+                  className="text-xs sm:text-sm tracking-[0.3em] uppercase text-cream-200/90 mb-6"
                 >
                   A community of sacred reading
                 </motion.p>
@@ -102,9 +188,17 @@ export default function Home() {
                   initial={{ opacity: 0, y: 22 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                  className="font-serif text-4xl sm:text-6xl text-white tracking-tight leading-tight mb-4 drop-shadow-lg"
+                  className="mb-5"
                 >
-                  Briggs&rsquo; Book Club
+                  <img
+                    src="/ajami-logo-white.png"
+                    alt="Ajami Book Club"
+                    className="w-56 sm:w-72 mx-auto h-auto drop-shadow-lg"
+                    width={1000}
+                    height={834}
+                    fetchPriority="high"
+                  />
+                  <span className="sr-only">Ajami Book Club</span>
                 </motion.h1>
 
                 <motion.p
@@ -132,16 +226,16 @@ export default function Home() {
                   transition={{ duration: 0.8, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
                   className="flex flex-col items-center gap-3"
                 >
-                  <p className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cream-200/40 bg-warm-900/40 backdrop-blur-sm text-cream-100 text-xs sm:text-sm">
+                  <p className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cream-200/40 bg-clay-900/40 backdrop-blur-sm text-cream-100 text-xs sm:text-sm">
                     <span
-                      className="w-2 h-2 rounded-full bg-sage-500 animate-pulse"
+                      className="w-2 h-2 rounded-full bg-ochre-400 animate-pulse"
                       aria-hidden="true"
                     />
                     Currently reading &middot; Masālik al-Jinān
                   </p>
                   <button
-                    onClick={scrollToJoin}
-                    className="w-full sm:w-auto min-h-[52px] px-10 py-4 bg-sage-600 text-cream-50 rounded-xl text-lg font-semibold hover:bg-sage-500 active:scale-[0.98] transition-all duration-200 shadow-lg focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2"
+                    onClick={() => scrollTo('join')}
+                    className="w-full sm:w-auto min-h-[52px] px-10 py-4 bg-ochre-500 text-cream-50 rounded-xl text-lg font-semibold hover:bg-ochre-400 active:scale-[0.98] transition-all duration-200 shadow-lg"
                   >
                     Join the circle
                   </button>
@@ -172,32 +266,50 @@ export default function Home() {
           </div>
         </header>
 
-        {/* 01: The Tradition */}
-        <Chapter id="tradition" num="Chapter 01" title="The Tradition">
+        {/* 01: The Name */}
+        <Chapter id="name" num="Chapter 01" title="The Name">
+          <motion.div {...reveal} className="max-w-xl mx-auto text-center space-y-6">
+            <p className="font-serif text-4xl sm:text-5xl text-clay-700" dir="rtl" lang="ar">
+              عَجَمِي
+            </p>
+            <p className="text-lg sm:text-xl leading-relaxed text-warm-800">
+              <span className="italic">ʿAjamī</span> once meant simply
+              &ldquo;non-Arab&rdquo;. In West Africa it came to name something
+              else: the practice of writing Hausa, Fulfulde, Wolof and Swahili
+              in Arabic script, so that sacred knowledge could be carried in the
+              language of the people who received it.
+            </p>
+            <p className="text-lg sm:text-xl leading-relaxed text-warm-800">
+              That is the work of this circle. Classical texts, opened patiently,
+              in a language you already speak.
+            </p>
+            <div className="flex justify-center pt-2" aria-hidden="true">
+              <div className="w-24 h-px bg-gradient-to-r from-transparent via-ochre-400 to-transparent" />
+            </div>
+          </motion.div>
+        </Chapter>
+
+        {/* 02: The Tradition */}
+        <Chapter id="tradition" num="Chapter 02" title="The Tradition" className="bg-cream-100">
           <motion.div {...reveal} className="max-w-xl mx-auto text-center space-y-6">
             <p className="text-lg sm:text-xl leading-relaxed text-warm-800">
               For fourteen centuries, knowledge has travelled{' '}
-              <span className="font-semibold text-warm-900">heart to heart</span>:
+              <span className="font-semibold text-clay-800">heart to heart</span>:
               from the Prophet ﷺ to his Companions, from Madina to Kufa, from
               Tunis to Timbuktu. Scholars call this unbroken chain the{' '}
               <span className="italic">isnād</span>. It was built in small
               gatherings, one reading at a time.
             </p>
             <p className="text-lg sm:text-xl leading-relaxed text-warm-800">
-              Briggs&rsquo; Book Club is a seat in that circle. The same{' '}
-              <span className="font-semibold text-warm-900">
-                sacred tradition
-              </span>
-              , carried on in a form everyone already knows: a book club.
+              Ajami Book Club is a seat in that circle. The same{' '}
+              <span className="font-semibold text-clay-800">sacred tradition</span>,
+              carried on in a form everyone already knows: a book club.
             </p>
-            <div className="flex justify-center pt-2" aria-hidden="true">
-              <div className="w-24 h-px bg-gradient-to-r from-transparent via-sage-500 to-transparent" />
-            </div>
           </motion.div>
         </Chapter>
 
-        {/* 02: The Circle */}
-        <Chapter id="circle" num="Chapter 02" title="The Circle" className="bg-cream-100">
+        {/* 03: The Circle */}
+        <Chapter id="circle" num="Chapter 03" title="The Circle">
           <div className="max-w-xl mx-auto space-y-6">
             <motion.p {...reveal} className="text-lg sm:text-xl leading-relaxed text-warm-800 text-center">
               There is no homework and nothing to prepare. In each sitting,
@@ -208,18 +320,18 @@ export default function Home() {
             </motion.p>
 
             <motion.div {...reveal} className="grid grid-cols-2 gap-3 sm:gap-4">
-              <div className="bg-white rounded-xl border border-warm-200 p-5 sm:p-6">
-                <h3 className="font-semibold text-warm-900 mb-3 text-sm sm:text-base">
+              <div className="bg-white rounded-xl border border-clay-100 p-5 sm:p-6">
+                <h3 className="font-semibold text-clay-800 mb-3 text-sm sm:text-base">
                   This isn&rsquo;t
                 </h3>
-                <ul className="space-y-2 text-sm sm:text-base text-warm-600">
+                <ul className="space-y-2 text-sm sm:text-base text-warm-500">
                   <li>A class with homework</li>
                   <li>A course with requirements</li>
                   <li>A place to perform</li>
                 </ul>
               </div>
-              <div className="bg-sage-600/10 rounded-xl border border-sage-500/20 p-5 sm:p-6">
-                <h3 className="font-semibold text-warm-900 mb-3 text-sm sm:text-base">
+              <div className="bg-ochre-50 rounded-xl border border-ochre-200/60 p-5 sm:p-6">
+                <h3 className="font-semibold text-clay-800 mb-3 text-sm sm:text-base">
                   This is
                 </h3>
                 <ul className="space-y-2 text-sm sm:text-base text-warm-700">
@@ -232,7 +344,7 @@ export default function Home() {
 
             <motion.blockquote
               {...reveal}
-              className="bg-sage-600 text-cream-50 rounded-2xl p-7 sm:p-9 text-center shadow-md"
+              className="bg-clay-600 text-cream-50 rounded-2xl p-7 sm:p-9 text-center shadow-md"
             >
               <p className="font-serif text-xl sm:text-2xl leading-relaxed">
                 &ldquo;It isn&rsquo;t about keeping up or catching up.
@@ -242,23 +354,23 @@ export default function Home() {
           </div>
         </Chapter>
 
-        {/* 03: The Book */}
-        <Chapter id="reading" num="Chapter 03" title="What We're Reading">
+        {/* 04: The Book */}
+        <Chapter id="reading" num="Chapter 04" title="What We're Reading" className="bg-cream-100">
           <motion.div
             {...reveal}
-            className="max-w-xl mx-auto bg-white rounded-2xl shadow-sm border border-warm-200 p-6 sm:p-10 text-center"
+            className="max-w-xl mx-auto bg-white rounded-2xl shadow-sm border border-clay-100 p-6 sm:p-10 text-center"
           >
-            <p className="text-xs sm:text-sm tracking-[0.25em] uppercase text-sage-700 mb-4">
+            <p className="text-xs sm:text-sm tracking-[0.25em] uppercase text-ochre-600 mb-4">
               Our Weekly Reading
             </p>
-            <p className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sage-600/10 border border-sage-500/30 text-sage-700 text-xs sm:text-sm font-medium mb-5">
+            <p className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-ochre-50 border border-ochre-200 text-ochre-700 text-xs sm:text-sm font-medium mb-5">
               <span
-                className="w-2 h-2 rounded-full bg-sage-500 animate-pulse"
+                className="w-2 h-2 rounded-full bg-ochre-500 animate-pulse"
                 aria-hidden="true"
               />
               Reading now
             </p>
-            <h3 className="font-serif text-2xl sm:text-4xl text-warm-900 mb-2 leading-tight">
+            <h3 className="font-serif text-2xl sm:text-4xl text-clay-800 mb-2 leading-tight">
               Masālik al-Jinān
             </h3>
             <p className="font-serif italic text-lg sm:text-xl text-warm-700 mb-5">
@@ -271,33 +383,33 @@ export default function Home() {
               is nothing to prepare.
             </p>
             <button
-              onClick={scrollToJoin}
-              className="inline-flex items-center justify-center gap-2 min-h-[48px] px-8 py-3 bg-sage-600 text-cream-50 rounded-xl text-base font-semibold hover:bg-sage-500 active:scale-[0.98] transition-all duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2"
+              onClick={() => scrollTo('join')}
+              className="inline-flex items-center justify-center gap-2 min-h-[48px] px-8 py-3 bg-clay-600 text-cream-50 rounded-xl text-base font-semibold hover:bg-clay-500 active:scale-[0.98] transition-all duration-200 shadow-sm"
             >
               Join to attend live
               <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </button>
           </motion.div>
-          <motion.p {...reveal} className="text-center text-sm sm:text-base text-warm-600 mt-6 max-w-md mx-auto">
+          <motion.p {...reveal} className="text-center text-sm sm:text-base text-warm-500 mt-6 max-w-md mx-auto">
             We read a little each week, and every sitting is kept in the replay
             library.
           </motion.p>
         </Chapter>
 
-        {/* 04: The Guide */}
-        <Chapter id="guide" num="Chapter 04" title="The Guide" className="bg-cream-100">
+        {/* 05: The Guide */}
+        <Chapter id="guide" num="Chapter 05" title="The Guide">
           <motion.div
             {...reveal}
-            className="max-w-xl mx-auto flex flex-col items-center text-center gap-6 bg-white rounded-2xl border border-warm-200 p-7 sm:p-10"
+            className="max-w-xl mx-auto flex flex-col items-center text-center gap-6 bg-white rounded-2xl border border-clay-100 p-7 sm:p-10"
           >
             <img
               src="/481670751_1186997073434369_6966345736034781904_n.jpg"
               alt="Shaykh Mustafa Briggs"
-              className="w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-sage-500 shadow-md"
+              className="w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-ochre-400 shadow-md"
               loading="lazy"
             />
             <div>
-              <h3 className="font-serif text-xl sm:text-2xl text-warm-900 mb-3">
+              <h3 className="font-serif text-xl sm:text-2xl text-clay-800 mb-3">
                 Shaykh Mustafa Briggs
               </h3>
               <p className="text-base sm:text-lg leading-relaxed text-warm-700">
@@ -315,8 +427,13 @@ export default function Home() {
           </motion.div>
         </Chapter>
 
-        {/* 05: The Community */}
-        <Chapter id="community" num="Chapter 05" title="The Company You Keep">
+        {/* 06: The Community */}
+        <Chapter
+          id="community"
+          num="Chapter 06"
+          title="The Company You Keep"
+          className="bg-cream-100"
+        >
           <div className="max-w-xl mx-auto">
             <motion.p {...reveal} className="text-lg sm:text-xl leading-relaxed text-warm-800 text-center mb-8">
               The Prophet ﷺ taught through{' '}
@@ -326,33 +443,33 @@ export default function Home() {
             </motion.p>
 
             <motion.div {...reveal} className="grid grid-cols-3 gap-3 sm:gap-4">
-              <div className="bg-cream-100 rounded-xl p-4 sm:p-5 text-center">
-                <Users className="w-6 h-6 text-sage-600 mx-auto mb-2" aria-hidden="true" />
-                <p className="font-serif text-lg sm:text-2xl text-warm-900">500+</p>
-                <p className="text-xs sm:text-sm text-warm-600">readers worldwide</p>
+              <div className="bg-white border border-clay-100 rounded-xl p-4 sm:p-5 text-center">
+                <Users className="w-6 h-6 text-ochre-500 mx-auto mb-2" aria-hidden="true" />
+                <p className="font-serif text-lg sm:text-2xl text-clay-800">500+</p>
+                <p className="text-xs sm:text-sm text-warm-500">readers worldwide</p>
               </div>
-              <div className="bg-cream-100 rounded-xl p-4 sm:p-5 text-center">
-                <PlayCircle className="w-6 h-6 text-sage-600 mx-auto mb-2" aria-hidden="true" />
-                <p className="font-serif text-lg sm:text-2xl text-warm-900">Live</p>
-                <p className="text-xs sm:text-sm text-warm-600">all recorded</p>
+              <div className="bg-white border border-clay-100 rounded-xl p-4 sm:p-5 text-center">
+                <PlayCircle className="w-6 h-6 text-ochre-500 mx-auto mb-2" aria-hidden="true" />
+                <p className="font-serif text-lg sm:text-2xl text-clay-800">Live</p>
+                <p className="text-xs sm:text-sm text-warm-500">all recorded</p>
               </div>
-              <div className="bg-cream-100 rounded-xl p-4 sm:p-5 text-center">
-                <MessageCircle className="w-6 h-6 text-sage-600 mx-auto mb-2" aria-hidden="true" />
-                <p className="font-serif text-lg sm:text-2xl text-warm-900">WhatsApp</p>
-                <p className="text-xs sm:text-sm text-warm-600">member circle</p>
+              <div className="bg-white border border-clay-100 rounded-xl p-4 sm:p-5 text-center">
+                <MessageCircle className="w-6 h-6 text-ochre-500 mx-auto mb-2" aria-hidden="true" />
+                <p className="font-serif text-lg sm:text-2xl text-clay-800">WhatsApp</p>
+                <p className="text-xs sm:text-sm text-warm-500">member circle</p>
               </div>
             </motion.div>
           </div>
         </Chapter>
 
-        {/* 06: The Hadiyah: destination */}
-        <section id="join" className="py-16 sm:py-24 scroll-mt-16 bg-sage-700">
+        {/* 07: The Hadiyah: destination */}
+        <section id="join" className="py-16 sm:py-24 scroll-mt-16 bg-clay-700">
           <Container size="md">
             <motion.p
               {...reveal}
               className="text-xs sm:text-sm tracking-[0.3em] uppercase text-center mb-3 text-cream-200/80"
             >
-              Chapter 06 &middot; Your Seat in the Circle
+              Chapter 07 &middot; Your Seat in the Circle
             </motion.p>
             <motion.h2
               {...reveal}
@@ -370,7 +487,7 @@ export default function Home() {
               </p>
 
               <blockquote className="py-2">
-                <p className="text-2xl sm:text-3xl leading-loose text-cream-50 mb-3" dir="rtl">
+                <p className="text-2xl sm:text-3xl leading-loose text-cream-50 mb-3" dir="rtl" lang="ar">
                   لَا تُرَدّ وَلَا تُعَدّ وَلَا تُحَدّ
                 </p>
                 <p className="text-base sm:text-lg italic text-cream-200">
@@ -416,17 +533,17 @@ export default function Home() {
                         type="button"
                         onClick={() => setAmount(value)}
                         aria-pressed={selected}
-                        className={`flex flex-col items-center justify-center gap-0.5 min-h-[56px] rounded-xl border-2 text-lg font-semibold transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-sage-500 ${
+                        className={`flex flex-col items-center justify-center gap-0.5 min-h-[56px] rounded-xl border-2 text-lg font-semibold transition-all duration-150 ${
                           selected
-                            ? 'bg-sage-600 border-sage-600 text-cream-50 shadow-sm'
-                            : 'bg-cream-50 border-warm-300 text-warm-800 hover:border-sage-500'
+                            ? 'bg-clay-600 border-clay-600 text-cream-50 shadow-sm'
+                            : 'bg-cream-50 border-clay-100 text-warm-800 hover:border-ochre-400'
                         }`}
                       >
                         <span className="leading-none">{label}</span>
                         {badge && (
                           <span
                             className={`text-[10px] leading-none font-medium tracking-wide uppercase ${
-                              selected ? 'text-cream-100' : 'text-sage-600'
+                              selected ? 'text-cream-200' : 'text-ochre-600'
                             }`}
                           >
                             {badge}
@@ -442,7 +559,7 @@ export default function Home() {
                 </label>
                 <div className="relative">
                   <span
-                    className="absolute left-4 top-1/2 -translate-y-1/2 text-xl text-warm-500"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-xl text-warm-400"
                     aria-hidden="true"
                   >
                     £
@@ -458,13 +575,13 @@ export default function Home() {
                     inputMode="decimal"
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
-                    className="w-full pl-10 pr-4 py-4 text-xl text-center bg-cream-50 border-2 border-warm-300 rounded-xl text-warm-900 font-medium focus:outline-none focus:ring-2 focus:ring-sage-500 focus:border-sage-500 transition-all placeholder:text-warm-400"
+                    className="w-full pl-10 pr-4 py-4 text-xl text-center bg-cream-50 border-2 border-clay-100 rounded-xl text-warm-900 font-medium focus:border-ochre-400 transition-all placeholder:text-warm-400"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full min-h-[52px] py-4 bg-sage-600 text-cream-50 text-lg font-semibold rounded-xl shadow-sm hover:bg-sage-500 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2"
+                  className="w-full min-h-[52px] py-4 bg-ochre-500 text-cream-50 text-lg font-semibold rounded-xl shadow-sm hover:bg-ochre-400 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2"
                 >
                   <Heart className="w-5 h-5" aria-hidden="true" />
                   Take your seat
@@ -482,19 +599,19 @@ export default function Home() {
 
             <motion.ul {...reveal} className="max-w-md mx-auto mt-8 space-y-4">
               <li className="flex items-center gap-4">
-                <PlayCircle className="w-6 h-6 text-cream-200 flex-shrink-0" aria-hidden="true" />
+                <PlayCircle className="w-6 h-6 text-ochre-200 flex-shrink-0" aria-hidden="true" />
                 <span className="text-base sm:text-lg text-cream-100">
                   Every live sitting with Shaykh Mustafa, plus every replay
                 </span>
               </li>
               <li className="flex items-center gap-4">
-                <MessageCircle className="w-6 h-6 text-cream-200 flex-shrink-0" aria-hidden="true" />
+                <MessageCircle className="w-6 h-6 text-ochre-200 flex-shrink-0" aria-hidden="true" />
                 <span className="text-base sm:text-lg text-cream-100">
                   The private WhatsApp community
                 </span>
               </li>
               <li className="flex items-center gap-4">
-                <BookOpen className="w-6 h-6 text-cream-200 flex-shrink-0" aria-hidden="true" />
+                <BookOpen className="w-6 h-6 text-ochre-200 flex-shrink-0" aria-hidden="true" />
                 <span className="text-base sm:text-lg text-cream-100">
                   Reading guides for the text we are reading together
                 </span>
@@ -559,33 +676,26 @@ export default function Home() {
       </main>
 
       {/* Footer: essentials only */}
-      <footer className="border-t border-warm-200 py-10 bg-cream-50">
+      <footer className="border-t border-clay-100 py-12 bg-cream-100">
         <Container size="md" className="text-center space-y-4">
-          <p className="font-serif text-lg text-warm-900">
-            Briggs&rsquo; Book Club
-          </p>
-          <p className="font-serif italic text-sm text-warm-600">
+          <img
+            src="/ajami-logo.png"
+            alt="Ajami Book Club"
+            className="w-32 h-auto mx-auto"
+            width={1000}
+            height={834}
+            loading="lazy"
+          />
+          <p className="font-serif italic text-sm text-warm-500">
             Read. Reflect. Remember.
           </p>
-          <nav aria-label="Footer" className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
-            <Link
-              to="/hadiyah"
-              className="text-warm-600 hover:text-sage-600 transition-colors py-2"
-            >
-              Hadiyah
-            </Link>
-            <Link
-              to="/umrah"
-              className="text-warm-600 hover:text-sage-600 transition-colors py-2"
-            >
-              Umrah
-            </Link>
-          </nav>
-          <p className="text-xs text-warm-500">
-            &copy; {new Date().getFullYear()} Briggs&rsquo; Book Club
+          <p className="text-xs text-warm-400">
+            &copy; {new Date().getFullYear()} Ajami Book Club
           </p>
         </Container>
       </footer>
+
+      <BackToTop />
     </div>
   );
 }
