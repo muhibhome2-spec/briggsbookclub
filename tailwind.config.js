@@ -64,7 +64,9 @@ export default {
           400: '#d98c3c',
           500: '#c87423',
           600: '#be651c',
+          /* 700 and 800 carry text on cream at AA or better */
           700: '#9c4f14',
+          800: '#7d3d0d',
         },
       },
       lineHeight: {
