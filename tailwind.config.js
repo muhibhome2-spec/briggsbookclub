@@ -20,6 +20,10 @@ export default {
           'Times New Roman',
           'serif',
         ],
+        garamond: ['"EB Garamond"', 'Iowan Old Style', 'Palatino', 'Georgia', 'serif'],
+        cormorant: ['"Cormorant Garamond"', 'Iowan Old Style', 'Palatino', 'Georgia', 'serif'],
+        inter: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        arabic: ['Amiri', '"Geeza Pro"', '"Traditional Arabic"', 'serif'],
       },
       colors: {
         cream: {
