@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /concept-manuscript
-Disallow: /concept-sanctuary
+Disallow: /design-system
 
 Sitemap: https://briggsbook.club/sitemap.xml
